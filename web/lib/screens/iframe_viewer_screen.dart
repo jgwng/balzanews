@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:balzanewsweb/util/device_padding.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'dart:html' as html;
@@ -7,6 +8,9 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:flutter_html/flutter_html.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
+
+import '../util/platform_util.dart';
 
 class IframeWidget extends StatefulWidget {
   final String link;
@@ -23,11 +27,15 @@ class _IframeWidgetState extends State<IframeWidget> {
   final ValueNotifier<double> scrollPercentage = ValueNotifier(0);
   late StreamSubscription<html.MessageEvent> _messageSub;
   bool isReady = false;
+  double? bottom;
 
   @override
   void initState() {
     super.initState();
     viewID = 'iframe-${widget.link.hashCode}';
+    if(PlatformUtil.isPWA){
+      bottom = bottomInset();
+    }
     testFunction();
   }
 
@@ -52,6 +60,13 @@ class _IframeWidgetState extends State<IframeWidget> {
           scrollPercentage: scrollPercentage
         }, '*');
       });
+      
+      window.addEventListener('message', receiveMsgFromParent );
+      function receiveMsgFromParent(e) {
+        if (e.data && e.data.type === 'scrollTop') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
     </script>
   ''';
 
@@ -121,7 +136,47 @@ class _IframeWidgetState extends State<IframeWidget> {
       ),
       body:  (isReady == false) ? Center(
         child: CircularProgressIndicator(),
-      ) : HtmlElementView(viewType: viewID),
+      ) :  HtmlElementView(viewType: viewID),
+      floatingActionButton: PointerInterceptor(
+        child: ValueListenableBuilder<double>(
+          valueListenable: scrollPercentage,
+          builder: (context, value, _) {
+            if (value >= 0.05) {
+              return Material(
+                type: MaterialType.transparency,
+                borderRadius: BorderRadius.circular(8.0),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8.0),
+                  splashColor: Colors.transparent,
+                  splashFactory: NoSplash.splashFactory,
+                  onTap: () {
+                    _iFrameElement.contentWindow?.postMessage({
+                      'type': 'scrollTop',
+                    }, '*');
+                  },
+                  child: Container(
+                    width: 56,
+                    height: 56,
+                    margin: EdgeInsets.only(bottom: bottom ?? 0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: Color(0xFFDDDDDD),
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.keyboard_arrow_up_rounded,
+                      size: 42,
+                    ),
+                  ),
+                ),
+              );
+            }
+            return const SizedBox();
+          },
+        ),
+      ),
     );
   }
 }

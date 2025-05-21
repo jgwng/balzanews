@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:balzanewsweb/core/const.dart';
+import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/model/feed.dart';
@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Feed> topStories = [];
   Future? initData;
   int selectedIndex = 8;
-  var techCorp = techCorps[8];
+  var techCorp = TechCorps.values[8];
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 // Method to fetch and parse the RSS feed
   Future<void> getArticles() async {
     final url = Uri.parse(
-        'https://api.rss2json.com/v1/api.json?rss_url=${techCorp['url']}&api_key=cmwxi7ix4t6fhyhcc68rkyvuywf514pknq554wcs&count=25');
+        'https://api.rss2json.com/v1/api.json?rss_url=${techCorp.rssUrl}&api_key=cmwxi7ix4t6fhyhcc68rkyvuywf514pknq554wcs&count=25');
     final response = await http.get(url);
     var data = json.decode(response.body);
     setState(() {
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (result != null) {
                   if (selectedIndex == result) return;
                   selectedIndex = result;
-                  techCorp = techCorps[result];
+                  techCorp = TechCorps.values[result];
                   getArticles();
                 }
               },
@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${techCorp['menuName']}',
+                      techCorp.name,
                       style: TextStyle(fontFamily: AppFonts.bold, fontSize: 16),
                     ),
                     Icon(
@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     return InkWell(
                         onTap: () {
-                          if(techCorp['useLink'] == false){
+                          if(techCorp.useLink == false){
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -224,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSpacing: 4,
                     crossAxisSpacing: 4,
                   ),
-                  itemCount: techCorps.length,
+                  itemCount: TechCorps.values.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                         onTap: () {
@@ -236,7 +236,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Center(
-                            child: Text(techCorps[index]['menuName']),
+                            child: Text(TechCorps.values[index].name,
+                              style: AppStyles.w500.copyWith(
+                                fontSize: 16.fs
+                              ),
+                            ),
                           ),
                         ));
                   },
