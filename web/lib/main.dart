@@ -1,5 +1,5 @@
 
-import 'package:balzanewsweb/ui/home_screen.dart';
+import 'package:balzanewsweb/screens/home_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class DevNewsApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
         fontFamilyFallback: ['Noto Sans KR', 'Roboto', 'Noto Emoji']
       ),
-      home: HomeScreen(title: ''),
+      home: HomeScreen(),
       scrollBehavior: CustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
     );

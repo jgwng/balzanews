@@ -4,18 +4,13 @@ import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/model/feed.dart';
-import 'package:balzanewsweb/ui/html_viewer_screen.dart';
-import 'package:balzanewsweb/ui/iframe_viewer_screen.dart';
+import 'package:balzanewsweb/screens/html_viewer_screen.dart';
+import 'package:balzanewsweb/screens/iframe_viewer_screen.dart';
 import 'package:balzanewsweb/util/device_padding.dart';
 import 'package:balzanewsweb/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:html/parser.dart' as html_parser;
-import 'package:html/dom.dart' as dom;
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, required this.title}) : super(key: key);
-  final String title;
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -32,11 +27,20 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-// Method to fetch and parse the RSS feed
   Future<void> getArticles() async {
-    final url = Uri.parse(
-        'https://api.rss2json.com/v1/api.json?rss_url=${techCorp.rssUrl}&api_key=cmwxi7ix4t6fhyhcc68rkyvuywf514pknq554wcs&count=25');
-    final response = await http.get(url);
+    const String apiKey = String.fromEnvironment("API_KEY");
+    var queryParameters = {
+          'rss_url': techCorp.rssUrl,
+          'count' : '10'
+    };
+    if(apiKey.isNotEmpty){
+      queryParameters.addAll({
+        'count' : '25',
+        'api_key' : apiKey,
+      });
+    }
+    final uri = Uri.https('api.rss2json.com', '/v1/api.json', queryParameters);
+    final response = await http.get(uri);
     var data = json.decode(response.body);
     setState(() {
       List<Feed> stories = [];

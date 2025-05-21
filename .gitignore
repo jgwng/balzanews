@@ -3,3 +3,4 @@
 /extension/dist
 extension/package-lock.json
 .DS_Store
+/Makefile

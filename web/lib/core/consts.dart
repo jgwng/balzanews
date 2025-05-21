@@ -1,114 +1,23 @@
-List techCorps = [
-  {
-    "id": 7156194000607,
-    "name": "무신사(MUSINSA) 기술 블로그",
-    "menuName": "무신사",
-    "url": "https://medium.com/feed/musinsa-tech",
-    "link": "https://medium.com/musinsa-tech",
-    "useLink": false,
-  },
-  {
-    "id": 6161576591171,
-    "name": "네이버 D2 기술 블로그",
-    "menuName": "네이버 D2",
-    "url": "https://d2.naver.com/d2.atom",
-    "link": "https://d2.naver.com/home",
-    "useLink": false,
-  },
-  {
-    "id": 1885857526244,
-    "name": "우아한형제들 기술 블로그",
-    "menuName": "우아한형제들",
-    "url": "https://techblog.woowahan.com/feed",
-    "link": "https://techblog.woowahan.com",
-    "useLink": false,
-  },
-  {
-    "id": 3058707769330,
-    "name": "쿠팡(Coupang) 기술 블로그",
-    "menuName": "쿠팡",
-    "url": "https://medium.com/feed/coupang-engineering",
-    "link": "https://medium.com/coupang-engineering",
-    "useLink": false,
-  },
-  {
-    "id": 6887381058797,
-    "name": "당근마켓 기술 블로그",
-    "menuName": "당근",
-    "url": "https://medium.com/feed/daangn",
-    "link": "https://medium.com/daangn",
-    "useLink": false,
-  },
-  {
-    "id": 9235124778225,
-    "name": "토스(Toss) 기술 블로그",
-    "menuName": "토스",
-    "url": "https://toss.tech/rss.xml",
-    "link": "https://toss.tech",
-    "useLink": true,
-  },
-  {
-    "id": 7957393015172,
-    "name": "직방 기술 블로그",
-    "menuName": "직방",
-    "url": "https://medium.com/feed/zigbang",
-    "link": "https://medium.com/zigbang",
-    "useLink": false,
-  },
-  {
-    "id": 5297051556969,
-    "name": "왓챠(Watcha) 기술 블로그",
-    "menuName": "왓챠",
-    "url": "https://medium.com/feed/watcha",
-    "link": "https://medium.com/watcha",
-    "useLink": false,
-  },
-  {
-    "id": 3263023895334,
-    "name": "뱅크샐러드(banksalad) 기술 블로그",
-    "menuName": "뱅크샐러드",
-    "url": "https://blog.banksalad.com/rss.xml",
-    "link": "https://blog.banksalad.com",
-    "useLink": true,
-  },
-  {
-    "id": 3526106578915,
-    "name": "요기요(yogiyo) 기술 블로그",
-    "menuName": "요기요",
-    "url": "https://techblog.yogiyo.co.kr/feed",
-    "link": "https://techblog.yogiyo.co.kr",
-    "useLink": false,
-  },
-  {
-    "id": 5926255611991,
-    "name": "여기어때 기술 블로그",
-    "menuName": "여기어때",
-    "url": "https://techblog.gccompany.co.kr/feed",
-    "link": "https://techblog.gccompany.co.kr",
-    "useLink": false,
-  },
-  {
-    "id": 8721706690824,
-    "name": "넷마블 기술 블로그",
-    "menuName": "넷마블",
-    "url": "https://netmarble.engineering/feed",
-    "link": "https://netmarble.engineering",
-    "useLink": true,
-  },
-  {
-    "id": 4157598485519,
-    "name": "29cm 기술 블로그",
-    "menuName": "29cm",
-    "url": "https://medium.com/feed/@dev29cm",
-    "link": "https://medium.com/@dev29cm",
-    "useLink": false,
-  },
-  {
-    "id": 7420343341210,
-    "name": "인프랩 기술 블로그",
-    "menuName": "인프랩",
-    "url": "https://tech.inflab.com/rss.xml",
-    "link": "https://tech.inflab.com",
-    "useLink": true,
-  }
-];
+enum TechCorps {
+  musinsa("무신사", "https://medium.com/feed/musinsa-tech", "https://medium.com/musinsa-tech", false),
+  naverD2("네이버 D2", "https://d2.naver.com/d2.atom", "https://d2.naver.com/home", false),
+  woowa("우아한형제들", "https://techblog.woowahan.com/feed", "https://techblog.woowahan.com", false),
+  coupang("쿠팡", "https://medium.com/feed/coupang-engineering", "https://medium.com/coupang-engineering", false),
+  daangn("당근", "https://medium.com/feed/daangn", "https://medium.com/daangn", false),
+  toss("토스", "https://toss.tech/rss.xml", "https://toss.tech", true),
+  zigbang("직방", "https://medium.com/feed/zigbang", "https://medium.com/zigbang", false),
+  watcha("왓챠", "https://medium.com/feed/watcha", "https://medium.com/watcha", false),
+  banksalad("뱅크샐러드", "https://blog.banksalad.com/rss.xml", "https://blog.banksalad.com", true),
+  yogiyo("요기요", "https://techblog.yogiyo.co.kr/feed", "https://techblog.yogiyo.co.kr", false),
+  yeogiotte("여기어때", "https://techblog.gccompany.co.kr/feed", "https://techblog.gccompany.co.kr", false),
+  netmarble("넷마블", "https://netmarble.engineering/feed", "https://netmarble.engineering", true),
+  cm29("29cm", "https://medium.com/feed/@dev29cm", "https://medium.com/@dev29cm", false),
+  inflab("인프랩", "https://tech.inflab.com/rss.xml", "https://tech.inflab.com", true);
+
+  const TechCorps(this.name, this.rssUrl, this.link, this.useLink);
+
+  final String name;
+  final String rssUrl;
+  final String link;
+  final bool useLink;
+}
