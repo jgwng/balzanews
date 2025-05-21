@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    :root {
+      --sat: env(safe-area-inset-top);
+      --sar: env(safe-area-inset-right);
+      --sab: env(safe-area-inset-bottom);
+      --sal: env(safe-area-inset-left);
+    }
+  </style>
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="개발자 신문">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+  <meta property="og:title" content="Balza News">
+  <meta property="og:description" content="최신 개발 동향을 빠르게 파악하고 싶다면, 개발자 신문이 정답입니다">
+  <meta property="og:url" content="https://balzanewss.web.app">
+  <meta property="og:image" content="https://balzanewss.web.app/ogimage.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <script src="init.js" defer></script>
+  <link rel="stylesheet" type='text/css' href="styles.css">
+  <title>개발자 신문</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div class="splashArea" id="splashArea">
+    <img id="logo" src="logo.png" alt="Find your luck logo" />
+  </div>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
