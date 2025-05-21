@@ -1,0 +1,49 @@
+:root{
+  --primary-color: #333;
+}
+
+[data-theme="light"] {
+  --color-bg: #FFFFFF;
+  --color-fg: #000000;
+  --color-border: #ddd;
+  --color-bg-hover: #F5F5F5;
+  --font-color: #171717;
+  --color-view-all: #9D9FA0;
+
+  --color-placeholder: #828592;
+  --color-button: #ff3a30;
+  --color-button-text: #FFFFFF;
+}
+
+[data-theme="dark"] {
+  --color-bg: #292A2D;
+  --color-fg: #ffffff;
+  --color-border: #dee2e6;
+  --color-bg-hover: #212121;
+  --font-color: #F2F2F2;
+  --color-view-all: #9D9FA0;
+  
+  --color-placeholder: #E3E3E3;
+  --color-button: #ff443a;
+  --color-button-text: #FFFFFFDE;
+}
+
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+ body {
+    font-family: 'GmarketSansMedium', sans-serif;
+    margin: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: 100%;
+    background-color: var(--color-bg);
+    color: #333;
+    margin: 0;
+ }
+
+

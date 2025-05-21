@@ -1,0 +1,47 @@
+{
+  "name": "개발자신문",
+  "version": "1.1.0",
+  "description": "국내/외 유명한 기업들의 테크 블로그들을 한번에 볼 수 있는 확장프로그램입니다",
+  "manifest_version": 3,
+  "icons": {
+    "16": "./assets/icons/icon16.png",
+    "32": "./assets/icons/icon48.png",
+    "48": "./assets/icons/icon48.png",
+    "128": "./assets/icons/icon128.png"
+  },
+  "host_permissions": ["https://*/*", "http://*/*"],
+  "permissions": [
+    "contextMenus",
+    "scripting",
+    "activeTab",
+    "sidePanel",
+    "tabs",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "author": "gunwng123@gmail.com",  
+  "action": {
+    "default_title": "Click to open panel"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content-scripts.js"],
+      "css": ["content-scripts.css"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/images/close.svg","content-scripts.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

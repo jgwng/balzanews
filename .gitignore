@@ -1,0 +1,5 @@
+/extension/.DS_Store
+/extension/node_modules
+/extension/dist
+extension/package-lock.json
+.DS_Store

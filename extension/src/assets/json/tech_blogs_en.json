@@ -1,0 +1,263 @@
+{
+  "feeds" : [
+    {
+      "id": 4238533332240,
+      "name": "Airbnb Engineering 기술 블로그",
+      "menuName": "Airbnb Engineering",
+      "url": "https://medium.com/feed/airbnb-engineering",
+      "link": "https://medium.com/airbnb-engineering"
+    },
+    {
+      "id": 4053204318739,
+      "name": "AWS Blog 기술 블로그",
+      "menuName": "AWS",
+      "url": "http://feeds.feedburner.com/AmazonWebServicesBlog",
+      "link": "https://aws.amazon.com/blogs/aws"
+    },
+    {
+      "id": 2116608980987,
+      "name": "Atlassian Developer 기술 블로그",
+      "menuName": "Atlassian",
+      "url": "https://blog.developer.atlassian.com/feed",
+      "link": "https://www.atlassian.com/blog"
+    },
+    {
+      "id": 4447387431231,
+      "name": "AWS Architecture 기술 블로그",
+      "menuName": "AWS Architecture",
+      "url": "http://www.awsarchitectureblog.com/atom.xml",
+      "link": "https://aws.amazon.com/blogs/architecture/"
+    },
+    {
+      "id": 2415872556879,
+      "name": "AWS Security 기술 블로그",
+      "menuName": "AWS Security",
+      "url": "http://blogs.aws.amazon.com/security/blog/feed/recentPosts.rss",
+      "link": "https://aws.amazon.com/blogs/security"
+    },
+    {
+      "id": 5572702828180,
+      "name": "Grafana Labs 기술 블로그",
+      "menuName": "Grafana Labs",
+      "url": "https://grafana.com/blog/index.xml",
+      "link": "https://grafana.com/blog/"
+    },
+    {
+      "id": 2304381815983,
+      "name": "Cisco Security 기술 블로그",
+      "menuName": "Cisco Security",
+      "url": "http://feeds.feedburner.com/CiscoBlogSecurity",
+      "link": "https://blogs.cisco.com/security"
+    },
+    {
+      "id": 4552886576030,
+      "name": "CloudFlare 기술 블로그",
+      "menuName": "CloudFlare",
+      "url": "https://blog.cloudflare.com/rss/",
+      "link": "https://blog.cloudflare.com"
+    },
+    {
+      "id": 2763312045008,
+      "name": "JetBrains 기술 블로그",
+      "menuName": "JetBrains",
+      "url": "https://blog.jetbrains.com/feed/",
+      "link": "https://blog.jetbrains.com"
+    },
+    {
+      "id": 6232469586880,
+      "name": "DimitriK's Blog 기술 블로그",
+      "menuName": "DimitriK's Blog",
+      "url": "http://dimitrik.free.fr/blog/rss.xml",
+      "link": "http://dimitrik.free.fr/blog/rss.xml"
+    },
+    {
+      "id": 4732180270256,
+      "name": "Docker 기술 블로그",
+      "menuName": "Docker",
+      "url": "http://blog.docker.com/feed/",
+      "link": "http://blog.docker.com/feed/"
+    },
+    {
+      "id": 9133574149833,
+      "name": "GitHub Engineering 기술 블로그",
+      "menuName": "GitHub Engineering",
+      "url": "https://githubengineering.com/atom.xml",
+      "link": "https://github.blog/engineering/"
+    },
+    {
+      "id": 1528887963392,
+      "name": "Google Developers 기술 블로그",
+      "menuName": "Google Developers",
+      "url": "http://feeds.feedburner.com/blogspot/Dcni",
+      "link": "https://developers.googleblog.com"
+    },
+    {
+      "id": 1477362555626,
+      "name": "Groupon Engineering 기술 블로그",
+      "menuName": "Groupon Engineering",
+      "url": "https://medium.com/feed/groupon-eng",
+      "link": "https://medium.com/groupon-eng"
+    },
+    {
+      "id": 3150969708216,
+      "name": "High Scalability 기술 블로그",
+      "menuName": "High Scalability",
+      "url": "http://feeds.feedburner.com/HighScalability",
+      "link": "http://highscalability.com/blog/"
+    },
+    {
+      "id": 4973772617631,
+      "name": "InfoQ 기술 블로그",
+      "menuName": "InfoQ",
+      "url": "http://www.infoq.com/rss/rss.action",
+      "link": "https://www.infoq.com"
+    },
+    {
+      "id": 2386030440127,
+      "name": "Kubernetes 기술 블로그",
+      "menuName": "Kubernetes",
+      "url": "https://kubernetes.io/feed.xml",
+      "link": "https://kubernetes.io/"
+    },
+    {
+      "id": 7675672103572,
+      "name": "Microsoft Azure 기술 블로그",
+      "menuName": "Microsoft Azure",
+      "url": "http://azure.microsoft.com/blog/feed/",
+      "link": "https://azure.microsoft.com/en-us/blog/"
+    },
+    {
+      "id": 2254569567459,
+      "name": "MySQL Performance 기술 블로그",
+      "menuName": "MySQL",
+      "url": "https://www.percona.com/blog/feed/",
+      "link": "https://www.percona.com/blog/"
+    },
+    {
+      "id": 2325842808410,
+      "name": "Netflix Tech 기술 블로그",
+      "menuName": "Netflix",
+      "url": "https://medium.com/feed/netflix-techblog",
+      "link": "https://medium.com/netflix-techblog"
+    },
+    {
+      "id": 3571929676041,
+      "name": "Stripe 기술 블로그",
+      "menuName": "Stripe",
+      "url": "https://stripe.com/blog/feed.rss",
+      "link": "https://stripe.com/blog"
+    },
+    {
+      "id": 9601092192972,
+      "name": "Tailscale 기술 블로그",
+      "menuName": "Tailscale",
+      "url": "https://tailscale.com/blog/index.xml",
+      "link": "https://tailscale.com/blog/"
+    },
+    {
+      "id": 6878027151125,
+      "name": "GitHub Blog 기술 블로그",
+      "menuName": "GitHub",
+      "url": "https://github.blog/feed/",
+      "link": "https://github.blog/"
+    },
+    {
+      "id": 9119242602460,
+      "name": "Mozilla 기술 블로그",
+      "menuName": "Mozilla",
+      "url": "http://blog.mozilla.com/feed/",
+      "link": "https://blog.mozilla.org/en/"
+    },
+    {
+      "id": 2621714741216,
+      "name": "Google Blog 기술 블로그",
+      "menuName": "Google",
+      "url": "http://googleblog.blogspot.com/atom.xml",
+      "link": "https://blog.google/"
+    },
+    {
+      "id": 8486624309769,
+      "name": "Trello 기술 블로그",
+      "menuName": "Trello",
+      "url": "http://blog.trello.com/feed/",
+      "link": "https://www.atlassian.com/blog"
+    },
+    {
+      "id": 9733327173395,
+      "name": "Uber Engineering 기술 블로그",
+      "menuName": "Uber",
+      "url": "https://rsshub.app/uber/blog",
+      "link": "https://rsshub.app/uber/blog"
+    },
+    {
+      "id": 6523275925051,
+      "name": "Meta 기술 블로그",
+      "menuName": "Meta",
+      "url": "https://engineering.fb.com/feed/",
+      "link": "https://engineering.fb.com/"
+    },
+    {
+      "id": 7432960091362,
+      "name": "Grab 기술 블로그",
+      "menuName": "Grab",
+      "url": "https://engineering.grab.com/feed",
+      "link": "https://engineering.grab.com/"
+    },
+    {
+      "id": 7512970840498,
+      "name": "eBay 기술 블로그",
+      "menuName": "eBay",
+      "url": "https://innovation.ebayinc.com/tech/rss/",
+      "link": "hhttps://innovation.ebayinc.com/tech/"
+    },
+    {
+      "id": 4653488488945,
+      "name": "Oracle 기술 블로그",
+      "menuName": "Oracle",
+      "url": "https://blogs.oracle.com/rss",
+      "link": "https://blogs.oracle.com"
+    },
+    {
+      "id": 7526027945108,
+      "name": "Stack Overflow 기술 블로그",
+      "menuName": "Stack Overflow",
+      "url": "https://stackoverflow.blog/feed",
+      "link": "https://stackoverflow.blog/"
+    },
+    {
+      "id": 5874976196403,
+      "name": "Hacker News 기술 블로그",
+      "menuName": "Hacker News",
+      "url": "https://feeds.feedburner.com/TheHackersNews",
+      "link": "https://thehackernews.com"
+    },
+    {
+      "id": 1746756326697,
+      "name": "Microsoft 기술 블로그",
+      "menuName": "Microsoft",
+      "url": "https://blogs.microsoft.com/feed/",
+      "link": "https://blogs.microsoft.com/"
+    },
+    {
+      "id": 9211959866461,
+      "name": "Twitter 기술 블로그",
+      "menuName": "Twitter",
+      "url": "https://blog.twitter.com/api/blog.rss?name=developer",
+      "link": "https://blog.x.com/en_us"
+    },
+    {
+      "id": 9401761259554,
+      "name": "Chromium 기술 블로그",
+      "menuName": "Chromium",
+      "url": "http://blog.chromium.org/feeds/posts/default",
+      "link": "https://blog.chromium.org/"
+    },
+    {
+      "id": 1166535942404,
+      "name": "Spotify 기술 블로그",
+      "menuName": "Spotify",
+      "url": "https://engineering.atspotify.com/feed/",
+      "link": "https://engineering.atspotify.com/"
+    }
+  ]
+}
