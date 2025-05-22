@@ -19,6 +19,8 @@ class AppThemes {
   static const Color noticeColor = Color.fromARGB(255, 77, 82, 86);
   static const Color hintColor = Color.fromARGB(255, 169, 175, 179);
 
+  static const Color borderColor = Color(0xFFDDDDDD);
+
   static const buttonTextColor = Color(0xFFF6F5EE);
   static const mobileBackgroundColor = Color.fromRGBO(238, 238, 241, 1.0);
 
@@ -29,7 +31,7 @@ class AppThemes {
     hoverColor: Colors.transparent,
     brightness: Brightness.light,
     //초기 StatusBar 색상 설정 되는 값
-    primarySwatch: CommonUtil.createMaterialColor(AppThemes.backgroundColor),
+    primarySwatch: createMaterialColor(AppThemes.backgroundColor),
     useMaterial3: false,
     fontFamilyFallback: AppFonts.fontFamilyFallback,
     scaffoldBackgroundColor: AppThemes.backgroundColor,
