@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:balzanewsweb/model/feed.dart';
+import 'package:balzanewsweb/model/article.dart';
 import 'package:http/http.dart' as http;
 
 class BalzaRepository {
@@ -11,7 +11,7 @@ class BalzaRepository {
 
   BalzaRepository._internal() {}
 
-  Future<List<Feed>> getArticles(String url, {int? pageSize}) async {
+  Future<List<Article>> getArticles(String url, {int? pageSize}) async {
     const String apiKey = String.fromEnvironment("API_KEY");
     var queryParameters = {
       'rss_url': url,
@@ -31,8 +31,8 @@ class BalzaRepository {
     }
     var data = json.decode(response.body);
     List items = data['items'] ?? [];
-    List<Feed> articles =
-        items.map((element) => Feed.fromJson(element)).toList();
+    List<Article> articles =
+        items.map((element) => Article.fromJson(element)).toList();
     return articles;
   }
 

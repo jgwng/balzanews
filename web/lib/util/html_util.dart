@@ -1,4 +1,4 @@
-import 'package:balzanewsweb/model/feed.dart';
+import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/network/balza_repository.dart';
 import 'package:http/http.dart' as http;
 
@@ -69,7 +69,7 @@ class HtmlUtil{
     </script>
   ''';
 
- Future<String?> convertFeedIntoHtml(Feed? feed, bool useLink) async{
+ Future<String?> convertFeedIntoHtml(Article? feed, bool useLink) async{
    if(feed == null) return null;
 
    if(useLink == false){
