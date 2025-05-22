@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
-import 'package:balzanewsweb/model/feed.dart';
+import 'package:balzanewsweb/helper/device_info_helper.dart';
+import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/util/device_util.dart';
 import 'package:balzanewsweb/util/html_util.dart';
+import 'package:balzanewsweb/widgets/article_progress_bar.dart';
+import 'package:balzanewsweb/widgets/balza_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'dart:html' as html;
@@ -16,7 +19,7 @@ import '../util/platform_util.dart';
 
 class ArticleViewerScreen extends StatefulWidget {
   const ArticleViewerScreen({super.key, this.feed,this.useLink});
-  final Feed? feed;
+  final Article? feed;
   final bool? useLink;
 
   @override
@@ -29,15 +32,11 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
   final ValueNotifier<double> scrollPercentage = ValueNotifier(0);
   late StreamSubscription<html.MessageEvent> _messageSub;
   bool isReady = false;
-  double? bottom;
 
   @override
   void initState(){
     super.initState();
     viewID = 'iframe-${widget.feed?.link?.hashCode ?? ''}';
-    if(PlatformUtil.isPWA){
-      bottom = bottomInset();
-    }
     buildIframeElement();
   }
 
@@ -80,11 +79,7 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: false,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        surfaceTintColor: Colors.white, // Add this to suppress Material 3 default tint
-        scrolledUnderElevation: 0,
+      appBar: BalzaAppBar(
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -94,10 +89,18 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
             size: 24,
           ),
         ),
-        title:  Text("기사 읽기",style: AppStyles.w700.copyWith(
-          fontSize: 24.fs,
-        )),
-        bottom: bottomWidget(),
+        title: '기사 읽기',
+        bottom: PreferredSize(
+            preferredSize: Size.fromHeight(8.s),
+            child: ValueListenableBuilder(
+                valueListenable: scrollPercentage,
+                builder: (context,value,_){
+                  return ArticleProgressBar(
+                    height: 8,
+                    duration: 250,
+                    percentage: scrollPercentage.value,
+                  );
+                })),
       ),
       body: PlatformSafeArea(
           child: (isReady == false) ? Center(
@@ -108,28 +111,16 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
     );
   }
 
-  PreferredSize? bottomWidget() {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(4),
-      child: ValueListenableBuilder<double>(
-        valueListenable: scrollPercentage,
-        builder: (context, value, _) => LinearProgressIndicator(
-          value: value.clamp(0, 1),
-          backgroundColor: Colors.grey[300],
-          color: Theme.of(context).primaryColor,
-          minHeight: 4,
-        ),
-      ),
-    );
-  }
-
   Widget? fab() {
     return PointerInterceptor(
       child: ValueListenableBuilder<double>(
         valueListenable: scrollPercentage,
         builder: (context, value, _) {
-          if (value >= 0.05) {
-            return Material(
+          return AnimatedOpacity(
+            curve: Curves.linear,
+            opacity: value >= 0.05 ? 1 : 0,
+            duration: const Duration(milliseconds: 500),
+            child: Material(
               type: MaterialType.transparency,
               borderRadius: BorderRadius.circular(8.0),
               child: InkWell(
@@ -142,14 +133,14 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
                   }, '*');
                 },
                 child: Container(
-                  width: 56,
-                  height: 56,
-                  margin: EdgeInsets.only(bottom: bottom ?? 0),
+                  width: 56.s,
+                  height: 56.s,
+                  margin: EdgeInsets.only(bottom: DeviceInfoHelper().bottomPadding ?? 0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(
-                      color: Color(0xFFDDDDDD),
+                      color: AppThemes.borderColor,
                     ),
                   ),
                   child: Icon(
@@ -158,11 +149,13 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
                   ),
                 ),
               ),
-            );
-          }
-          return const SizedBox();
+            ),
+          );
         },
       ),
     );
   }
 }
+
+
+
