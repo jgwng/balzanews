@@ -62,3 +62,10 @@ body {
     height: 100%;
     opacity: 0;
 }
+
+@media (max-width: 575px) {
+  .splashArea img {
+    height: 50vw;
+    width: 50vw;
+  }
+}
