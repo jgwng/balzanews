@@ -1,5 +1,5 @@
 
-class Feed {
+class Article {
   String? title;
   String? pubDate;
   String? link;
@@ -9,7 +9,7 @@ class Feed {
   String? description;
   String? content;
 
-  Feed(
+  Article(
       {this.pubDate,
         this.link,
         this.guid,
@@ -19,7 +19,7 @@ class Feed {
         this.content,
         this.title});
 
-  Feed.fromJson(Map<String, dynamic> json) {
+  Article.fromJson(Map<String, dynamic> json) {
     pubDate = json['pubDate'];
     link = json['link'];
     guid = json['guid'];

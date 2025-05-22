@@ -1,9 +1,14 @@
 
+import 'package:balzanewsweb/core/resources.dart';
+import 'package:balzanewsweb/helper/device_info_helper.dart';
 import 'package:balzanewsweb/screens/home_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(DevNewsApp());
+void main(){
+  DeviceInfoHelper().init();
+  runApp(DevNewsApp());
+}
 
 class DevNewsApp extends StatelessWidget {
   const DevNewsApp({super.key});
@@ -13,7 +18,7 @@ class DevNewsApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-        fontFamilyFallback: ['Noto Sans KR', 'Roboto', 'Noto Emoji']
+        fontFamilyFallback: AppFonts.fontFamilyFallback
       ),
       home: HomeScreen(),
       scrollBehavior: CustomScrollBehavior(),

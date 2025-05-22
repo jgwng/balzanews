@@ -6,7 +6,7 @@ class AppFonts {
   static const String bold = 'Bold';
   static const String medium = 'Noto Sans KR';
   static const String emoji = 'NotoColorEmoji';
-  static const List<String> fontFamilyFallback =  ['Noto Sans KR', 'Roboto'];
+  static const List<String> fontFamilyFallback =  ['Noto Sans KR', 'Roboto', 'Noto Emoji'];
 }
 class AppThemes {
   AppThemes._();

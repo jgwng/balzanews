@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 
 Future<int?> showCorpSelectBottomSheet(BuildContext context) async{
   var result = await showModalBottomSheet(
+    //웹페이지에서 전체 너비를 가지도록 설정하기 위해 추가
+    constraints: BoxConstraints(
+      maxHeight: MediaQuery.of(context).size.height * 0.5
+    ),
     backgroundColor: Colors.white,
     context: context,
     isScrollControlled: true,
