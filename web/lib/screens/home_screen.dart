@@ -147,6 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return SliverToBoxAdapter(
             child: AnimatedStaggeredListView(
               articleList: topStories,
+              useLink: techCorp.value.useLink,
             ),
           );
         });
