@@ -1,11 +1,14 @@
 
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/helper/device_info_helper.dart';
+import 'package:balzanewsweb/helper/local_db_helper.dart';
 import 'package:balzanewsweb/screens/home_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-void main(){
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocalDB().init();
   DeviceInfoHelper().init();
   runApp(DevNewsApp());
 }

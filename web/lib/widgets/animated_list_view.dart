@@ -1,6 +1,5 @@
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/model/article.dart';
-import 'package:balzanewsweb/screens/article_viewer_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../core/resources.dart';
@@ -9,12 +8,12 @@ class AnimatedStaggeredListView extends StatefulWidget {
   final Duration initialDelay;
   final Duration itemDelay;
   final List<Article> articleList;
-  final bool useLink;
+  final Function(int)? onTapItem;
 
   const AnimatedStaggeredListView({
     super.key,
     required this.articleList,
-    this.useLink = false,
+    this.onTapItem,
     this.initialDelay = const Duration(milliseconds: 300),
     this.itemDelay = const Duration(milliseconds: 100),
   });
@@ -78,34 +77,36 @@ class _AnimatedStaggeredListViewState extends State<AnimatedStaggeredListView>
             curve: Curves.easeOut,
             offset: _isVisible[index] ? Offset.zero : const Offset(0, 0.1),
             child: InkWell(
-                onTap: () => onTapArticleSelect(index),
+                onTap: (){
+                  if(widget.onTapItem != null){
+                    widget.onTapItem!(index);
+                  }
+                },
                 child: Container(
                   width: double.infinity,
                   padding: EdgeInsets.all(12.s),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(color: AppThemes.borderColor)),
-                  child: Text(
-                    (widget.articleList[index].title ?? '').replaceAll('&amp;', ''),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppStyles.w700.copyWith(
-                        fontSize: 16.fs
-                    ),
-                  ),
+                  child: ValueListenableBuilder(
+                      valueListenable: widget.articleList[index].readYn,
+                      builder: (context,child,_){
+                        return Text(
+                          (widget.articleList[index].title ?? '').replaceAll('&amp;', ''),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppStyles.w700.copyWith(
+                              fontSize: 16.fs,
+                              color: (widget.articleList[index].readYn.value) ? Color(0xFFA0A0A0) : Colors.black
+                          ),
+                        );
+                      }),
                 )))
         );
       },
     );
   }
 
-  void onTapArticleSelect(int index){
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ArticleViewerScreen(
-              feed: widget.articleList[index],
-              useLink: widget.useLink,
-            )));
-  }
+
 }
+

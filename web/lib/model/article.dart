@@ -1,4 +1,6 @@
 
+import 'package:flutter/foundation.dart';
+
 class Article {
   String? title;
   String? pubDate;
@@ -8,6 +10,7 @@ class Article {
   String? thumbnail;
   String? description;
   String? content;
+  ValueNotifier<bool> readYn = ValueNotifier(false);
 
   Article(
       {this.pubDate,
@@ -17,7 +20,8 @@ class Article {
         this.thumbnail,
         this.description,
         this.content,
-        this.title});
+        this.title,
+      });
 
   Article.fromJson(Map<String, dynamic> json) {
     pubDate = json['pubDate'];

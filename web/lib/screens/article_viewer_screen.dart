@@ -18,8 +18,8 @@ if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dar
 import '../util/platform_util.dart';
 
 class ArticleViewerScreen extends StatefulWidget {
-  const ArticleViewerScreen({super.key, this.feed,this.useLink});
-  final Article? feed;
+  const ArticleViewerScreen({super.key, this.article,this.useLink});
+  final Article? article;
   final bool? useLink;
 
   @override
@@ -36,7 +36,7 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
   @override
   void initState(){
     super.initState();
-    viewID = 'iframe-${widget.feed?.link?.hashCode ?? ''}';
+    viewID = 'iframe-${widget.article?.link?.hashCode ?? ''}';
     buildIframeElement();
   }
 
@@ -47,8 +47,8 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
   }
 
   Future<void> buildIframeElement() async{
-    if(widget.feed == null) return;
-    String? srcDoc = await HtmlUtil().convertFeedIntoHtml(widget.feed, widget.useLink ?? false);
+    if(widget.article == null) return;
+    String? srcDoc = await HtmlUtil().convertFeedIntoHtml(widget.article, widget.useLink ?? false);
     if(srcDoc == null) return;
 
     _iFrameElement = html.IFrameElement()

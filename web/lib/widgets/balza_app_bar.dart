@@ -24,7 +24,7 @@ class BalzaAppBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       title: title != null
           ? Text(title!,style: AppStyles.w700.copyWith(
-      fontSize: 24.fs,
+            fontSize: 17.fs,
       )): null,
       leading: leading,
       actions: actions,
