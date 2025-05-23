@@ -2,9 +2,11 @@ import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/helper/device_info_helper.dart';
+import 'package:balzanewsweb/helper/local_db_helper.dart';
 import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/network/balza_repository.dart';
 import 'package:balzanewsweb/screens/article_viewer_screen.dart';
+import 'package:balzanewsweb/util/pwa_banner_util.dart';
 import 'package:balzanewsweb/widgets/animated_list_view.dart';
 import 'package:balzanewsweb/widgets/balza_app_bar.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/corp_select_bottom_sheet.dart';
@@ -32,6 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
     techCorp= ValueNotifier(TechCorps.values[selectedIndex]);
     initData = fetchArticles();
     bottomPadding = (DeviceInfoHelper().bottomPadding ?? 0 + 24).s;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if(shouldShowPwaBanner){
+        showPwaInstallBanner(context);
+      }
+    });
+
     super.initState();
   }
 
@@ -147,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return SliverToBoxAdapter(
             child: AnimatedStaggeredListView(
               articleList: topStories,
-              useLink: techCorp.value.useLink,
+              onTapItem: (index) => onTapArticleSelect(index),
             ),
           );
         });
@@ -157,6 +166,14 @@ class _HomeScreenState extends State<HomeScreen> {
     isLoading.value = true;
     var articles = await repository.getArticles(techCorp.value.rssUrl);
     topStories = articles;
+    for(Article article in topStories){
+      var result = await LocalDB().get(AppKeys.ARTICLE_HISTORY_STORE, article.link ?? '');
+      if(result != null){
+        article.readYn.value = true;
+      }else{
+        article.readYn.value = false;
+      }
+    }
     isLoading.value = false;
   }
 
@@ -169,4 +186,20 @@ class _HomeScreenState extends State<HomeScreen> {
       fetchArticles();
     }
   }
+
+  void onTapArticleSelect(int index){
+    Article article =  topStories[index];
+    if(article.readYn.value == false){
+      article.readYn.value= true;
+      LocalDB().put(AppKeys.ARTICLE_HISTORY_STORE, article.link ?? '', article.toJson());
+    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ArticleViewerScreen(
+              article: article,
+              useLink: techCorp.value.useLink,
+            )));
+  }
+
 }

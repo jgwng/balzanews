@@ -1,6 +1,5 @@
 import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/network/balza_repository.dart';
-import 'package:http/http.dart' as http;
 
 class HtmlUtil{
  String contentHtml(String content) => '''
