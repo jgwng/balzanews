@@ -1,5 +1,6 @@
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
+import 'package:balzanewsweb/helper/device_info_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -84,8 +85,9 @@ class _ArticleProgressBarState extends State<ArticleProgressBar> with SingleTick
   }
 
   Widget _buildAnimatedBar() {
+    double width = DeviceInfoHelper().width ?? MediaQuery.of(context).size.width;
     return Container(
-      width: MediaQuery.of(context).size.width * progressAnimation.value,
+      width: width * progressAnimation.value,
       height: widget.height ?? 4.s,
       decoration: BoxDecoration(
         color: AppThemes.pointColor,

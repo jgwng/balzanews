@@ -1,3 +1,4 @@
+import 'dart:html' as html;
 import 'package:balzanewsweb/util/device_util.dart';
 
 class DeviceInfoHelper{
@@ -6,10 +7,9 @@ class DeviceInfoHelper{
   factory DeviceInfoHelper() {
     return _instance;
   }
-  double? bottomPadding;
-  double? topPadding;
-  double? leftPadding;
-  double? rightPadding;
+
+  double? topPadding, leftPadding, rightPadding, bottomPadding;
+  double? width, height;
 
   DeviceInfoHelper._internal() {}
 
@@ -18,6 +18,14 @@ class DeviceInfoHelper{
     topPadding = topInset();
     leftPadding = leftInset();
     rightPadding = rightInset();
+
+    width = html.window.outerWidth.toDouble();
+    height = html.window.innerHeight?.toDouble();
+  }
+
+
+  void setWidth(double deviceWidth){
+    width = deviceWidth;
   }
 
 }

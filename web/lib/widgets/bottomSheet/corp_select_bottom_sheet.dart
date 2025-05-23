@@ -1,13 +1,16 @@
 import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
+import 'package:balzanewsweb/helper/device_info_helper.dart';
 import 'package:flutter/material.dart';
 
 Future<int?> showCorpSelectBottomSheet(BuildContext context) async{
+
+  var height  = DeviceInfoHelper().height ?? MediaQuery.of(context).size.height;
   var result = await showModalBottomSheet(
     //웹페이지에서 전체 너비를 가지도록 설정하기 위해 추가
     constraints: BoxConstraints(
-      maxHeight: MediaQuery.of(context).size.height * 0.5
+      maxHeight: height * 0.5
     ),
     backgroundColor: Colors.white,
     context: context,
@@ -17,17 +20,23 @@ Future<int?> showCorpSelectBottomSheet(BuildContext context) async{
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
     builder: (context) {
-      return CorpSelectBottomSheet();
+      return CorpSelectBottomSheet(
+        sheetHeight : height,
+      );
     },
   );
   return result;
 }
 
 class CorpSelectBottomSheet extends StatelessWidget{
+  final double sheetHeight;
+
+  CorpSelectBottomSheet({super.key, required this.sheetHeight});
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.6, // 60% screen height
+      height: sheetHeight, // 60% screen height
       child: Column(
         children: [
           SizedBox(
