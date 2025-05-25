@@ -33,10 +33,11 @@ class _AnimatedStaggeredListViewState extends State<AnimatedStaggeredListView>
     _isVisible.addAll(List.generate(widget.articleList.length, (_) => false));
     _triggerAnimations();
   }
+
   @override
-  void didUpdateWidget(covariant AnimatedStaggeredListView oldWidget){
+  void didUpdateWidget(covariant AnimatedStaggeredListView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if(widget.articleList != oldWidget.articleList){
+    if (widget.articleList != oldWidget.articleList) {
       _isVisible.clear();
       _isVisible.addAll(List.generate(widget.articleList.length, (_) => false));
       _triggerAnimations();
@@ -69,44 +70,41 @@ class _AnimatedStaggeredListViewState extends State<AnimatedStaggeredListView>
       },
       itemBuilder: (context, index) {
         return AnimatedOpacity(
-          duration: const Duration(milliseconds: 500),
-          opacity: _isVisible[index] ? 1 : 0,
-          curve: Curves.easeOut,
-          child: AnimatedSlide(
             duration: const Duration(milliseconds: 500),
+            opacity: _isVisible[index] ? 1 : 0,
             curve: Curves.easeOut,
-            offset: _isVisible[index] ? Offset.zero : const Offset(0, 0.1),
-            child: InkWell(
-                onTap: (){
-                  if(widget.onTapItem != null){
-                    widget.onTapItem!(index);
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12.s),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(color: AppThemes.borderColor)),
-                  child: ValueListenableBuilder(
-                      valueListenable: widget.articleList[index].readYn,
-                      builder: (context,child,_){
-                        return Text(
-                          (widget.articleList[index].title ?? '').replaceAll('&amp;', ''),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppStyles.w700.copyWith(
-                              fontSize: 16.fs,
-                              color: (widget.articleList[index].readYn.value) ? Color(0xFFA0A0A0) : Colors.black
-                          ),
-                        );
-                      }),
-                )))
-        );
+            child: AnimatedSlide(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeOut,
+                offset: _isVisible[index] ? Offset.zero : const Offset(0, 0.1),
+                child: InkWell(
+                    onTap: () {
+                      if (widget.onTapItem != null) {
+                        widget.onTapItem!(index);
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(12.s),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          border: Border.all(color: AppThemes.borderColor)),
+                      child: ValueListenableBuilder(
+                          valueListenable: widget.articleList[index].readYn,
+                          builder: (context, child, _) {
+                            return Text(
+                              (widget.articleList[index].title ?? '').replaceAll('&amp;', ''),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppStyles.w700.copyWith(
+                                  fontSize: 16.fs,
+                                  color: (widget.articleList[index].readYn.value)
+                                      ? Theme.of(context).colorScheme.surfaceBright
+                                      : Theme.of(context).colorScheme.surfaceDim),
+                            );
+                          }),
+                    ))));
       },
     );
   }
-
-
 }
-

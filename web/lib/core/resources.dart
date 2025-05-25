@@ -1,4 +1,6 @@
 
+import 'package:balzanewsweb/helper/app_theme_helper.dart';
+import 'package:balzanewsweb/main.dart';
 import 'package:balzanewsweb/util/common_util.dart';
 import 'package:flutter/material.dart';
 
@@ -24,21 +26,10 @@ class AppThemes {
   static const buttonTextColor = Color(0xFFF6F5EE);
   static const mobileBackgroundColor = Color.fromRGBO(238, 238, 241, 1.0);
 
-  static final themeData = ThemeData(
-    colorScheme: ColorScheme.fromSeed(seedColor: AppThemes.pointColor),
-    highlightColor: Colors.transparent,
-    splashColor: Colors.transparent,
-    hoverColor: Colors.transparent,
-    brightness: Brightness.light,
-    //초기 StatusBar 색상 설정 되는 값
-    primarySwatch: createMaterialColor(AppThemes.backgroundColor),
-    useMaterial3: false,
-    fontFamilyFallback: AppFonts.fontFamilyFallback,
-    scaffoldBackgroundColor: AppThemes.backgroundColor,
-    canvasColor: AppThemes.backgroundColor,
-  );
+
 }
 class AppStyles{
+  final ctx = navigatorKey.currentContext;
   static const TextStyle w500 = TextStyle(
     fontFamily: AppFonts.medium,
     color: AppThemes.fontColor,

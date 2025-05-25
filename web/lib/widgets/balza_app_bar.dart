@@ -25,6 +25,7 @@ class BalzaAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title != null
           ? Text(title!,style: AppStyles.w700.copyWith(
             fontSize: 17.fs,
+          color: Theme.of(context).colorScheme.surfaceDim
       )): null,
       leading: leading,
       actions: actions,

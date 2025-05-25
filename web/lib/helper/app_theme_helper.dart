@@ -1,0 +1,95 @@
+import 'package:balzanewsweb/core/resources.dart';
+import 'package:flutter/material.dart';
+
+class AppThemeHelper{
+  static final AppThemeHelper instance = AppThemeHelper._internal();
+  static ValueNotifier<ThemeMode> themeMode = ValueNotifier(ThemeMode.light);
+  static ValueNotifier<bool> current = ValueNotifier(true);
+  factory AppThemeHelper() => instance;
+
+  static void change() {
+    switch (themeMode.value) {
+      case ThemeMode.light:
+        themeMode.value = ThemeMode.dark;
+        current.value = false;
+        break;
+      case ThemeMode.dark:
+        themeMode.value = ThemeMode.light;
+        current.value = true;
+        break;
+      default:
+    }
+  }
+
+  AppThemeHelper._internal();
+
+  static final ThemeData light = ThemeData(
+    primaryColorLight: const Color.fromRGBO(239, 241, 243, 1.0),
+    primaryColorDark: const Color(0xff222222),
+    secondaryHeaderColor: const Color.fromRGBO(234, 235, 237, 1.0),
+    splashFactory: NoSplash.splashFactory,
+    splashColor: Colors.transparent,
+    focusColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    hoverColor: Colors.transparent,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    colorScheme: ColorScheme.light(
+      surface: Colors.white,
+      onSurface: Colors.black,
+      surfaceDim: AppThemes.fontColor,
+      surfaceBright :Color(0xFFA0A0A0)
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(Colors.black),
+          foregroundColor: WidgetStateProperty.all(Colors.white),
+          textStyle: WidgetStateProperty.all(
+            const TextStyle(
+              fontSize: 12, // Set your desired font size
+              fontWeight: FontWeight.bold, // Set your desired font weight
+              color: Colors.white, // Set your desired text color
+            ),
+          ),
+        )),
+    buttonTheme: const ButtonThemeData(
+      buttonColor: Colors.black,
+      textTheme: ButtonTextTheme.normal,
+    ),
+    textSelectionTheme: const TextSelectionThemeData(selectionHandleColor: Color(0xff222222)),
+  );
+
+  static final ThemeData dark = ThemeData(
+      primaryColorDark: const Color.fromRGBO(239, 241, 243, 1.0),
+      primaryColorLight: const Color(0xff222222),
+      secondaryHeaderColor: const Color.fromRGBO(40, 40, 40, 1.0),
+      splashFactory: NoSplash.splashFactory,
+      buttonTheme: const ButtonThemeData(
+        buttonColor: Colors.white,
+        textTheme: ButtonTextTheme.normal,
+      ),
+      colorScheme: ColorScheme.light(
+        surface: Colors.black,
+        onSurface: Colors.white,
+        surfaceDim: Colors.white,      // subtle dark gray, softer than pure black
+        surfaceBright: Color(0xFFCCCCCC),   // light gray for elevated surfaces or text backgrounds
+      ),
+      textSelectionTheme: const TextSelectionThemeData(
+          selectionHandleColor: Color.fromRGBO(239, 241, 243, 1.0)),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(Colors.white),
+            foregroundColor: WidgetStateProperty.all(Colors.black),
+            textStyle: WidgetStateProperty.all(
+              const TextStyle(
+                fontSize: 12, // Set your desired font size
+                fontWeight: FontWeight.bold, // Set your desired font weight
+                color: Colors.black, // Set your desired text color
+              ),
+            ),
+          )),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Color.fromRGBO(22, 22, 22, 1.0),
+        selectedItemColor: Color.fromRGBO(237, 237, 237, 1.0),
+        unselectedItemColor: Color.fromRGBO(111, 111, 111, 1.0),
+      ));
+}

@@ -59,6 +59,7 @@ class CorpSelectBottomSheet extends StatelessWidget{
             style: AppStyles.w700.copyWith(
               fontSize: 18.fs,
               height: 24 / 18,
+              color: Theme.of(context).colorScheme.surfaceDim,
               letterSpacing: -0.6.fs,
             ),
           ),
@@ -89,7 +90,8 @@ class CorpSelectBottomSheet extends StatelessWidget{
                       child: Center(
                         child: Text(TechCorps.values[index].name,
                           style: AppStyles.w700.copyWith(
-                              fontSize: 16.fs
+                              fontSize: 16.fs,
+                              color: Theme.of(context).colorScheme.surfaceDim
                           ),
                         ),
                       ),
