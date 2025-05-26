@@ -27,4 +27,5 @@ class AppKeys{
   static const String LAST_DATE_PWA_BANNER_SHOWN = 'LAST_DATE_PWA_BANNER_SHOWN';
   static const String ARTICLE_BOOKMARK_STORE = 'ARTICLE_BOOKMARK_STORE';
   static const String ARTICLE_HISTORY_STORE = 'ARTICLE_HISTORY_STORE';
+  static const String IS_LIGHT_MODE = 'IS_LIGHT_MODE';
 }

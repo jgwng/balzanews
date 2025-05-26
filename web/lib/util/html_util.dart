@@ -12,11 +12,12 @@ class HtmlUtil{
         <title></title>
         <style>
           [data-theme="light"] {
+           --bg-color: #F9F9F9;
            --font-color: #292A2D;
           }
 
           [data-theme="dark"] {
-            --bg-color: #1C1CE0;
+            --bg-color: #1C1C20;
             --font-color: #F8F9FE;
           }
           
@@ -44,6 +45,7 @@ class HtmlUtil{
             margin-right:24px;
             margin-top:2rem;
             color: var(--font-color);
+            background-color: var(--bg-color);
           }
         </style>
       </head>

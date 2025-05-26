@@ -29,7 +29,6 @@ class AppThemes {
 
 }
 class AppStyles{
-  final ctx = navigatorKey.currentContext;
   static const TextStyle w500 = TextStyle(
     fontFamily: AppFonts.medium,
     color: AppThemes.fontColor,

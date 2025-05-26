@@ -1,19 +1,14 @@
-
-import 'package:balzanewsweb/core/resources.dart';
+import 'package:balzanewsweb/bootstrap.dart';
 import 'package:balzanewsweb/helper/app_theme_helper.dart';
-import 'package:balzanewsweb/helper/device_info_helper.dart';
-import 'package:balzanewsweb/helper/local_db_helper.dart';
 import 'package:balzanewsweb/screens/home_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await LocalDB().init();
-  DeviceInfoHelper().init();
+  await bootstrap();
   runApp(DevNewsApp());
 }
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 
 class DevNewsApp extends StatelessWidget {
   const DevNewsApp({super.key});
@@ -28,9 +23,9 @@ class DevNewsApp extends StatelessWidget {
           theme: AppThemeHelper.light,
           darkTheme: AppThemeHelper.dark,
           themeMode: mode,
-            home: HomeScreen(),
-            scrollBehavior: CustomScrollBehavior(),
-            debugShowCheckedModeBanner: false,
+          home: HomeScreen(),
+          scrollBehavior: CustomScrollBehavior(),
+          debugShowCheckedModeBanner: false,
         );
       },
     );
