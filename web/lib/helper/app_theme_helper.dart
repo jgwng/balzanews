@@ -27,6 +27,7 @@ class AppThemeHelper{
     primaryColorLight: const Color.fromRGBO(239, 241, 243, 1.0),
     primaryColorDark: const Color(0xff222222),
     secondaryHeaderColor: const Color.fromRGBO(234, 235, 237, 1.0),
+    scaffoldBackgroundColor: Color(0xFFF9F9F9),
     splashFactory: NoSplash.splashFactory,
     splashColor: Colors.transparent,
     focusColor: Colors.transparent,
@@ -34,8 +35,8 @@ class AppThemeHelper{
     hoverColor: Colors.transparent,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     colorScheme: ColorScheme.light(
-      surface: Colors.white,
-      onSurface: Colors.black,
+      surface:Color(0xFFF9F9F9),
+      onSurface: Color(0xFF1C1C20),
       surfaceDim: AppThemes.fontColor,
       surfaceBright :Color(0xFFA0A0A0)
     ),
@@ -59,6 +60,7 @@ class AppThemeHelper{
   );
 
   static final ThemeData dark = ThemeData(
+      scaffoldBackgroundColor: Color(0xFF1C1C20),
       primaryColorDark: const Color.fromRGBO(239, 241, 243, 1.0),
       primaryColorLight: const Color(0xff222222),
       secondaryHeaderColor: const Color.fromRGBO(40, 40, 40, 1.0),
@@ -68,10 +70,10 @@ class AppThemeHelper{
         textTheme: ButtonTextTheme.normal,
       ),
       colorScheme: ColorScheme.light(
-        surface: Colors.black,
-        onSurface: Colors.white,
-        surfaceDim: Colors.white,      // subtle dark gray, softer than pure black
-        surfaceBright: Color(0xFFCCCCCC),   // light gray for elevated surfaces or text backgrounds
+        surface: Color(0xFF1C1C20),
+        onSurface: Color(0xFFF9F9F9),
+        surfaceDim: Color(0xFFF8F9FE),
+        surfaceBright: Color(0xFFCCCCCC),
       ),
       textSelectionTheme: const TextSelectionThemeData(
           selectionHandleColor: Color.fromRGBO(239, 241, 243, 1.0)),

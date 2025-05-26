@@ -12,7 +12,7 @@ Future<int?> showCorpSelectBottomSheet(BuildContext context) async{
     constraints: BoxConstraints(
       maxHeight: height * 0.5
     ),
-    backgroundColor: Colors.white,
+    backgroundColor: Theme.of(context).colorScheme.surface,
     context: context,
     isScrollControlled: true,
     // Allows dynamic height
@@ -46,7 +46,7 @@ class CorpSelectBottomSheet extends StatelessWidget{
             width: 40.s,
             height: 4.s,
             decoration: BoxDecoration(
-              color: Colors.grey[400],
+              color: Theme.of(context).colorScheme.onSurface,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -66,7 +66,10 @@ class CorpSelectBottomSheet extends StatelessWidget{
           SizedBox(
             height: 12.s,
           ),
-          const Divider(height: 1),
+          Divider(
+            height: 1,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(16),

@@ -1,12 +1,25 @@
+import 'package:balzanewsweb/helper/app_theme_helper.dart';
 import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/network/balza_repository.dart';
 
 class HtmlUtil{
- String contentHtml(String content) => '''
-      <html lang="ko">
+ String contentHtml(String content){
+   bool isLightMode = AppThemeHelper.current.value == true;
+   String dartTheme = isLightMode ? 'light' : 'dark';
+   return '''
+      <html lang="ko" data-theme="$dartTheme">
       <head>
         <title></title>
         <style>
+          [data-theme="light"] {
+           --font-color: #292A2D;
+          }
+
+          [data-theme="dark"] {
+            --bg-color: #1C1CE0;
+            --font-color: #F8F9FE;
+          }
+          
           html, body {
             margin: 0;
             padding: 0;
@@ -30,6 +43,7 @@ class HtmlUtil{
             margin-left:24px;
             margin-right:24px;
             margin-top:2rem;
+            color: var(--font-color);
           }
         </style>
       </head>
@@ -40,6 +54,7 @@ class HtmlUtil{
         $injectionScript
         </html>
       ''';
+ }
 
  final String injectionScript = '''
     <script>
