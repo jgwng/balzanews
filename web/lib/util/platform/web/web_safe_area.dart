@@ -39,7 +39,7 @@ class _PlatformSafeAreaState extends State<PlatformSafeArea> {
   Widget build(BuildContext context) {
     if (PlatformUtil.isPWA) {
       return Container(
-        color: AppThemes.backgroundColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         margin: EdgeInsets.only(bottom: (widget.bottom ?? true) ? bottom : 0),
         child: widget.child ?? Container(),
       );
