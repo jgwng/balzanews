@@ -6,7 +6,6 @@
     _flutter.loader.load({
         onEntrypointLoaded: async function(engineInitializer) {
             const config = {
-                        fontFallbackBaseUrl:  "./",
                         canvasKitBaseUrl: "./canvaskit/",
             };
             const appRunner = await engineInitializer.initializeEngine(config);
