@@ -50,6 +50,7 @@ class AppThemeHelper{
     focusColor: Colors.transparent,
     highlightColor: Colors.transparent,
     hoverColor: Colors.transparent,
+    fontFamilyFallback: AppFonts.fontFamilyFallback,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     colorScheme: ColorScheme.light(
       surface:Color(0xFFF9F9F9),
@@ -82,6 +83,7 @@ class AppThemeHelper{
       primaryColorLight: const Color(0xff222222),
       secondaryHeaderColor: const Color.fromRGBO(40, 40, 40, 1.0),
       splashFactory: NoSplash.splashFactory,
+      fontFamilyFallback: AppFonts.fontFamilyFallback,
       buttonTheme: const ButtonThemeData(
         buttonColor: Colors.white,
         textTheme: ButtonTextTheme.normal,
