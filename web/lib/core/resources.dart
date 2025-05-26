@@ -1,7 +1,4 @@
 
-import 'package:balzanewsweb/helper/app_theme_helper.dart';
-import 'package:balzanewsweb/main.dart';
-import 'package:balzanewsweb/util/common_util.dart';
 import 'package:flutter/material.dart';
 
 class AppFonts {

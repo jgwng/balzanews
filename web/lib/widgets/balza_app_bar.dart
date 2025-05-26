@@ -27,8 +27,22 @@ class BalzaAppBar extends StatelessWidget implements PreferredSizeWidget {
             fontSize: 17.fs,
           color: Theme.of(context).colorScheme.surfaceDim
       )): null,
-      leading: leading,
-      actions: actions,
+      leading: leading ?? InkWell(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Icon(
+          Icons.arrow_back_ios_rounded,
+          size: 24,
+        ),
+      ),
+      actions: [
+        ...actions,
+        if(actions.isNotEmpty)
+        SizedBox(
+          width: 20,
+        )
+      ],
       backgroundColor: Colors.transparent,
       bottom: bottom,
     );

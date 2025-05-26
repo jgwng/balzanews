@@ -1,11 +1,12 @@
 // web_platform_specific.dart
 import 'package:balzanewsweb/interface/platform_interface.dart';
+import 'package:flutter/foundation.dart';
 
 
 class GeneralUtil extends PlatformInterface {
   @override
   void useWebSpecificFeature() {
-    print("This is a web-specific feature.");
+    debugPrint("This is a web-specific feature.");
   }
 
   @override

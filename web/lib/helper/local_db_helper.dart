@@ -1,13 +1,15 @@
 import 'package:balzanewsweb/core/consts.dart';
+import 'package:balzanewsweb/model/article.dart';
+import 'package:balzanewsweb/util/platform_util.dart';
 import 'package:idb_shim/idb.dart';
 import 'package:idb_shim/idb_browser.dart';
 
-class LocalDB {
-  static final LocalDB _instance = LocalDB._internal();
+class LocalDBHelper {
+  static final LocalDBHelper _instance = LocalDBHelper._internal();
 
-  factory LocalDB() => _instance;
+  factory LocalDBHelper() => _instance;
 
-  LocalDB._internal();
+  LocalDBHelper._internal();
 
   static const _dbName = 'ARTICLE_DATABASE';
   static const _dbVersion = 1;
@@ -29,6 +31,7 @@ class LocalDB {
   }
 
   Future<void> put(String storeDB, String key, dynamic value) async {
+    if(PlatformUtil.isDebugPWA == false) return;
     final txn = _db.transaction(storeDB, idbModeReadWrite);
     final store = txn.objectStore(storeDB);
     await store.put(value, key);
@@ -36,6 +39,7 @@ class LocalDB {
   }
 
   Future<dynamic> get(String storeDB, String key) async {
+    if(PlatformUtil.isDebugPWA == false) return;
     final txn = _db.transaction(storeDB, idbModeReadOnly);
     final store = txn.objectStore(storeDB);
     final value = await store.getObject(key);
@@ -44,6 +48,7 @@ class LocalDB {
   }
 
   Future<void> delete(String storeDB, String key) async {
+    if(PlatformUtil.isDebugPWA == false) return;
     final txn = _db.transaction(storeDB, idbModeReadWrite);
     final store = txn.objectStore(storeDB);
     await store.delete(key);
@@ -51,10 +56,25 @@ class LocalDB {
   }
 
   Future<List<String>> getAllKeys(String storeDB) async {
+    if(PlatformUtil.isDebugPWA == false) return [];
     final txn = _db.transaction(storeDB, idbModeReadOnly);
     final store = txn.objectStore(storeDB);
     final keys = await store.getAllKeys();
     await txn.completed;
     return keys.map((e) => e.toString()).toList();
+  }
+
+  Future<List<Article>> getAllValues(String storeDB) async {
+    if(PlatformUtil.isDebugPWA == false) return [];
+
+    final txn = _db.transaction(storeDB, idbModeReadOnly);
+    final store = txn.objectStore(storeDB);
+    final values = await store.getAll(); // List<Object?>
+    await txn.completed;
+
+    return values
+        .whereType<Map<String, dynamic>>() // filter only valid maps
+        .map(Article.fromJson)
+        .toList();
   }
 }

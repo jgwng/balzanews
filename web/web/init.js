@@ -3,7 +3,12 @@ function delay(time) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
+      if (isLightMode === 'true') {
+        setThemeColor('#F9F9F9'); // Dark theme color
+      } else {
+        setThemeColor('#1C1C20'); // Light theme color
+      }
 });
 
 function updateViewportAttributes(attributesMap) {
@@ -54,12 +59,12 @@ function rightInset() {
    return rightPadding;
 }
 
-async function removeSplashLogo() {
-    setTimeout(function () {
-        var loaderContent = document.querySelector('.splashArea');
-        loaderContent.style.opacity = 0;
-        document.querySelector("flutter-view").classList.add("fade-in");
-        setTimeout(function () {
-        }, 10);
-    }, 0);
+function setThemeColor(color) {
+  let metaTag = document.querySelector('meta[name="theme-color"]');
+  if (!metaTag) {
+    metaTag = document.createElement('meta');
+    metaTag.setAttribute('name', 'theme-color');
+    document.head.appendChild(metaTag);
+  }
+  metaTag.setAttribute('content', color);
 }

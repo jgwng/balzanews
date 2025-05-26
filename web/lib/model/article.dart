@@ -10,7 +10,9 @@ class Article {
   String? thumbnail;
   String? description;
   String? content;
+  bool useLink = false;
   ValueNotifier<bool> readYn = ValueNotifier(false);
+  ValueNotifier<bool> bookMarkYN = ValueNotifier(false);
 
   Article(
       {this.pubDate,
@@ -21,6 +23,7 @@ class Article {
         this.description,
         this.content,
         this.title,
+        this.useLink = false
       });
 
   Article.fromJson(Map<String, dynamic> json) {
@@ -32,6 +35,7 @@ class Article {
     description = json['description'];
     title = json['title'];
     content = json['content'];
+    useLink = json['useLink'] ?? false;
   }
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +47,7 @@ class Article {
     'description': description,
     'content': content,
     'title': title,
+    'useLink' : useLink
   };
 
 }

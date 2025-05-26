@@ -2,7 +2,7 @@ import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:flutter/material.dart';
 import 'dart:html' as html;
-
+import 'dart:js' as js;
 class AppThemeHelper{
   static final AppThemeHelper instance = AppThemeHelper._internal();
   static ValueNotifier<ThemeMode> themeMode = ValueNotifier(ThemeMode.light);
@@ -15,11 +15,13 @@ class AppThemeHelper{
         themeMode.value = ThemeMode.dark;
         current.value = false;
         html.window.localStorage[AppKeys.IS_LIGHT_MODE] = 'false';
+        js.context.callMethod('setThemeColor',['#1C1C20']);
         break;
       case ThemeMode.dark:
         themeMode.value = ThemeMode.light;
         current.value = true;
         html.window.localStorage[AppKeys.IS_LIGHT_MODE] = 'false';
+        js.context.callMethod('setThemeColor',['#F9F9F9']);
         break;
       default:
     }
@@ -28,15 +30,15 @@ class AppThemeHelper{
   AppThemeHelper._internal();
 
   void init() {
-    final value = html.window.localStorage[AppKeys.IS_LIGHT_MODE] ?? 'false';
+    final value = html.window.localStorage[AppKeys.IS_LIGHT_MODE] ?? 'true';
     if (value == 'true') {
       themeMode.value = ThemeMode.light;
       current.value = true;
     } else {
       themeMode.value = ThemeMode.dark;
       current.value = false;
+      js.context.callMethod('setThemeColor',['#1C1C20']);
     }
-    print('Theme init complete');
   }
   static final ThemeData light = ThemeData(
     primaryColorLight: const Color.fromRGBO(239, 241, 243, 1.0),

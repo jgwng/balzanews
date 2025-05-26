@@ -7,12 +7,15 @@ import 'package:balzanewsweb/helper/local_db_helper.dart';
 import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/network/balza_repository.dart';
 import 'package:balzanewsweb/screens/article_viewer_screen.dart';
+import 'package:balzanewsweb/screens/bookmark_screen.dart';
+import 'package:balzanewsweb/util/platform_util.dart';
 import 'package:balzanewsweb/util/pwa_banner_util.dart';
 import 'package:balzanewsweb/widgets/animated_list_view.dart';
 import 'package:balzanewsweb/widgets/balza_app_bar.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/corp_select_bottom_sheet.dart';
 import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
     if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,19 +51,33 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BalzaAppBar(
+        leading: const SizedBox(),
         actions: [
+          if(PlatformUtil.isDebugPWA)
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BookmarkScreen()));
+            },
+            child: Icon(
+              Icons.bookmark_rounded,
+              size: 28,
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          ),
           InkWell(
             onTap: () {
               AppThemeHelper.change();
             },
-            child: Padding(
-              padding: EdgeInsets.only(right: 16),
-              child: Icon(
-                AppThemeHelper.themeMode.value == ThemeMode.light
-                    ? Icons.dark_mode
-                    : Icons.light_mode,
-                size: 28,
-              ),
+            child: Icon(
+              AppThemeHelper.themeMode.value == ThemeMode.light
+                  ? Icons.dark_mode
+                  : Icons.light_mode,
+              size: 28,
             ),
           )
         ],
@@ -168,12 +185,14 @@ class _HomeScreenState extends State<HomeScreen> {
     var articles = await repository.getArticles(techCorp.value.rssUrl);
     topStories = articles;
     for (Article article in topStories) {
-      var result = await LocalDB()
-          .get(AppKeys.ARTICLE_HISTORY_STORE, article.link ?? '');
-      if (result != null) {
-        article.readYn.value = true;
-      } else {
-        article.readYn.value = false;
+      article.useLink = techCorp.value.useLink;
+      if(PlatformUtil.isDebugPWA == true){
+        var result = await LocalDBHelper().get(AppKeys.ARTICLE_HISTORY_STORE, article.link ?? '');
+        if (result != null) {
+          article.readYn.value = true;
+        } else {
+          article.readYn.value = false;
+        }
       }
     }
     isLoading.value = false;
@@ -193,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Article article = topStories[index];
     if (article.readYn.value == false) {
       article.readYn.value = true;
-      LocalDB().put(
+      LocalDBHelper().put(
           AppKeys.ARTICLE_HISTORY_STORE, article.link ?? '', article.toJson());
     }
     Navigator.push(
@@ -201,7 +220,6 @@ class _HomeScreenState extends State<HomeScreen> {
         MaterialPageRoute(
             builder: (context) => ArticleViewerScreen(
                   article: article,
-                  useLink: techCorp.value.useLink,
                 )));
   }
 }

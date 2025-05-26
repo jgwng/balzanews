@@ -48,7 +48,9 @@ class PlatformUtil {
     bool isIOS = defaultTargetPlatform == TargetPlatform.iOS;
     return isWeb == true && isAOS == false && isIOS == false;
   }
-
+  static bool get isDebugPWA{
+    return  _platformInterface.isPWAMode || kDebugMode;
+  }
   static bool get isPWA {
     return _platformInterface.isPWAMode;
   }

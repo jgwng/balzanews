@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/helper/device_info_helper.dart';
+import 'package:balzanewsweb/helper/local_db_helper.dart';
 import 'package:balzanewsweb/model/article.dart';
+import 'package:balzanewsweb/util/debouncer.dart';
 import 'package:balzanewsweb/util/device_util.dart';
 import 'package:balzanewsweb/util/html_util.dart';
 import 'package:balzanewsweb/widgets/article_progress_bar.dart';
@@ -18,9 +21,8 @@ if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dar
 import '../util/platform_util.dart';
 
 class ArticleViewerScreen extends StatefulWidget {
-  const ArticleViewerScreen({super.key, this.article,this.useLink});
-  final Article? article;
-  final bool? useLink;
+  const ArticleViewerScreen({super.key, required this.article});
+  final Article article;
 
   @override
   State<ArticleViewerScreen> createState() => _ArticleViewerScreenState();
@@ -30,13 +32,14 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
   late final html.IFrameElement _iFrameElement;
   late final String viewID;
   final ValueNotifier<double> scrollPercentage = ValueNotifier(0);
+  final LocalDBHelper db = LocalDBHelper();
   late StreamSubscription<html.MessageEvent> _messageSub;
   bool isReady = false;
-
+  DeBouncer deBouncer = DeBouncer(milliSeconds: 300);
   @override
   void initState(){
     super.initState();
-    viewID = 'iframe-${widget.article?.link?.hashCode ?? ''}';
+    viewID = 'iframe-${widget.article.link?.hashCode ?? ''}';
     buildIframeElement();
   }
 
@@ -47,8 +50,7 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
   }
 
   Future<void> buildIframeElement() async{
-    if(widget.article == null) return;
-    String? srcDoc = await HtmlUtil().convertFeedIntoHtml(widget.article, widget.useLink ?? false);
+    String? srcDoc = await HtmlUtil().convertFeedIntoHtml(widget.article, widget.article.useLink);
     if(srcDoc == null) return;
 
     _iFrameElement = html.IFrameElement()
@@ -62,7 +64,12 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
       viewID,
           (int viewId) => _iFrameElement,
     );
-
+    var isBookmark = await db.get(AppKeys.ARTICLE_BOOKMARK_STORE,widget.article.link ?? '');
+    if(isBookmark == null){
+      widget.article.bookMarkYN.value = false;
+    }else{
+      widget.article.bookMarkYN.value = true;
+    }
     _messageSub = html.window.onMessage.listen((event) {
       final data = event.data;
       if (data is Map && data['type'] == 'scroll') {
@@ -80,16 +87,26 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: BalzaAppBar(
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios_rounded,
-            size: 24,
-          ),
-        ),
         title: '기사 읽기',
+        actions: [
+          if(PlatformUtil.isDebugPWA == true)
+          InkWell(
+            onTap: () {
+              widget.article.bookMarkYN.value = !widget.article.bookMarkYN.value;
+              deBouncer.run(onTapBookmarkData);
+            },
+            child: ValueListenableBuilder(
+                valueListenable: widget.article.bookMarkYN,
+                builder: (_,value,__){
+                  return Icon(
+                    widget.article.bookMarkYN.value == true ?
+                    Icons.bookmark_outlined :
+                    Icons.bookmark_border,
+                    size: 28,
+                  );
+                }),
+          )
+        ],
         bottom: PreferredSize(
             preferredSize: Size.fromHeight(8.s),
             child: ValueListenableBuilder(
@@ -154,6 +171,16 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
         },
       ),
     );
+  }
+
+  void onTapBookmarkData(){
+    String store = AppKeys.ARTICLE_BOOKMARK_STORE;
+    String key = widget.article.link ?? '';
+    if(widget.article.bookMarkYN.value == false){
+      db.delete(store, key);
+    }else{
+      db.put(store, key,widget.article.toJson());
+    }
   }
 }
 

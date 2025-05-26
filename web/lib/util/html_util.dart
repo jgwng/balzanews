@@ -51,7 +51,7 @@ class HtmlUtil{
       </head>
       <body>
         <div class="content" id="contents">
-           ${content}
+           $content
         </div>
         $injectionScript
         </html>
