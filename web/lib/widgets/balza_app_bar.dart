@@ -43,7 +43,6 @@ class BalzaAppBar extends StatelessWidget implements PreferredSizeWidget {
           width: 20,
         )
       ],
-      backgroundColor: Colors.transparent,
       bottom: bottom,
     );
   }

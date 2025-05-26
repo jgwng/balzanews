@@ -37,13 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
     techCorp = ValueNotifier(TechCorps.values[selectedIndex]);
     initData = fetchArticles();
     bottomPadding = (DeviceInfoHelper().bottomPadding ?? 0 + 24).s;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (shouldShowPwaBanner) {
-        showPwaInstallBanner(context);
-      }
-    });
-
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (shouldShowPwaBanner) {
+    //     showPwaInstallBanner(context);
+    //   }
+    // });
     super.initState();
   }
 

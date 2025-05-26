@@ -41,16 +41,20 @@ class AppThemeHelper{
     }
   }
   static final ThemeData light = ThemeData(
-    primaryColorLight: const Color.fromRGBO(239, 241, 243, 1.0),
+    primaryColorLight: const Color(0xFFEFF1F3),
     primaryColorDark: const Color(0xff222222),
-    secondaryHeaderColor: const Color.fromRGBO(234, 235, 237, 1.0),
-    scaffoldBackgroundColor: Color(0xFFF9F9F9),
+    secondaryHeaderColor: const Color(0xFFEAEBED),
+    scaffoldBackgroundColor: const Color(0xFFEFF1F3),
     splashFactory: NoSplash.splashFactory,
     splashColor: Colors.transparent,
     focusColor: Colors.transparent,
     highlightColor: Colors.transparent,
     hoverColor: Colors.transparent,
     fontFamilyFallback: AppFonts.fontFamilyFallback,
+    appBarTheme: AppBarTheme(
+      backgroundColor: const Color(0xFFEFF1F3)
+    ),
+
     visualDensity: VisualDensity.adaptivePlatformDensity,
     colorScheme: ColorScheme.light(
       surface:Color(0xFFF9F9F9),
@@ -79,7 +83,7 @@ class AppThemeHelper{
 
   static final ThemeData dark = ThemeData(
       scaffoldBackgroundColor: Color(0xFF1C1C20),
-      primaryColorDark: const Color.fromRGBO(239, 241, 243, 1.0),
+      primaryColorDark: const Color(0xFF1C1C20),
       primaryColorLight: const Color(0xff222222),
       secondaryHeaderColor: const Color.fromRGBO(40, 40, 40, 1.0),
       splashFactory: NoSplash.splashFactory,
@@ -88,7 +92,10 @@ class AppThemeHelper{
         buttonColor: Colors.white,
         textTheme: ButtonTextTheme.normal,
       ),
-      colorScheme: ColorScheme.light(
+      appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xFF1C1C20)
+      ),
+      colorScheme: ColorScheme.dark(
         surface: Color(0xFF1C1C20),
         onSurface: Color(0xFFF9F9F9),
         surfaceDim: Color(0xFFF8F9FE),

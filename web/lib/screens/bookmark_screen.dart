@@ -28,7 +28,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
 
   Future<void> getBookmarkArticles() async{
     isLoading.value = true;
-    // articles.value = await db.getAllValues(AppKeys.ARTICLE_BOOKMARK_STORE);
+    articles.value = await db.getAllValues(AppKeys.ARTICLE_BOOKMARK_STORE);
     isLoading.value = false;
   }
 
