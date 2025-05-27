@@ -33,15 +33,16 @@
   시스템 설정 또는 사용자 설정에 따라 다크모드로 자동 전환되어  
   눈의 피로를 줄여줍니다.
 
+
 ## 3. 화면 구성 💻
 
 | 메인 페이지 | 북마크 목록 페이지 |
-|-------------|-------------|
-| <img src="images/main.png" width="300"/> <br> 메인 페이지 | <img src="images/intro.png" width="300"/> <br> 소개 페이지 |
+|-------------|--------------------|
+| <img src="https://github.com/user-attachments/assets/c557657d-48e3-4671-9da2-57f3db4fcfe8" width="300"/> <br> | <img src="https://github.com/user-attachments/assets/cad3d812-4556-41bd-9b94-41db08db8c70" width="300"/> |
 
 | 블로그 상세보기 페이지 
 |------------------------------------|
-| <img src="images/course_list.png" width="300"/> <br> 강좌 소개 페이지 | <img src="images/video.png" width="300"/> <br> 강의 영상 페이지 |
+| <img src="https://github.com/user-attachments/assets/9bb85c53-a434-4a02-891b-e0512c94d9b7" width="300"/> <br>| <img src="https://github.com/user-attachments/assets/7b59f3c1-f44e-4179-a86f-f8ed66dae3d9" width="300"/> <br> |
 
 
 
