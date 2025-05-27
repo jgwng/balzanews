@@ -1,6 +1,7 @@
 import 'package:balzanewsweb/helper/app_theme_helper.dart';
 import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/network/balza_repository.dart';
+import 'package:balzanewsweb/util/platform_util.dart';
 
 class HtmlUtil{
  String contentHtml(String content){
@@ -46,8 +47,8 @@ class HtmlUtil{
             text-align: center;
           }
           .content{
-            margin-left:24px;
-            margin-right:24px;
+            margin-left:${PlatformUtil.isDesktopWeb ? 24 : 0}px;
+            margin-right:${PlatformUtil.isDesktopWeb ? 24 : 0}px;
             margin-top:2rem;
             color: var(--font-color);
             background-color: var(--bg-color);

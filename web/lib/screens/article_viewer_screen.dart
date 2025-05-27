@@ -18,11 +18,12 @@ import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
-if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
+    if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
 import '../util/platform_util.dart';
 
 class ArticleViewerScreen extends StatefulWidget {
   const ArticleViewerScreen({super.key, required this.article});
+
   final Article article;
 
   @override
@@ -37,43 +38,47 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
   late StreamSubscription<html.MessageEvent> _messageSub;
   bool isReady = false;
   DeBouncer deBouncer = DeBouncer(milliSeconds: 300);
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     viewID = 'iframe-${widget.article.link?.hashCode ?? ''}';
     buildIframeElement();
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _messageSub.cancel();
     super.dispose();
   }
 
-  Future<void> buildIframeElement() async{
-    String? srcDoc = await HtmlUtil().convertFeedIntoHtml(widget.article, widget.article.useLink);
-    if(srcDoc == null) return;
+  Future<void> buildIframeElement() async {
+    String? srcDoc = await HtmlUtil()
+        .convertFeedIntoHtml(widget.article, widget.article.useLink);
+    if (srcDoc == null) return;
 
     _iFrameElement = html.IFrameElement()
       ..srcdoc = srcDoc
       ..style.border = 'none'
-      ..style.height = '100%;'
+      ..style.height = '100%'
       ..style.width = '100%';
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
       viewID,
-          (int viewId) => _iFrameElement,
+      (int viewId) => _iFrameElement,
     );
-    var isBookmark = await db.get(AppKeys.ARTICLE_BOOKMARK_STORE,widget.article.link ?? '');
-    if(isBookmark == null){
+    var isBookmark =
+        await db.get(AppKeys.ARTICLE_BOOKMARK_STORE, widget.article.link ?? '');
+    if (isBookmark == null) {
       widget.article.bookMarkYN.value = false;
-    }else{
+    } else {
       widget.article.bookMarkYN.value = true;
     }
     _messageSub = html.window.onMessage.listen((event) {
       final data = event.data;
       if (data is Map && data['type'] == 'scroll') {
-        scrollPercentage.value = (data['scrollPercentage'] as num).toDouble() / 100;
+        scrollPercentage.value =
+            (data['scrollPercentage'] as num).toDouble() / 100;
       }
     });
 
@@ -86,34 +91,36 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: false,
-      backgroundColor: (widget.article.useLink == true) ?
-      AppThemeHelper.light.scaffoldBackgroundColor : Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: (widget.article.useLink == true)
+          ? AppThemeHelper.light.scaffoldBackgroundColor
+          : Theme.of(context).scaffoldBackgroundColor,
       appBar: BalzaAppBar(
         title: '기사 읽기',
         actions: [
-          if(PlatformUtil.isDebugPWA == true)
-          InkWell(
-            onTap: () {
-              widget.article.bookMarkYN.value = !widget.article.bookMarkYN.value;
-              deBouncer.run(onTapBookmarkData);
-            },
-            child: ValueListenableBuilder(
-                valueListenable: widget.article.bookMarkYN,
-                builder: (_,value,__){
-                  return Icon(
-                    widget.article.bookMarkYN.value == true ?
-                    Icons.bookmark_outlined :
-                    Icons.bookmark_border,
-                    size: 28,
-                  );
-                }),
-          )
+          if (PlatformUtil.isDebugPWA == true)
+            InkWell(
+              onTap: () {
+                widget.article.bookMarkYN.value =
+                    !widget.article.bookMarkYN.value;
+                deBouncer.run(onTapBookmarkData);
+              },
+              child: ValueListenableBuilder(
+                  valueListenable: widget.article.bookMarkYN,
+                  builder: (_, value, __) {
+                    return Icon(
+                      widget.article.bookMarkYN.value == true
+                          ? Icons.bookmark_outlined
+                          : Icons.bookmark_border,
+                      size: 28,
+                    );
+                  }),
+            )
         ],
         bottom: PreferredSize(
             preferredSize: Size.fromHeight(8.s),
             child: ValueListenableBuilder(
                 valueListenable: scrollPercentage,
-                builder: (context,value,_){
+                builder: (context, value, _) {
                   return ArticleProgressBar(
                     height: 8,
                     duration: 250,
@@ -122,15 +129,16 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
                 })),
       ),
       body: PlatformSafeArea(
-          child: (isReady == false) ? Center(
-            child: CircularProgressIndicator(),
-          ) :  SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: HtmlElementView(
-                key: UniqueKey(),
-                viewType: viewID),
-          )
-      ),
+          child: (isReady == false)
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: PlatformUtil.isDesktopWeb ? 0 : 24),
+                  child: HtmlElementView(key: UniqueKey(), viewType: viewID),
+                )),
       floatingActionButton: fab(),
     );
   }
@@ -159,7 +167,8 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
                 child: Container(
                   width: 56.s,
                   height: 56.s,
-                  margin: EdgeInsets.only(bottom: DeviceInfoHelper().bottomPadding ?? 0),
+                  margin: EdgeInsets.only(
+                      bottom: DeviceInfoHelper().bottomPadding ?? 0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
@@ -181,16 +190,13 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
     );
   }
 
-  void onTapBookmarkData(){
+  void onTapBookmarkData() {
     String store = AppKeys.ARTICLE_BOOKMARK_STORE;
     String key = widget.article.link ?? '';
-    if(widget.article.bookMarkYN.value == false){
+    if (widget.article.bookMarkYN.value == false) {
       db.delete(store, key);
-    }else{
-      db.put(store, key,widget.article.toJson());
+    } else {
+      db.put(store, key, widget.article.toJson());
     }
   }
 }
-
-
-
