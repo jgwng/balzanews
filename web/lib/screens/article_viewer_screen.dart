@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
+import 'package:balzanewsweb/helper/app_theme_helper.dart';
 import 'package:balzanewsweb/helper/device_info_helper.dart';
 import 'package:balzanewsweb/helper/local_db_helper.dart';
 import 'package:balzanewsweb/model/article.dart';
@@ -86,6 +87,8 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: false,
+      backgroundColor: (widget.article.useLink == true) ?
+      AppThemeHelper.light.scaffoldBackgroundColor : Theme.of(context).scaffoldBackgroundColor,
       appBar: BalzaAppBar(
         title: '기사 읽기',
         actions: [
@@ -163,6 +166,7 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
                   child: Icon(
                     Icons.keyboard_arrow_up_rounded,
                     size: 42,
+                    color: Colors.black,
                   ),
                 ),
               ),

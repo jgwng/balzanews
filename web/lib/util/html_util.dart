@@ -12,7 +12,7 @@ class HtmlUtil{
         <title></title>
         <style>
           [data-theme="light"] {
-           --bg-color: #F9F9F9;
+           --bg-color: #F8F8FF;
            --font-color: #292A2D;
           }
 
@@ -29,6 +29,7 @@ class HtmlUtil{
             width: 100%;
             height: auto;
             box-sizing: border-box;
+            background-color: var(--bg-color);
           }
           img {
             width: 100%;

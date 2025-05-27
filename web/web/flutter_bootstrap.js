@@ -5,13 +5,15 @@
     // Load the Flutter engine
     _flutter.loader.load({
         onEntrypointLoaded: async function(engineInitializer) {
+            let target = document.querySelector("#app-area");
             const config = {
-                        canvasKitBaseUrl: "./canvaskit/",
+                 hostElement: target,
+                 canvasKitBaseUrl: "./canvaskit/",
             };
             const appRunner = await engineInitializer.initializeEngine(config);
 
             appRunner.runApp().then((_) => {
-                    document.querySelector("flutter-view").classList.add("fade-in");
+                    target.classList.add("fade-in");
                     updateViewportAttributes({
                                'interactive-widget': 'resizes-content',
                                'viewport-fit': 'cover',

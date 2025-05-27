@@ -5,7 +5,8 @@ function delay(time) {
 document.addEventListener('DOMContentLoaded', () => {
     const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
     const theme = isLightMode === 'true' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', theme);
+    const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
+    setThemeColor(themeColor);
 });
 
 function updateViewportAttributes(attributesMap) {
@@ -64,4 +65,8 @@ function setThemeColor(color) {
     document.head.appendChild(metaTag);
   }
   metaTag.setAttribute('content', color);
+}
+
+function setThemeData(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
 }

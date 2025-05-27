@@ -1,6 +1,7 @@
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class BalzaAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -22,6 +23,9 @@ class BalzaAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       surfaceTintColor: Colors.white, // Add this to suppress Material 3 default tint
       scrolledUnderElevation: 0,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+      ),
       title: title != null
           ? Text(title!,style: AppStyles.w700.copyWith(
             fontSize: 17.fs,

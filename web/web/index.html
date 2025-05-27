@@ -13,21 +13,29 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="최신 개발 동향을 빠르게 파악하고 싶다면, 개발자 신문이 정답입니다.">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="개발자 신문">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-  <meta name="theme-color" content="#EFF1F3">
+  <meta name="theme-color" content="#F8F8FF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1C1C20" media="(prefers-color-scheme: dark)">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
   <meta property="og:title" content="Balza News">
   <meta property="og:description" content="최신 개발 동향을 빠르게 파악하고 싶다면, 개발자 신문이 정답입니다">
   <meta property="og:url" content="https://balzanewss.web.app">
   <meta property="og:image" content="https://balzanewss.web.app/ogimage.png">
-
+  <script>
+    (function () {
+      const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
+      const theme = isLightMode === 'true' ? 'light' : 'dark';
+      const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
   <script src="init.js" defer></script>
@@ -39,6 +47,7 @@
   <div class="splashArea" id="splashArea">
     <img id="logo" src="logo.png" alt="BalzaNews logo" />
   </div>
+  <div id="app-area"></div>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

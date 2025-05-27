@@ -1,5 +1,6 @@
 import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
+import 'package:balzanewsweb/util/common_util.dart';
 import 'package:flutter/material.dart';
 import 'dart:html' as html;
 import 'dart:js' as js;
@@ -16,12 +17,14 @@ class AppThemeHelper{
         current.value = false;
         html.window.localStorage[AppKeys.IS_LIGHT_MODE] = 'false';
         js.context.callMethod('setThemeColor',['#1C1C20']);
+        js.context.callMethod('setThemeData',['dark']);
         break;
       case ThemeMode.dark:
         themeMode.value = ThemeMode.light;
         current.value = true;
         html.window.localStorage[AppKeys.IS_LIGHT_MODE] = 'false';
         js.context.callMethod('setThemeColor',['#F9F9F9']);
+        js.context.callMethod('setThemeData',['light']);
         break;
       default:
     }
@@ -41,20 +44,21 @@ class AppThemeHelper{
     }
   }
   static final ThemeData light = ThemeData(
-    primaryColorLight: const Color(0xFFEFF1F3),
+    primaryColorLight: const Color(0xFFF8F8FF),
     primaryColorDark: const Color(0xff222222),
     secondaryHeaderColor: const Color(0xFFEAEBED),
-    scaffoldBackgroundColor: const Color(0xFFEFF1F3),
+    scaffoldBackgroundColor: const Color(0xFFF8F8FF),
     splashFactory: NoSplash.splashFactory,
     splashColor: Colors.transparent,
     focusColor: Colors.transparent,
     highlightColor: Colors.transparent,
     hoverColor: Colors.transparent,
     fontFamilyFallback: AppFonts.fontFamilyFallback,
+    canvasColor: Colors.red,
     appBarTheme: AppBarTheme(
-      backgroundColor: const Color(0xFFEFF1F3)
+      backgroundColor: const Color(0xFFF8F8FF)
     ),
-
+    primarySwatch: createMaterialColor(Color(0xFFF8F8FF)),
     visualDensity: VisualDensity.adaptivePlatformDensity,
     colorScheme: ColorScheme.light(
       surface:Color(0xFFF9F9F9),
@@ -85,6 +89,7 @@ class AppThemeHelper{
       scaffoldBackgroundColor: Color(0xFF1C1C20),
       primaryColorDark: const Color(0xFF1C1C20),
       primaryColorLight: const Color(0xff222222),
+      primarySwatch: createMaterialColor(Color(0xFF1C1C20)),
       secondaryHeaderColor: const Color.fromRGBO(40, 40, 40, 1.0),
       splashFactory: NoSplash.splashFactory,
       fontFamilyFallback: AppFonts.fontFamilyFallback,

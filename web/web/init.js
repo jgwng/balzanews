@@ -4,11 +4,9 @@ function delay(time) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
-      if (isLightMode === 'true') {
-        setThemeColor('#F9F9F9'); // Dark theme color
-      } else {
-        setThemeColor('#1C1C20'); // Light theme color
-      }
+    const theme = isLightMode === 'true' ? 'light' : 'dark';
+    const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
+    setThemeColor(themeColor);
 });
 
 function updateViewportAttributes(attributesMap) {
@@ -67,4 +65,8 @@ function setThemeColor(color) {
     document.head.appendChild(metaTag);
   }
   metaTag.setAttribute('content', color);
+}
+
+function setThemeData(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
 }
