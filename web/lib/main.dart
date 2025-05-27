@@ -28,6 +28,7 @@ class DevNewsApp extends StatelessWidget {
           routeInformationProvider: _router.routeInformationProvider,
           theme: AppThemeHelper.light,
           darkTheme: AppThemeHelper.dark,
+          debugShowCheckedModeBanner: false,
           themeMode: mode,
           scrollBehavior: CustomScrollBehavior(),
         );
