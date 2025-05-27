@@ -22,8 +22,8 @@ class AppThemeHelper{
       case ThemeMode.dark:
         themeMode.value = ThemeMode.light;
         current.value = true;
-        html.window.localStorage[AppKeys.IS_LIGHT_MODE] = 'false';
-        js.context.callMethod('setThemeColor',['#F9F9F9']);
+        html.window.localStorage[AppKeys.IS_LIGHT_MODE] = 'true';
+        js.context.callMethod('setThemeColor',['#F8F8FF']);
         js.context.callMethod('setThemeData',['light']);
         break;
       default:

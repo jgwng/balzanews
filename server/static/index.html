@@ -20,8 +20,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="개발자 신문">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-  <meta name="theme-color" content="#F8F8FF" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1C1C20" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#65A2D4">
+<!--  <meta name="theme-color" content="#F8F8FF" media="(prefers-color-scheme: light)">-->
+<!--  <meta name="theme-color" content="#1C1C20" media="(prefers-color-scheme: dark)">-->
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
   <meta property="og:title" content="Balza News">
@@ -34,6 +35,13 @@
       const theme = isLightMode === 'true' ? 'light' : 'dark';
       const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
       document.documentElement.setAttribute('data-theme', theme);
+      let metaTag = document.querySelector('meta[name="theme-color"]');
+      if (!metaTag) {
+        metaTag = document.createElement('meta');
+        metaTag.setAttribute('name', 'theme-color');
+        document.head.appendChild(metaTag);
+      }
+      metaTag.setAttribute('content', themeColor);
     })();
 
      if (

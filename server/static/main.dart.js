@@ -7277,7 +7277,7 @@ p.iA(q,["dark"])
 break
 case B.fV:p.sq(0,B.e2)
 $.FS().sq(0,!0)
-window.localStorage.setItem(s,"false")
+window.localStorage.setItem(s,"true")
 p=$.arG()
 p.iA(r,["#F9F9F9"])
 p.iA(q,["light"])

@@ -4,7 +4,6 @@ function delay(time) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
-    const theme = isLightMode === 'true' ? 'light' : 'dark';
     const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
     setThemeColor(themeColor);
 });
