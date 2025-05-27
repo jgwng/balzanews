@@ -57,9 +57,8 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
     _iFrameElement = html.IFrameElement()
       ..srcdoc = srcDoc
       ..style.border = 'none'
-      ..style.width = '100%'
-      ..style.height = '100%';
-
+      ..style.height = '100%;'
+      ..style.width = '100%';
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
       viewID,
@@ -125,7 +124,12 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
       body: PlatformSafeArea(
           child: (isReady == false) ? Center(
             child: CircularProgressIndicator(),
-          ) :  HtmlElementView(viewType: viewID)
+          ) :  SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: HtmlElementView(
+                key: UniqueKey(),
+                viewType: viewID),
+          )
       ),
       floatingActionButton: fab(),
     );

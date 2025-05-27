@@ -35,13 +35,41 @@
       const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
       document.documentElement.setAttribute('data-theme', theme);
     })();
+
+     if (
+      navigator.userAgent.indexOf("Safari") !== -1 &&
+      navigator.userAgent.indexOf("Chrome") === -1
+    ) {
+      var originalGetContext = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function () {
+        var contextType = arguments[0];
+        if (contextType === "webgl2") {
+          return;
+        }
+        return originalGetContext.apply(
+          this,
+          [contextType].concat(Array.prototype.slice.call(arguments, 1)),
+        );
+      };
+    }
   </script>
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
   <script src="init.js" defer></script>
   <link rel="stylesheet" type='text/css' href="styles.css">
   <title>개발자 신문</title>
   <link rel="manifest" href="manifest.json">
+  <script>
+    document.addEventListener(
+      'touchstart',
+      (startEvent) => {
+        if (startEvent.touches.length > 1) return;
+        startEvent.preventDefault();
+      },
+      { passive: false }
+    );
+  </script>
 </head>
 <body>
   <div class="splashArea" id="splashArea">

@@ -31,6 +31,10 @@ class HtmlUtil{
             box-sizing: border-box;
             background-color: var(--bg-color);
           }
+          body {
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: auto; 
+          }
           img {
             width: 100%;
             max-width: 100%;
@@ -83,6 +87,7 @@ class HtmlUtil{
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }
+     
     </script>
   ''';
 

@@ -53,6 +53,12 @@ class AppThemeHelper{
     focusColor: Colors.transparent,
     highlightColor: Colors.transparent,
     hoverColor: Colors.transparent,
+    pageTransitionsTheme: PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        }
+    ),
     fontFamilyFallback: AppFonts.fontFamilyFallback,
     canvasColor: Colors.red,
     appBarTheme: AppBarTheme(
@@ -90,6 +96,12 @@ class AppThemeHelper{
       primaryColorDark: const Color(0xFF1C1C20),
       primaryColorLight: const Color(0xff222222),
       primarySwatch: createMaterialColor(Color(0xFF1C1C20)),
+      pageTransitionsTheme: PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          }
+      ),
       secondaryHeaderColor: const Color.fromRGBO(40, 40, 40, 1.0),
       splashFactory: NoSplash.splashFactory,
       fontFamilyFallback: AppFonts.fontFamilyFallback,

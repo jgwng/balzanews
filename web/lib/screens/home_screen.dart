@@ -17,6 +17,7 @@ import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
     if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -54,10 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if(PlatformUtil.isDebugPWA)
           InkWell(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => BookmarkScreen()));
+              context.push('/bookmark');
             },
             child: Icon(
               Icons.bookmark_rounded,
@@ -213,11 +211,8 @@ class _HomeScreenState extends State<HomeScreen> {
       LocalDBHelper().put(
           AppKeys.ARTICLE_HISTORY_STORE, article.link ?? '', article.toJson());
     }
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ArticleViewerScreen(
-                  article: article,
-                )));
+    context.push('/article',extra: {
+      'article' : article
+    });
   }
 }

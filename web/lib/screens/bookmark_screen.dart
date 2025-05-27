@@ -7,6 +7,7 @@ import 'package:balzanewsweb/screens/article_viewer_screen.dart';
 import 'package:balzanewsweb/widgets/animated_list_view.dart';
 import 'package:balzanewsweb/widgets/balza_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BookmarkScreen extends StatefulWidget {
   const BookmarkScreen({super.key});
@@ -104,15 +105,9 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
 
   void onTapBookmarkArticles(int index) async {
     try {
-      await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ArticleViewerScreen(
-            article: articles.value[index],
-          ),
-        ),
-      );
-
+      await context.push('/article',extra: {
+        'article' : articles.value[index]
+      });
       var result = await db.get(
         AppKeys.ARTICLE_BOOKMARK_STORE,
         articles.value[index].link ?? '',

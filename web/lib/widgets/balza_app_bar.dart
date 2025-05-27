@@ -2,6 +2,7 @@ import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 class BalzaAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -33,7 +34,7 @@ class BalzaAppBar extends StatelessWidget implements PreferredSizeWidget {
       )): null,
       leading: leading ?? InkWell(
         onTap: () {
-          Navigator.pop(context);
+          context.pop();
         },
         child: Icon(
           Icons.arrow_back_ios_rounded,
