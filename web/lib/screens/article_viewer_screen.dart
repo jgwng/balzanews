@@ -42,7 +42,7 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
   @override
   void initState() {
     super.initState();
-    viewID = 'iframe-${widget.article.link?.hashCode ?? ''}';
+    viewID = 'iframe-${DateTime.now().hashCode}';
     buildIframeElement();
   }
 
@@ -62,7 +62,7 @@ class _ArticleViewerScreenState extends State<ArticleViewerScreen> {
       ..style.border = 'none'
       ..style.height = '100%'
       ..style.width = '100%';
-    _iFrameElement.onScroll.listen((event){});
+
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
       viewID,
