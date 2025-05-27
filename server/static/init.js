@@ -4,11 +4,8 @@ function delay(time) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
-      if (isLightMode === 'true') {
-        setThemeColor('#F9F9F9'); // Dark theme color
-      } else {
-        setThemeColor('#1C1C20'); // Light theme color
-      }
+    const theme = isLightMode === 'true' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
 });
 
 function updateViewportAttributes(attributesMap) {
