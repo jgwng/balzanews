@@ -12,6 +12,7 @@ import 'package:balzanewsweb/util/platform_util.dart';
 import 'package:balzanewsweb/util/pwa_banner_util.dart';
 import 'package:balzanewsweb/widgets/animated_list_view.dart';
 import 'package:balzanewsweb/widgets/balza_app_bar.dart';
+import 'package:balzanewsweb/widgets/balza_switch.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/corp_select_bottom_sheet.dart';
 import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
     if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
@@ -51,32 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: BalzaAppBar(
         leading: const SizedBox(),
-        actions: [
-          if(PlatformUtil.isDebugPWA)
-          InkWell(
-            onTap: () {
-              context.push('/bookmark');
-            },
-            child: Icon(
-              Icons.bookmark_rounded,
-              size: 28,
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          InkWell(
-            onTap: () {
-              AppThemeHelper.change();
-            },
-            child: Icon(
-              AppThemeHelper.themeMode.value == ThemeMode.light
-                  ? Icons.dark_mode
-                  : Icons.light_mode,
-              size: 28,
-            ),
-          )
-        ],
+        actions: actions(),
       ),
       body: PlatformSafeArea(
           child: Padding(
@@ -104,6 +80,47 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  List<Widget> actions(){
+    if(PlatformUtil.isDebugPWA){
+      return [
+        if(PlatformUtil.isDebugPWA)
+          InkWell(
+            onTap: () {
+              context.push('/bookmark');
+            },
+            child: Icon(
+              Icons.bookmark_rounded,
+              size: 28,
+            ),
+          ),
+        SizedBox(
+          width: 20,
+        ),
+        InkWell(
+          onTap: () {
+            context.push('/setting');
+          },
+          child: Icon(
+            Icons.settings,
+            size: 28,
+          ),
+        )
+      ];
+    }
+    return [
+      InkWell(
+        onTap: () {
+          AppThemeHelper.change();
+        },
+        child: Icon(
+          AppThemeHelper.themeMode.value == ThemeMode.light
+              ? Icons.dark_mode
+              : Icons.light_mode,
+          size: 28,
+        ),
+      )
+    ];
+  }
   Widget balzaTitle(String text) {
     return SliverToBoxAdapter(
       child: Padding(

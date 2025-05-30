@@ -4,6 +4,7 @@ import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/screens/article_viewer_screen.dart';
 import 'package:balzanewsweb/screens/bookmark_screen.dart';
 import 'package:balzanewsweb/screens/home_screen.dart';
+import 'package:balzanewsweb/screens/setting_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -71,6 +72,12 @@ final _router = GoRouter(
         return BookmarkScreen();
       },
     ),
+    GoRoute(
+      path: '/setting',
+      builder: (context, state){
+        return SettingScreen();
+      },
+    )
   ],
 );
 
