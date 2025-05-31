@@ -321,8 +321,6 @@ class _DateTimePickerWidgetState extends State<CustomDatePicker> {
     }
 
     bool isSelected = value == selectedValue;
-    TextStyle? textStyle =
-        isSelected ? widget.selectedTextStyle : widget.unSelectedTextStyle;
     return Container(
       height: widget.pickerTheme.itemHeight,
       alignment: Alignment.center,

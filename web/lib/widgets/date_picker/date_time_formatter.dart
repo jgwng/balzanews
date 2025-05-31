@@ -18,7 +18,6 @@ class DateTimeFormatter {
       case DateTimePickerMode.datetime:
         return DATETIME_PICKER_DATETIME_FORMAT;
     }
-    return '';
   }
 
   /// Check if the date format is for day(contain y、M、d、E) or not.

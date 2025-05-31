@@ -5,7 +5,7 @@ import 'package:balzanewsweb/util/platform/general/general_safe_area.dart';
 import 'package:balzanewsweb/widgets/balza_app_bar.dart';
 import 'package:balzanewsweb/widgets/balza_button.dart';
 import 'package:balzanewsweb/widgets/balza_switch.dart';
-import 'package:balzanewsweb/widgets/date_picker/date_picker_bottom_sheet.dart';
+import 'package:balzanewsweb/widgets/bottomSheet/date_picker_bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
@@ -86,14 +86,14 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               BalzaButton(
                 onPressed: () async{
-                  var result = await showDatePickerBottomSheet(
-                    context,
-                    initDateTime: DateTime.now().copyWith(
-                        hour: 12,
-                        minute: 0),
-                    dateFormat: 'HH-mm',
-                    minuteDivider: 30,
-                  );
+                  // var result = await showDatePickerBottomSheet(
+                  //   context,
+                  //   initDateTime: DateTime.now().copyWith(
+                  //       hour: 12,
+                  //       minute: 0),
+                  //   dateFormat: 'HH-mm',
+                  //   minuteDivider: 30,
+                  // );
                 },
                 buttonText: '시간 설정',
                 buttonTextColor: Theme.of(context).colorScheme.surfaceDim,

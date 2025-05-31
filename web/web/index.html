@@ -21,8 +21,8 @@
   <meta name="apple-mobile-web-app-title" content="개발자 신문">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
   <meta name="theme-color" content="#65A2D4">
-<!--  <meta name="theme-color" content="#F8F8FF" media="(prefers-color-scheme: light)">-->
-<!--  <meta name="theme-color" content="#1C1C20" media="(prefers-color-scheme: dark)">-->
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
   <meta property="og:title" content="Balza News">
@@ -78,10 +78,32 @@
       { passive: false }
     );
   </script>
+  <script>
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log('✅ beforeinstallprompt event captured');
+
+      // Optionally notify Flutter (use `html.window.addEventListener('pwa-install-available')` in Dart)
+      window.dispatchEvent(new CustomEvent('pwa-install-available'));
+    });
+
+    window.triggerInstallPrompt = async function () {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const result = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+      } else {
+        alert('Install prompt is not available.');
+      }
+    };
+  </script>
 </head>
 <body>
   <div class="splashArea" id="splashArea">
-    <img id="logo" src="logo.png" alt="BalzaNews logo" />
+    <img id="logo" src="blog.webp" alt="BalzaNews logo" />
   </div>
   <div id="app-area"></div>
   <script src="flutter_bootstrap.js" async></script>

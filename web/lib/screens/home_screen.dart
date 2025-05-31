@@ -4,15 +4,12 @@ import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/helper/app_theme_helper.dart';
 import 'package:balzanewsweb/helper/device_info_helper.dart';
 import 'package:balzanewsweb/helper/local_db_helper.dart';
+import 'package:balzanewsweb/helper/pwa_install_helper.dart';
 import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/network/balza_repository.dart';
-import 'package:balzanewsweb/screens/article_viewer_screen.dart';
-import 'package:balzanewsweb/screens/bookmark_screen.dart';
 import 'package:balzanewsweb/util/platform_util.dart';
-import 'package:balzanewsweb/util/pwa_banner_util.dart';
 import 'package:balzanewsweb/widgets/animated_list_view.dart';
 import 'package:balzanewsweb/widgets/balza_app_bar.dart';
-import 'package:balzanewsweb/widgets/balza_switch.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/corp_select_bottom_sheet.dart';
 import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
     if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
@@ -33,17 +30,17 @@ class _HomeScreenState extends State<HomeScreen> {
   ValueNotifier<bool> isLoading = ValueNotifier(true);
   late ValueNotifier<TechCorps> techCorp;
   double? bottomPadding = 0;
-
+  PWAInstallHelper installHelper = PWAInstallHelper();
   @override
   void initState() {
     techCorp = ValueNotifier(TechCorps.values[selectedIndex]);
     initData = fetchArticles();
     bottomPadding = (DeviceInfoHelper().bottomPadding ?? 0 + 24).s;
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   if (shouldShowPwaBanner) {
-    //     showPwaInstallBanner(context);
-    //   }
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (installHelper.shouldShowPwaBanner) {
+        installHelper.showBanner(context);
+      }
+    });
     super.initState();
   }
 

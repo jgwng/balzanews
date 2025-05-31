@@ -9,6 +9,7 @@ class BalzaButton extends StatefulWidget {
   final String? buttonText;
   final Color? backgroundColor;
   final Color? buttonTextColor;
+  final bool? isMedium;
 
   const BalzaButton({super.key,
     required this.onPressed,
@@ -17,6 +18,7 @@ class BalzaButton extends StatefulWidget {
     this.buttonText,
     this.buttonTextColor,
     this.backgroundColor,
+    this.isMedium,
   });
 
   @override
@@ -64,7 +66,10 @@ class _BalzaButtonState extends State<BalzaButton>
             borderRadius: BorderRadius.circular(12)
           ),
           child:  Text(widget.buttonText ?? '',
-              style: AppStyles.w700.copyWith(
+              style: (widget.isMedium ?? false) ? AppStyles.w500.copyWith(
+                  color: widget.buttonTextColor ?? Colors.white,
+                  fontSize: 16.fs
+              ) : AppStyles.w700.copyWith(
               color: widget.buttonTextColor ?? Colors.white,
               fontSize: 20.fs
           )),

@@ -1,8 +1,5 @@
-
-import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/util/device_util.dart';
 import 'package:balzanewsweb/util/platform_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PlatformSafeArea extends StatefulWidget {

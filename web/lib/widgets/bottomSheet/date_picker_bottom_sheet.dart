@@ -187,7 +187,6 @@ class _DatePickerBottomSheetState extends State<_DatePickerBottomSheet> {
               },
               buttonText: '취소',
               buttonTextColor: AppThemes.fontColor,
-
               backgroundColor:AppThemes.pointColor.withAlpha(80)
             ),
           ),
