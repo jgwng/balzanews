@@ -28,4 +28,7 @@ class AppKeys{
   static const String ARTICLE_BOOKMARK_STORE = 'ARTICLE_BOOKMARK_STORE';
   static const String ARTICLE_HISTORY_STORE = 'ARTICLE_HISTORY_STORE';
   static const String IS_LIGHT_MODE = 'IS_LIGHT_MODE';
+  static const String PWA_PUSH_TOKEN = 'PWA_PUSH_TOKEN';
+  static const String PUSH_ALARM_LIST = 'PUSH_ALARM_LIST';
+
 }

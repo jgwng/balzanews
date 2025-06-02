@@ -1,3 +1,10 @@
+window.addEventListener('scroll', () => {
+  if (previousY > 100 && window.scrollY === 0) {
+    console.log('🔝 Probably scrolled to top via status bar tap');
+  }
+  previousY = window.scrollY;
+});
+
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }
@@ -71,17 +78,65 @@ function setThemeData(theme) {
 }
 
 function saveUserToken(token,time){
-    fetch("https://saveusertoken-wq2lg5j6kq-du.a.run.app", {
+    fetch("https://asia-northeast3-balzanewss.cloudfunctions.net/saveUserToken", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         token: token,
-        alarmTimes: [time], // array of time slots
+        alarmTime: time, // array of time slots
       }),
     })
       .then(response => response.text())
       .then(data => console.log("✅ Response:", data))
       .catch(error => console.error("❌ Error:", error));
+}
+
+function removeUserToken(token,time){
+    fetch("https://asia-northeast3-balzanewss.cloudfunctions.net/removeUserToken", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: token,
+        alarmTime: time, // array of time slots
+      }),
+    })
+      .then(response => response.text())
+      .then(data => console.log("✅ Response:", data))
+      .catch(error => console.error("❌ Error:", error));
+}
+
+async function sendTestPush(token) {
+  try {
+    const response = await fetch("https://testpush-wq2lg5j6kq-du.a.run.app", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token: token }),
+    });
+
+    const result = await response.text(); // or .json() if you return JSON
+    console.log("✅ Response from server:", result);
+  } catch (err) {
+    console.error("❌ Error sending push:", err);
+  }
+}
+function showNotification(pushTitle,pushBody,pushImage) {
+    const title = pushTitle;
+    const options = {
+        body: pushBody,
+        icon: '/icons/Icon-192.png',
+        image: pushImage,
+//        data: {
+//            "url": "https://andreinwald.github.io/webpush-ios-example/?page=success",
+//            "message_id": "your_internal_unique_message_id_for_tracking"
+//        },
+    };
+    navigator.serviceWorker.ready.then(async function (serviceWorker) {
+        await serviceWorker.showNotification(title, options);
+    });
 }

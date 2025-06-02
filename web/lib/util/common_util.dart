@@ -34,3 +34,19 @@ MaterialColor createMaterialColor(Color color) {
   }
   return MaterialColor(color.value, swatch);
 }
+
+List<String> sortTimeList(List<String> timeList){
+  timeList.sort((a, b) {
+    final timeA = _parseTime(a);
+    final timeB = _parseTime(b);
+    return timeA.compareTo(timeB);
+  });
+  return timeList;
+}
+
+DateTime _parseTime(String time) {
+  final parts = time.split(':');
+  final hour = int.parse(parts[0]);
+  final minute = int.parse(parts[1]);
+  return DateTime(0, 1, 1, hour, minute); // dummy date, only time matters
+}

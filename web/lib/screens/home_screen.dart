@@ -13,9 +13,11 @@ import 'package:balzanewsweb/widgets/balza_app_bar.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/corp_select_bottom_sheet.dart';
 import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
     if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'dart:js' as js;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -36,6 +38,16 @@ class _HomeScreenState extends State<HomeScreen> {
     techCorp = ValueNotifier(TechCorps.values[selectedIndex]);
     initData = fetchArticles();
     bottomPadding = (DeviceInfoHelper().bottomPadding ?? 0 + 24).s;
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      final title = message.notification?.title ?? 'Warnning!';
+      final body = message.notification?.body ?? '';
+      final imageUrl = message.notification?.android?.imageUrl ??
+          message.data['image'] ??
+          null;
+      js.context.callMethod('showNotification',[title,body,imageUrl]);
+      print('📩 인앱 메시지 수신: $title - $body');
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) async{
       await Future.delayed(Duration(milliseconds: 400));
       if (installHelper.shouldShowPwaBanner) {
