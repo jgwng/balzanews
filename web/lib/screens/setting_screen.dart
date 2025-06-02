@@ -6,6 +6,7 @@ import 'package:balzanewsweb/widgets/balza_app_bar.dart';
 import 'package:balzanewsweb/widgets/balza_button.dart';
 import 'package:balzanewsweb/widgets/balza_switch.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/date_picker_bottom_sheet.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
@@ -20,7 +21,7 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   ValueNotifier<bool> isDarkMode = ValueNotifier(true);
-  ValueNotifier<bool> isAlarmSetting = ValueNotifier(true);
+  ValueNotifier<bool> isAlarmSetting = ValueNotifier(false);
 
   @override
   Widget build(BuildContext context) {
@@ -84,20 +85,6 @@ class _SettingScreenState extends State<SettingScreen> {
                   ],
                 ),
               ),
-              BalzaButton(
-                onPressed: () async{
-                  // var result = await showDatePickerBottomSheet(
-                  //   context,
-                  //   initDateTime: DateTime.now().copyWith(
-                  //       hour: 12,
-                  //       minute: 0),
-                  //   dateFormat: 'HH-mm',
-                  //   minuteDivider: 30,
-                  // );
-                },
-                buttonText: '시간 설정',
-                buttonTextColor: Theme.of(context).colorScheme.surfaceDim,
-              )
             ],
           ),
         ),
@@ -110,6 +97,9 @@ class _SettingScreenState extends State<SettingScreen> {
     if (currentPermission == 'default') {
       final requested = await html.Notification.requestPermission();
       debugPrint('Requested permission: $requested');
+      if(requested == 'granted'){
+        await saveTokenToFirestore();
+      }
     } else {}
   }
 
@@ -121,6 +111,15 @@ class _SettingScreenState extends State<SettingScreen> {
       debugPrint('ServiceWorker registered');
     } else {
       debugPrint('ServiceWorker not supported in this browser');
+    }
+  }
+
+  Future<void> saveTokenToFirestore() async {
+    final fcmToken = await FirebaseMessaging.instance.getToken(
+        vapidKey: 'BLWmQrqAEQY8mCXQMhL9g18T2eiLnODTstn3fZte3TwGzwMiqEnlGdzn_cjXSU7d-RuIxQjJkxZoEuQ-PT8lTlU'
+    );
+    if (fcmToken != null) {
+      js.context.callMethod('saveUserToken',[fcmToken,"12:00"]);
     }
   }
 }

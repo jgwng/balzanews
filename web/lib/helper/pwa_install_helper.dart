@@ -16,7 +16,6 @@ class PWAInstallHelper{
   }
 
   bool get shouldShowPwaBanner {
-    if (kDebugMode == true) return true;
 
     if (PlatformUtil.isPWA || PlatformUtil.isDesktopWeb) return false;
 

@@ -25,5 +25,5 @@
         "*.local"
       ]
     }
-  ]
-}
+  ],
+  "flutter":{"platforms":{"dart":{"lib/firebase_options.dart":{"projectId":"balzanewss","configurations":{"web":"1:975680017471:web:e16c70fc1116858ba1148a"}}}}}}

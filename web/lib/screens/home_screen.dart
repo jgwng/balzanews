@@ -36,7 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
     techCorp = ValueNotifier(TechCorps.values[selectedIndex]);
     initData = fetchArticles();
     bottomPadding = (DeviceInfoHelper().bottomPadding ?? 0 + 24).s;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+      await Future.delayed(Duration(milliseconds: 400));
       if (installHelper.shouldShowPwaBanner) {
         installHelper.showBanner(context);
       }

@@ -69,3 +69,19 @@ function setThemeColor(color) {
 function setThemeData(theme) {
   document.documentElement.setAttribute('data-theme', theme);
 }
+
+function saveUserToken(token,time){
+    fetch("https://saveusertoken-wq2lg5j6kq-du.a.run.app", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: token,
+        alarmTimes: [time], // array of time slots
+      }),
+    })
+      .then(response => response.text())
+      .then(data => console.log("✅ Response:", data))
+      .catch(error => console.error("❌ Error:", error));
+}
