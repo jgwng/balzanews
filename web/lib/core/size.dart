@@ -1,10 +1,10 @@
 import 'package:balzanewsweb/util/platform_util.dart';
-import 'package:web/web.dart';
+import 'dart:html' as html;
 extension UISizeNum on num {
   static const double targetWidth = 390;
 
   double get s {
-    double screenWidth = document.documentElement?.clientWidth.toDouble() ?? targetWidth;
+    double screenWidth = html.document.documentElement?.clientWidth.toDouble() ?? targetWidth;
     if(screenWidth > targetWidth){
       screenWidth = targetWidth;
     }

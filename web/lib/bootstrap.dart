@@ -5,7 +5,7 @@ import 'package:balzanewsweb/helper/local_db_helper.dart';
 import 'package:balzanewsweb/util/platform_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'dart:html' as html;
+
 
 Future<void> bootstrap() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,5 +19,5 @@ Future<void> bootstrap() async{
   AppThemeHelper().init();
 }
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 

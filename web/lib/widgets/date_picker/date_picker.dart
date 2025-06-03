@@ -179,9 +179,8 @@ class _DatePickerComponent extends StatelessWidget {
   final double _pickerHeight;
 
   const _DatePickerComponent(
-      {Key? key, required this.route, required pickerHeight})
-      : _pickerHeight = pickerHeight,
-        super(key: key);
+      {required this.route, required pickerHeight})
+      : _pickerHeight = pickerHeight;
 
   @override
   Widget build(BuildContext context) {

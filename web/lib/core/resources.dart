@@ -37,8 +37,3 @@ class AppStyles{
     letterSpacing: -0.47,
   );
 }
-extension ColorExtension on Color {
-  String toStatusHex() {
-    return '#${(value & 0xFFFFFF).toRadixString(16).padLeft(6, '0').toUpperCase()}';
-  }
-}

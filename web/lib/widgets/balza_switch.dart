@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 class BalzaSwitch extends StatefulWidget {
 
   const BalzaSwitch({
-    Key? key,
+    super.key,
     required this.value,
     required this.onChanged,
     required this.activeColor,
     this.disActiveColor,
     this.isDisable = false,
-  }) : super(key: key);
+  });
 
   /// 스위치의 현제값
   final bool value;

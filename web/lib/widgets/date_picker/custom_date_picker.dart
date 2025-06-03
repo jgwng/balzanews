@@ -12,7 +12,7 @@ import 'package:balzanewsweb/widgets/date_picker/date_time_formatter.dart';
 /// DateTimePicker widget. Can display date and time picker.
 class CustomDatePicker extends StatefulWidget {
   CustomDatePicker({
-    Key? key,
+    super.key,
     this.minDateTime,
     this.maxDateTime,
     this.initDateTime,
@@ -27,7 +27,7 @@ class CustomDatePicker extends StatefulWidget {
     this.onChange,
     this.onConfirm,
     this.onMonthChangeStartWithFirstDate = false,
-  }) : super(key: key) {
+  }) {
     DateTime minTime = minDateTime ?? DateTime.parse(DATE_PICKER_MIN_DATETIME);
     DateTime maxTime = maxDateTime ?? DateTime.parse(DATE_PICKER_MAX_DATETIME);
     assert(minTime.compareTo(maxTime) < 0);
@@ -218,7 +218,7 @@ class _DateTimePickerWidgetState extends State<CustomDatePicker> {
     List<String> formatArr = DateTimeFormatter.splitDateFormat(
         widget.dateFormat,
         dateFormatSeparator: widget.dateFormatSeparator);
-    formatArr.forEach((format) {
+    for(String format in formatArr){
       List<int> valueRange = _findPickerItemRange(format);
       Widget pickerColumn = _renderDatePickerColumnComponent(
         scrollCtrl: _findScrollCtrl(format),
@@ -242,7 +242,7 @@ class _DateTimePickerWidgetState extends State<CustomDatePicker> {
         },
       );
       pickers.add(pickerColumn);
-    });
+    }
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween, children: pickers);
   }

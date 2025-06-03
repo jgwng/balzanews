@@ -2,21 +2,21 @@ import 'dart:html' as html;
 import 'dart:js' as js;
 
 import 'package:balzanewsweb/core/consts.dart';
+import 'package:balzanewsweb/core/routes.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/ios_pwa_install_notice_sheet.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/pwa_install_banner_sheet.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../util/platform_util.dart';
 class PWAInstallHelper{
   static final PWAInstallHelper _instance = PWAInstallHelper._internal();
-  PWAInstallHelper._internal() {}
+  PWAInstallHelper._internal();
   factory PWAInstallHelper() {
     return _instance;
   }
 
   bool get shouldShowPwaBanner {
-
+    return true;
     if (PlatformUtil.isPWA || PlatformUtil.isDesktopWeb) return false;
 
     final lastShown =
@@ -35,9 +35,9 @@ class PWAInstallHelper{
     html.window.localStorage[AppKeys.LAST_DATE_PWA_BANNER_SHOWN] = todayStr;
   }
 
-  void showBanner(BuildContext context) async{
+  void showBanner() async{
     var result = await showModalBottomSheet(
-      context: context,
+      context: AppRoutes.globalKey.currentContext!,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -49,7 +49,7 @@ class PWAInstallHelper{
     if(result == true){
       if(PlatformUtil.isIOSWeb){
         return showModalBottomSheet(
-          context: context,
+          context: AppRoutes.globalKey.currentContext!,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
           ),

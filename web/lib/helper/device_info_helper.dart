@@ -12,7 +12,7 @@ class DeviceInfoHelper{
   double? topPadding, leftPadding, rightPadding, bottomPadding;
   double? width, height;
 
-  DeviceInfoHelper._internal() {}
+  DeviceInfoHelper._internal();
 
   void init(){
     if(PlatformUtil.isDesktopWeb) return;

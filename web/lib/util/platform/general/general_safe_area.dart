@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 
 class PlatformSafeArea extends StatelessWidget {
-  PlatformSafeArea(
+  const PlatformSafeArea(
       {super.key,
         this.top,
         this.bottom,

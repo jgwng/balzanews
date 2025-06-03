@@ -11,17 +11,18 @@ import 'package:balzanewsweb/network/balza_repository.dart';
 import 'package:balzanewsweb/util/platform_util.dart';
 import 'package:balzanewsweb/widgets/animated_list_view.dart';
 import 'package:balzanewsweb/widgets/balza_app_bar.dart';
+import 'package:balzanewsweb/widgets/balza_button.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/corp_select_bottom_sheet.dart';
 import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
     if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:js' as js;
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -44,17 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       final title = message.notification?.title ?? 'Warnning!';
       final body = message.notification?.body ?? '';
-      final imageUrl = message.notification?.android?.imageUrl ??
-          message.data['image'] ??
-          null;
+      final imageUrl = message.notification?.android?.imageUrl ?? message.data['image'] ?? '';
       js.context.callMethod('showNotification',[title,body,imageUrl]);
-      print('📩 인앱 메시지 수신: $title - $body');
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) async{
       await Future.delayed(Duration(milliseconds: 400));
       if (installHelper.shouldShowPwaBanner) {
-        installHelper.showBanner(context);
+        installHelper.showBanner();
       }
     });
     super.initState();
@@ -97,18 +95,17 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> actions(){
     if(PlatformUtil.isDebugPWA){
       return [
-        if(PlatformUtil.isDebugPWA)
           InkWell(
             onTap: () {
               context.push(AppRoutes.bookmark);
             },
             child: Icon(
               Icons.bookmark_rounded,
-              size: 28,
+              size: 28.s,
             ),
           ),
         SizedBox(
-          width: 20,
+          width: 20.s,
         ),
         InkWell(
           onTap: () {
@@ -116,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: Icon(
             Icons.settings,
-            size: 28,
+            size: 28.s,
           ),
         )
       ];
@@ -130,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
           AppThemeHelper.themeMode.value == ThemeMode.light
               ? Icons.dark_mode
               : Icons.light_mode,
-          size: 28,
+          size: 28.s,
         ),
       )
     ];
@@ -204,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Icon(
                     Icons.error_outline_rounded,
-                    size: 80,
+                    size: 80.s,
                   ),
                   SizedBox(
                     height: 16.s,
@@ -218,6 +215,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text('네트워크 연결 상태를 확인해주세요.',style: AppStyles.w500.copyWith(
                       fontSize: 16.fs
                   )),
+                  SizedBox(
+                    height: 16.s,
+                  ),
+                  BalzaButton(
+                    onPressed: fetchArticles,
+                    width: 160.s,
+                    height: 52.s,
+                    buttonText: '다시 불러오기',
+                    backgroundColor: AppThemes.pointColor,
+                  )
                 ],
               ),
             );

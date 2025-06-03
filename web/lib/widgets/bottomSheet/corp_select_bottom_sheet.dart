@@ -31,7 +31,7 @@ Future<int?> showCorpSelectBottomSheet(BuildContext context) async{
 class CorpSelectBottomSheet extends StatelessWidget{
   final double sheetHeight;
 
-  CorpSelectBottomSheet({super.key, required this.sheetHeight});
+  const CorpSelectBottomSheet({super.key, required this.sheetHeight});
 
   @override
   Widget build(BuildContext context) {

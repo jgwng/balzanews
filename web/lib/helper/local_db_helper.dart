@@ -1,7 +1,6 @@
 import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/util/platform_util.dart';
-import 'package:idb_shim/idb.dart';
 import 'package:idb_shim/idb_browser.dart';
 
 class LocalDBHelper {
