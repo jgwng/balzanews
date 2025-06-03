@@ -1,5 +1,7 @@
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
+import 'package:balzanewsweb/helper/device_info_helper.dart';
+import 'package:balzanewsweb/util/platform_util.dart';
 import 'package:balzanewsweb/widgets/balza_button.dart';
 import 'package:flutter/material.dart';
 import 'package:balzanewsweb/widgets/date_picker/custom_date_picker.dart';
@@ -94,6 +96,10 @@ class _DatePickerBottomSheetState extends State<_DatePickerBottomSheet> {
         SizedBox(height: 8.s),
         _bottomButtons(),
         SizedBox(height: 8),
+        if(PlatformUtil.isPWA)
+        SizedBox(
+            height: DeviceInfoHelper().bottomPadding ?? 0,
+        )
       ],
     ));
   }
