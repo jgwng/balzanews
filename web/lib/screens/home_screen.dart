@@ -1,3 +1,5 @@
+import 'dart:js_interop_unsafe';
+
 import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/routes.dart';
@@ -17,6 +19,7 @@ import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
     if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'dart:js' as js;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -41,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     initData = fetchArticles();
     bottomPadding = (DeviceInfoHelper().bottomPadding ?? 0 + 24).s;
     WidgetsBinding.instance.addPostFrameCallback((_) async{
+      js.context.callMethod('clearAppBadge');
       await Future.delayed(Duration(milliseconds: 400));
       if (installHelper.shouldShowPwaBanner) {
         installHelper.showBanner();
