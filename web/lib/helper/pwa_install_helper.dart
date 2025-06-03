@@ -16,7 +16,6 @@ class PWAInstallHelper{
   }
 
   bool get shouldShowPwaBanner {
-    return true;
     if (PlatformUtil.isPWA || PlatformUtil.isDesktopWeb) return false;
 
     final lastShown =
@@ -47,7 +46,7 @@ class PWAInstallHelper{
     );
     updatePwaBannerLastShown();
     if(result == true){
-      if(PlatformUtil.isIOSWeb){
+      if(true){
         return showModalBottomSheet(
           context: AppRoutes.globalKey.currentContext!,
           shape: RoundedRectangleBorder(
