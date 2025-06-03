@@ -8,6 +8,7 @@ import 'package:balzanewsweb/widgets/balza_app_bar.dart';
 import 'package:balzanewsweb/widgets/balza_button.dart';
 import 'package:balzanewsweb/widgets/balza_switch.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/date_picker_bottom_sheet.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
@@ -129,7 +130,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   itemBuilder: (ctx,index){
                                     return InkWell(
                                       onTap: (){
-                                        js.context.callMethod('removeUserToken',[token,alarmList.value[index]]);
+                                        js.context.callMethod('removeUserToken',[alarmList.value[index]]);
                                         final updatedList = List<String>.from(alarmList.value)..removeAt(index);
                                         alarmList.value = updatedList;
                                         html.window.localStorage[AppKeys.PUSH_ALARM_LIST] = alarmList.value.join(',');
@@ -214,8 +215,9 @@ class _SettingScreenState extends State<SettingScreen> {
     );
     if(result != null){
       String alarmTime = '${result.hour}:${result.minute.toString().padLeft(2, '0')}';
+      print('alarmTime : $alarmTime');
       if(alarmList.value.contains(alarmTime) == false){
-        js.context.callMethod('saveUserToken',[token,alarmTime]);
+        js.context.callMethod('saveUserToken',[alarmTime]);
         alarmList.value = sortTimeList([...alarmList.value,alarmTime]);
         html.window.localStorage[AppKeys.PUSH_ALARM_LIST] = alarmList.value.join(',');
       }
@@ -233,16 +235,18 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   Future<void> fetchToken() async {
-    String? token = html.window.localStorage[AppKeys.PWA_PUSH_TOKEN];
-    if(token != null){
+    String? fcmToken = html.window.localStorage[AppKeys.PWA_PUSH_TOKEN];
+    if(fcmToken != null){
+      token = fcmToken;
       return;
     }
-    final fcmToken = await FirebaseMessaging.instance.getToken(
-        vapidKey: 'BLWmQrqAEQY8mCXQMhL9g18T2eiLnODTstn3fZte3TwGzwMiqEnlGdzn_cjXSU7d-RuIxQjJkxZoEuQ-PT8lTlU'
-    );
-    if (fcmToken != null) {
-      token = fcmToken;
-      html.window.localStorage[AppKeys.PWA_PUSH_TOKEN] = fcmToken;
-    }
+    js.context.callMethod('generateFcmToken');
+    // final fcmToken = await FirebaseMessaging.instance.getToken(
+    //     vapidKey: 'BLWmQrqAEQY8mCXQMhL9g18T2eiLnODTstn3fZte3TwGzwMiqEnlGdzn_cjXSU7d-RuIxQjJkxZoEuQ-PT8lTlU'
+    // );
+    // if (fcmToken != null) {
+    //   token = fcmToken;
+    //   html.window.localStorage[AppKeys.PWA_PUSH_TOKEN] = fcmToken;
+    // }
   }
 }
