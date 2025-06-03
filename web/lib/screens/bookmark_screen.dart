@@ -1,5 +1,6 @@
 import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
+import 'package:balzanewsweb/core/routes.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/helper/local_db_helper.dart';
 import 'package:balzanewsweb/model/article.dart';
@@ -104,7 +105,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
 
   void onTapBookmarkArticles(int index) async {
     try {
-      await context.push('/article',extra: {
+      await context.push(AppRoutes.article,extra: {
         'article' : articles.value[index]
       });
       var result = await db.get(

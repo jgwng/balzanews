@@ -1,5 +1,6 @@
 import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
+import 'package:balzanewsweb/core/routes.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/helper/app_theme_helper.dart';
 import 'package:balzanewsweb/helper/device_info_helper.dart';
@@ -14,6 +15,7 @@ import 'package:balzanewsweb/widgets/bottomSheet/corp_select_bottom_sheet.dart';
 import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
     if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -25,7 +27,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Article> topStories = [];
+  List<Article>? topStories;
+
   Future? initData;
   int selectedIndex = 0;
   BalzaRepository repository = BalzaRepository();
@@ -79,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             balzaTitle('주요 뉴스'),
             buildArticles(),
+            if(topStories?.isNotEmpty ?? false)
             SliverToBoxAdapter(
               child: SizedBox(
                 height: bottomPadding ?? 24.s,
@@ -96,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if(PlatformUtil.isDebugPWA)
           InkWell(
             onTap: () {
-              context.push('/bookmark');
+              context.push(AppRoutes.bookmark);
             },
             child: Icon(
               Icons.bookmark_rounded,
@@ -108,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         InkWell(
           onTap: () {
-            context.push('/setting');
+            context.push(AppRoutes.setting);
           },
           child: Icon(
             Icons.settings,
@@ -131,10 +135,11 @@ class _HomeScreenState extends State<HomeScreen> {
       )
     ];
   }
+
   Widget balzaTitle(String text) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.only(top: 28.s, bottom: 12.s),
+        padding: EdgeInsets.only(top: 28.s, ),
         child: Text(
           text,
           style: AppStyles.w700.copyWith(
@@ -184,20 +189,51 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context, value, _) {
           if (value == true) {
             return SliverFillRemaining(
+              hasScrollBody: false,
               child: Center(
                 child: CircularProgressIndicator(),
               ),
             );
           }
-          if (topStories.isEmpty) {
+          if(topStories == null){
+            return SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline_rounded,
+                    size: 80,
+                  ),
+                  SizedBox(
+                    height: 16.s,
+                  ),
+                  Text('네트워크에 접속할 수 없습니다.',style: AppStyles.w700.copyWith(
+                    fontSize: 20.fs,
+                  )),
+                  SizedBox(
+                    height: 8.s,
+                  ),
+                  Text('네트워크 연결 상태를 확인해주세요.',style: AppStyles.w500.copyWith(
+                      fontSize: 16.fs
+                  )),
+                ],
+              ),
+            );
+          }
+          if (topStories?.isEmpty ?? true) {
             return SliverToBoxAdapter(
               child: const SizedBox(),
             );
           }
           return SliverToBoxAdapter(
-            child: AnimatedStaggeredListView(
-              articleList: topStories,
-              onTapItem: (index) => onTapArticleSelect(index),
+            child: Padding(
+              padding: EdgeInsets.only(top: 12.s),
+              child: AnimatedStaggeredListView(
+                articleList: topStories!,
+                onTapItem: (index) => onTapArticleSelect(index),
+              ),
             ),
           );
         });
@@ -206,8 +242,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> fetchArticles() async {
     isLoading.value = true;
     var articles = await repository.getArticles(techCorp.value.rssUrl);
+
+    if(articles == null){
+      isLoading.value = false;
+      return;
+    }
+
     topStories = articles;
-    for (Article article in topStories) {
+    for (Article article in topStories!) {
       article.useLink = techCorp.value.useLink;
       if(PlatformUtil.isDebugPWA == true){
         var result = await LocalDBHelper().get(AppKeys.ARTICLE_HISTORY_STORE, article.link ?? '');
@@ -232,13 +274,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onTapArticleSelect(int index) {
-    Article article = topStories[index];
+    Article article = topStories![index];
     if (article.readYn.value == false) {
       article.readYn.value = true;
       LocalDBHelper().put(
           AppKeys.ARTICLE_HISTORY_STORE, article.link ?? '', article.toJson());
     }
-    context.push('/article',extra: {
+    context.push(AppRoutes.article,extra: {
       'article' : article
     });
   }
