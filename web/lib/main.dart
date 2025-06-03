@@ -18,9 +18,9 @@ class DevNewsApp extends StatelessWidget {
       valueListenable: AppThemeHelper.themeMode,
       builder: (_, mode, __) {
         return MaterialApp.router(
-          routeInformationParser: AppRoutes.router.routeInformationParser,
-          routerDelegate: AppRoutes.router.routerDelegate,
-          routeInformationProvider: AppRoutes.router.routeInformationProvider,
+          routeInformationParser: router.routeInformationParser,
+          routerDelegate: router.routerDelegate,
+          routeInformationProvider: router.routeInformationProvider,
           theme: AppThemeHelper.light,
           darkTheme: AppThemeHelper.dark,
           debugShowCheckedModeBanner: false,

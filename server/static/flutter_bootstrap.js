@@ -20,12 +20,9 @@ _flutter.buildConfig = {"engineRevision":"f73bfc4522dd0bc87bbcdb4bb3088082755c5e
 
             appRunner.runApp().then((_) => {
                     document.querySelector("flutter-view").classList.add("fade-in");
-                    updateViewportAttributes({
-                               'interactive-widget': 'resizes-content',
-                               'viewport-fit': 'cover',
-                               'user-scalable': 'no'
-                           });
-
+                    updateViewportAttributes({'interactive-widget': 'resizes-content'});
+                    updateViewportAttributes({'viewport-fit': 'cover'});
+                    updateViewportAttributes({'user-scalable': 'no'});
                   });
         }
     });

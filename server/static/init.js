@@ -1,3 +1,10 @@
+window.addEventListener('scroll', () => {
+  if (previousY > 100 && window.scrollY === 0) {
+    console.log('🔝 Probably scrolled to top via status bar tap');
+  }
+  previousY = window.scrollY;
+});
+
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }
@@ -29,7 +36,7 @@ function updateViewportAttributes(attributesMap) {
             }
         });
 
-        var newContent = Object.entries(contentObject).map(([key, val]) => `${key}=${val}`).join(', ');
+        var newContent = Object.entries(contentObject).map(([key, val]) => `${key}=${val}`).join(',');
         viewportMetaTag.setAttribute('content', newContent);
     } else {
         console.error('Viewport meta tag not found');
@@ -68,4 +75,16 @@ function setThemeColor(color) {
 
 function setThemeData(theme) {
   document.documentElement.setAttribute('data-theme', theme);
+}
+
+function showNotification(pushTitle,pushBody,pushImage) {
+    const title = pushTitle;
+    const options = {
+        body: pushBody,
+        icon: '/icons/Icon-192.png',
+        image: pushImage,
+    };
+    navigator.serviceWorker.ready.then(async function (serviceWorker) {
+        await serviceWorker.showNotification(title, options);
+    });
 }

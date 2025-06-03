@@ -15,10 +15,8 @@ import 'package:balzanewsweb/widgets/balza_button.dart';
 import 'package:balzanewsweb/widgets/bottomSheet/corp_select_bottom_sheet.dart';
 import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
     if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'dart:js' as js;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,13 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
     techCorp = ValueNotifier(TechCorps.values[selectedIndex]);
     initData = fetchArticles();
     bottomPadding = (DeviceInfoHelper().bottomPadding ?? 0 + 24).s;
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      final title = message.notification?.title ?? 'Warnning!';
-      final body = message.notification?.body ?? '';
-      final imageUrl = message.notification?.android?.imageUrl ?? message.data['image'] ?? '';
-      js.context.callMethod('showNotification',[title,body,imageUrl]);
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) async{
       await Future.delayed(Duration(milliseconds: 400));
       if (installHelper.shouldShowPwaBanner) {
@@ -97,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return [
           InkWell(
             onTap: () {
-              context.push(AppRoutes.bookmark);
+              AppRoutes.globalKey.currentContext!.push(AppRoutes.bookmark);
             },
             child: Icon(
               Icons.bookmark_rounded,

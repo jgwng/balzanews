@@ -12,12 +12,9 @@
 
             appRunner.runApp().then((_) => {
                     document.querySelector("flutter-view").classList.add("fade-in");
-                    updateViewportAttributes({
-                               'interactive-widget': 'resizes-content',
-                               'viewport-fit': 'cover',
-                               'user-scalable': 'no'
-                           });
-
+                    updateViewportAttributes({'interactive-widget': 'resizes-content'});
+                    updateViewportAttributes({'viewport-fit': 'cover'});
+                    updateViewportAttributes({'user-scalable': 'no'});
                   });
         }
     });
