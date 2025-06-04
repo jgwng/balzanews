@@ -83,8 +83,24 @@ function showNotification(pushTitle,pushBody,pushImage) {
         body: pushBody,
         icon: '/icons/Icon-192.png',
         image: pushImage,
+        data: {
+              dateOfArrival: Date.now()
+        },
     };
     navigator.serviceWorker.ready.then(async function (serviceWorker) {
         await serviceWorker.showNotification(title, options);
     });
 }
+
+async function clearAppBadge() {
+  if ('clearAppBadge' in navigator) {
+    try {
+      await navigator.clearAppBadge();
+      console.log("🔕 App badge cleared.");
+    } catch (err) {
+      console.error("❌ Failed to clear app badge:", err);
+    }
+  } else {
+    console.warn("⚠️ App badge not supported on this browser.");
+  }
+};

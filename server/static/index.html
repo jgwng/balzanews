@@ -1,112 +1,169 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <style>
-    :root {
-      --sat: env(safe-area-inset-top);
-      --sar: env(safe-area-inset-right);
-      --sab: env(safe-area-inset-bottom);
-      --sal: env(safe-area-inset-left);
-    }
-  </style>
-  <base href="/">
-
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="최신 개발 동향을 빠르게 파악하고 싶다면, 개발자 신문이 정답입니다.">
-
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="개발자 신문">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-  <meta name="theme-color" content="#65A2D4">
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
-  <meta property="og:title" content="Balza News">
-  <meta property="og:description" content="최신 개발 동향을 빠르게 파악하고 싶다면, 개발자 신문이 정답입니다">
-  <meta property="og:url" content="https://balzanewss.web.app">
-  <meta property="og:image" content="https://balzanewss.web.app/ogimage.png">
-  <script>
-    (function () {
-      const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
-      const theme = isLightMode === 'true' ? 'light' : 'dark';
-      const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
-      document.documentElement.setAttribute('data-theme', theme);
-      let metaTag = document.querySelector('meta[name="theme-color"]');
-      if (!metaTag) {
-        metaTag = document.createElement('meta');
-        metaTag.setAttribute('name', 'theme-color');
-        document.head.appendChild(metaTag);
-      }
-      metaTag.setAttribute('content', themeColor);
-    })();
-
-     if (
-      navigator.userAgent.indexOf("Safari") !== -1 &&
-      navigator.userAgent.indexOf("Chrome") === -1
-    ) {
-      var originalGetContext = HTMLCanvasElement.prototype.getContext;
-      HTMLCanvasElement.prototype.getContext = function () {
-        var contextType = arguments[0];
-        if (contextType === "webgl2") {
-          return;
+    <style>
+        :root {
+          --sat: env(safe-area-inset-top);
+          --sar: env(safe-area-inset-right);
+          --sab: env(safe-area-inset-bottom);
+          --sal: env(safe-area-inset-left);
         }
-        return originalGetContext.apply(
-          this,
-          [contextType].concat(Array.prototype.slice.call(arguments, 1)),
+    </style>
+    <base href="/">
+
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="최신 개발 동향을 빠르게 파악하고 싶다면, 개발자 신문이 정답입니다.">
+
+    <!-- iOS meta tags & icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="개발자 신문">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <meta name="theme-color" content="#65A2D4">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+          href="splash/icon_1136x640.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 562px) and (device-height: 1218px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+            href="splash/icon_2436x1125.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+            href="splash/icon_1792x828.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            href="splash/icon_828x1792.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+            href="splash/icon_1334x750.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 621px) and (device-height: 1344px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            href="splash/icon_1242x2688.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+            href="splash/icon_2208x1242.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 562px) and (device-height: 1218px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            href="splash/icon_1125x2436.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            href="splash/icon_1242x2208.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+            href="splash/icon_2732x2048.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 621px) and (device-height: 1344px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+            href="splash/icon_2688x1242.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+            href="splash/icon_2224x1668.png"
+    />
+    <link rel="apple-touch-startup-image"  media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            href="splash/icon_750x1334.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            href="splash/icon_2048x2732.png"
+    />
+    <link rel="apple-touch-startup-image"  media="screen and (device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+            href="splash/icon_2388x1668.png"
+    />
+    <link  rel="apple-touch-startup-image" media="screen and (device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            href="splash/icon_1668x2224.png"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            href="splash/icon_640x1136.png" />
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            href="splash/icon_1668x2388.png"  />
+    <link rel="apple-touch-startup-image"  media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+            href="splash/icon_2048x1536.png" />
+    <link rel="apple-touch-startup-image"  media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            href="splash/icon_1536x2048.png"
+    />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+    <meta property="og:title" content="Balza News">
+    <meta property="og:description" content="최신 개발 동향을 빠르게 파악하고 싶다면, 개발자 신문이 정답입니다">
+    <meta property="og:url" content="https://balzanewss.web.app">
+    <meta property="og:image" content="https://balzanewss.web.app/ogimage.png">
+    <script>
+        (function () {
+          const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
+          const theme = isLightMode === 'true' ? 'light' : 'dark';
+          const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
+          document.documentElement.setAttribute('data-theme', theme);
+          let metaTag = document.querySelector('meta[name="theme-color"]');
+          if (!metaTag) {
+            metaTag = document.createElement('meta');
+            metaTag.setAttribute('name', 'theme-color');
+            document.head.appendChild(metaTag);
+          }
+          metaTag.setAttribute('content', themeColor);
+        })();
+
+         if (
+          navigator.userAgent.indexOf("Safari") !== -1 &&
+          navigator.userAgent.indexOf("Chrome") === -1
+        ) {
+          var originalGetContext = HTMLCanvasElement.prototype.getContext;
+          HTMLCanvasElement.prototype.getContext = function () {
+            var contextType = arguments[0];
+            if (contextType === "webgl2") {
+              return;
+            }
+            return originalGetContext.apply(
+              this,
+              [contextType].concat(Array.prototype.slice.call(arguments, 1)),
+            );
+          };
+        }
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <script src="init.js" defer></script>
+    <link rel="stylesheet" type='text/css' href="styles.css">
+    <title>개발자 신문</title>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        document.addEventListener(
+          'touchstart',
+          (startEvent) => {
+            if (startEvent.touches.length > 1) return;
+            startEvent.preventDefault();
+          },
+          { passive: false }
         );
-      };
-    }
-  </script>
+    </script>
+    <script>
+        let deferredPrompt;
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-  <script src="init.js" defer></script>
-  <link rel="stylesheet" type='text/css' href="styles.css">
-  <title>개발자 신문</title>
-  <link rel="manifest" href="manifest.json">
-  <script>
-    document.addEventListener(
-      'touchstart',
-      (startEvent) => {
-        if (startEvent.touches.length > 1) return;
-        startEvent.preventDefault();
-      },
-      { passive: false }
-    );
-  </script>
-  <script>
-    let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          console.log('✅ beforeinstallprompt event captured');
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      console.log('✅ beforeinstallprompt event captured');
+          // Optionally notify Flutter (use `html.window.addEventListener('pwa-install-available')` in Dart)
+          window.dispatchEvent(new CustomEvent('pwa-install-available'));
+        });
 
-      // Optionally notify Flutter (use `html.window.addEventListener('pwa-install-available')` in Dart)
-      window.dispatchEvent(new CustomEvent('pwa-install-available'));
-    });
-
-    window.triggerInstallPrompt = async function () {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const result = await deferredPrompt.userChoice;
-        deferredPrompt = null;
-      } else {
-        alert('Install prompt is not available.');
-      }
-    };
-  </script>
-  <script type="module" src="firebase.js"></script>
+        window.triggerInstallPrompt = async function () {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const result = await deferredPrompt.userChoice;
+            deferredPrompt = null;
+          } else {
+            alert('Install prompt is not available.');
+          }
+        };
+    </script>
+    <script type="module" src="firebase.js"></script>
 </head>
 <body>
-  <div class="splashArea" id="splashArea">
-    <img id="logo" src="blog.webp" alt="BalzaNews logo" />
-  </div>
-  <div id="app-area"></div>
-  <script src="flutter_bootstrap.js" async></script>
+<div class="splashArea" id="splashArea">
+    <img id="logo" src="blog.webp" alt="BalzaNews logo"/>
+</div>
+<div id="app-area"></div>
+<script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
