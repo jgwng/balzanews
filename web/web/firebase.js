@@ -11,11 +11,11 @@ const firebaseConfig = {
 };
   
 const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
 
 onMessage(messaging, (payload) => {
   console.log("📩 Foreground push received:", payload);
 
-  // Optionally show a notification
   if (Notification.permission === "granted" && payload?.notification) {
     new Notification(payload.notification.title, {
       body: payload.notification.body,
@@ -24,13 +24,12 @@ onMessage(messaging, (payload) => {
   }
 });
 
-async function generateFcmToken() {
+async function generateFcmToken(apiKey) {
   try {
     const messaging = getMessaging(app);
     const token = await getToken(messaging, {
-      vapidKey: 'BLWmQrqAEQY8mCXQMhL9g18T2eiLnODTstn3fZte3TwGzwMiqEnlGdzn_cjXSU7d-RuIxQjJkxZoEuQ-PT8lTlU'
+      vapidKey: apiKey
     });
-
     if (token) {
       console.log("✅ FCM Token:", token);
       localStorage.setItem("PWA_PUSH_TOKEN", token); // ✅ Save token to localStorage

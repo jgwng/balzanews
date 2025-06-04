@@ -240,7 +240,8 @@ class _SettingScreenState extends State<SettingScreen> {
       token = fcmToken;
       return;
     }
-    js.context.callMethod('generateFcmToken');
+    String vapidKey =  'BLWmQrqAEQY8mCXQMhL9g18T2eiLnODTstn3fZte3TwGzwMiqEnlGdzn_cjXSU7d-RuIxQjJkxZoEuQ-PT8lTlU';
+    js.context.callMethod('generateFcmToken',[vapidKey]);
     // final fcmToken = await FirebaseMessaging.instance.getToken(
     //     vapidKey: 'BLWmQrqAEQY8mCXQMhL9g18T2eiLnODTstn3fZte3TwGzwMiqEnlGdzn_cjXSU7d-RuIxQjJkxZoEuQ-PT8lTlU'
     // );
