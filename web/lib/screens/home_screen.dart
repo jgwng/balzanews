@@ -67,6 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
           shrinkWrap: true,
           slivers: [
             balzaTitle('현재 신문사'),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 12.s,
+              ),
+            ),
             buildCurrentCorp(),
             SliverToBoxAdapter(
               child: SizedBox(
@@ -131,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget balzaTitle(String text) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.only(top: 28.s, ),
+        padding: EdgeInsets.only(top: 28.s),
         child: Text(
           text,
           style: AppStyles.w700.copyWith(

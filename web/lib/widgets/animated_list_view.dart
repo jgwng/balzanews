@@ -1,8 +1,7 @@
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/model/article.dart';
+import 'package:balzanewsweb/widgets/animated_list_item.dart';
 import 'package:flutter/material.dart';
-
-import '../core/resources.dart';
 
 class AnimatedStaggeredListView extends StatefulWidget {
   final Duration initialDelay;
@@ -25,36 +24,6 @@ class AnimatedStaggeredListView extends StatefulWidget {
 
 class _AnimatedStaggeredListViewState extends State<AnimatedStaggeredListView>
     with TickerProviderStateMixin {
-  final List<bool> _isVisible = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _isVisible.addAll(List.generate(widget.articleList.length, (_) => false));
-    _triggerAnimations();
-  }
-
-  @override
-  void didUpdateWidget(covariant AnimatedStaggeredListView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.articleList != oldWidget.articleList) {
-      _isVisible.clear();
-      _isVisible.addAll(List.generate(widget.articleList.length, (_) => false));
-      _triggerAnimations();
-    }
-  }
-
-  void _triggerAnimations() async {
-    await Future.delayed(widget.initialDelay);
-    for (int i = 0; i < widget.articleList.length; i++) {
-      await Future.delayed(widget.itemDelay);
-      if (mounted) {
-        setState(() {
-          _isVisible[i] = true;
-        });
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,41 +38,12 @@ class _AnimatedStaggeredListViewState extends State<AnimatedStaggeredListView>
         );
       },
       itemBuilder: (context, index) {
-        return AnimatedOpacity(
-            duration: const Duration(milliseconds: 500),
-            opacity: _isVisible[index] ? 1 : 0,
-            curve: Curves.easeOut,
-            child: AnimatedSlide(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeOut,
-                offset: _isVisible[index] ? Offset.zero : const Offset(0, 0.1),
-                child: InkWell(
-                    onTap: () {
-                      if (widget.onTapItem != null) {
-                        widget.onTapItem!(index);
-                      }
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(12.s),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(color: AppThemes.borderColor)),
-                      child: ValueListenableBuilder(
-                          valueListenable: widget.articleList[index].readYn,
-                          builder: (context, child, _) {
-                            return Text(
-                              (widget.articleList[index].title ?? '').replaceAll('&amp;', ''),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppStyles.w700.copyWith(
-                                  fontSize: 16.fs,
-                                  color: (widget.articleList[index].readYn.value)
-                                      ? Theme.of(context).colorScheme.surfaceBright
-                                      : Theme.of(context).colorScheme.surfaceDim),
-                            );
-                          }),
-                    ))));
+        return AnimatedArticleTile(
+          article: widget.articleList[index],
+          index: index,
+          delay: widget.initialDelay + widget.itemDelay * index,
+          onTap: () => widget.onTapItem?.call(index),
+        );
       },
     );
   }
