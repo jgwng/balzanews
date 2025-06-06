@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
     const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
     setThemeColor(themeColor);
+    console.log('DOMCONTENTLoaded');
 });
 
 function updateViewportAttributes(attributesMap) {

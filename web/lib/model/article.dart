@@ -10,6 +10,7 @@ class Article {
   String? thumbnail;
   String? description;
   String? content;
+  String? techCorp;
   bool useLink = false;
   ValueNotifier<bool> readYn = ValueNotifier(false);
   ValueNotifier<bool> bookMarkYN = ValueNotifier(false);
@@ -23,6 +24,7 @@ class Article {
         this.description,
         this.content,
         this.title,
+        this.techCorp,
         this.useLink = false
       });
 
@@ -34,6 +36,7 @@ class Article {
     thumbnail = json['thumbnail'];
     description = json['description'];
     title = json['title'];
+    techCorp = json['techCorp'];
     content = json['content'];
     useLink = json['useLink'] ?? false;
   }
@@ -47,7 +50,8 @@ class Article {
     'description': description,
     'content': content,
     'title': title,
-    'useLink' : useLink
+    'useLink' : useLink,
+    'techCorp' : techCorp,
   };
 
 }
