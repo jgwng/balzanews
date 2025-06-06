@@ -20,6 +20,7 @@ import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:js' as js;
+import 'dart:html' as html;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -40,6 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
   PWAInstallHelper installHelper = PWAInstallHelper();
   @override
   void initState() {
+    String lastIndex = html.window.localStorage[AppKeys.LAST_SELECT_CORP_INDEX] ?? '0';
+    selectedIndex = int.tryParse(lastIndex) ?? 0;
     techCorp = ValueNotifier(TechCorps.values[selectedIndex]);
     initData = fetchArticles();
     bottomPadding = (DeviceInfoHelper().bottomPadding ?? 0 + 24).s;
@@ -188,7 +191,9 @@ class _HomeScreenState extends State<HomeScreen> {
             return SliverFillRemaining(
               hasScrollBody: false,
               child: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: AppThemes.pointColor,
+                ),
               ),
             );
           }
@@ -275,6 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (result != null) {
       if (selectedIndex == result) return;
       selectedIndex = result;
+      html.window.localStorage[AppKeys.LAST_SELECT_CORP_INDEX] = '$selectedIndex';
       techCorp.value = TechCorps.values[result];
       fetchArticles();
     }
@@ -282,6 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onTapArticleSelect(int index) {
     Article article = topStories![index];
+    article.techCorp = techCorp.value.name;
     if (article.readYn.value == false) {
       article.readYn.value = true;
       LocalDBHelper().put(
