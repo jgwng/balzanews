@@ -1,6 +1,7 @@
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/helper/device_info_helper.dart';
+import 'package:balzanewsweb/util/device_util.dart';
 import 'package:balzanewsweb/util/platform_util.dart';
 import 'package:balzanewsweb/widgets/balza_button.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +99,7 @@ class _DatePickerBottomSheetState extends State<_DatePickerBottomSheet> {
         SizedBox(height: 8),
         if(PlatformUtil.isPWA)
         SizedBox(
-            height: DeviceInfoHelper().bottomPadding ?? 0,
+            height: bottomInset(),
         )
       ],
     ));
@@ -122,7 +123,7 @@ class _DatePickerBottomSheetState extends State<_DatePickerBottomSheet> {
           height: 12.s,
         ),
         Text(
-          '시간 설정',
+          '시간 설정 ',
           textAlign: TextAlign.center,
           style: AppStyles.w700.copyWith(
             fontSize: 18.fs,

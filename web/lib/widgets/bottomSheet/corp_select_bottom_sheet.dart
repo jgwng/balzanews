@@ -2,6 +2,7 @@ import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/helper/device_info_helper.dart';
+import 'package:balzanewsweb/util/device_util.dart';
 import 'package:balzanewsweb/util/platform_util.dart';
 import 'package:flutter/material.dart';
 
@@ -105,7 +106,7 @@ class CorpSelectBottomSheet extends StatelessWidget{
           ),
           if(PlatformUtil.isPWA)
           SizedBox(
-              height: DeviceInfoHelper().bottomPadding ?? 0,
+              height: bottomInset(),
           )
         ],
       ),
