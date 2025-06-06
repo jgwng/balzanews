@@ -46,7 +46,7 @@ class PWAInstallHelper{
     );
     updatePwaBannerLastShown();
     if(result == true){
-      if(true){
+      if(PlatformUtil.isIOSWeb){
         return showModalBottomSheet(
           context: AppRoutes.globalKey.currentContext!,
           shape: RoundedRectangleBorder(
