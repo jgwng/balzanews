@@ -31,4 +31,7 @@ class AppKeys{
   static const String IS_LIGHT_MODE = 'IS_LIGHT_MODE';
   static const String PWA_PUSH_TOKEN = 'PWA_PUSH_TOKEN';
   static const String PUSH_ALARM_LIST = 'PUSH_ALARM_LIST';
+  static const String APP_CURRENT_VERSION_NUMBER = 'APP_CURRENT_VERSION_NUMBER';
+  static const String APP_CURRENT_VERSION_BUILD_NUMBER = 'APP_CURRENT_VERSION_BUILD_NUMBER';
+  static const String APP_VERSION_UPDATE_NOTES = 'APP_VERSION_UPDATE_NOTES';
 }

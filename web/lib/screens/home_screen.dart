@@ -5,6 +5,7 @@ import 'package:balzanewsweb/core/resources.dart';
 import 'package:balzanewsweb/core/routes.dart';
 import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/helper/app_theme_helper.dart';
+import 'package:balzanewsweb/helper/auto_update_helper.dart';
 import 'package:balzanewsweb/helper/device_info_helper.dart';
 import 'package:balzanewsweb/helper/local_db_helper.dart';
 import 'package:balzanewsweb/helper/pwa_install_helper.dart';
@@ -14,9 +15,10 @@ import 'package:balzanewsweb/util/platform_util.dart';
 import 'package:balzanewsweb/widgets/animated_list_view.dart';
 import 'package:balzanewsweb/widgets/balza_app_bar.dart';
 import 'package:balzanewsweb/widgets/balza_button.dart';
-import 'package:balzanewsweb/widgets/bottomSheet/corp_select_bottom_sheet.dart';
+import 'package:balzanewsweb/widgets/bottom_sheet/corp_select_bottom_sheet.dart';
 import 'package:balzanewsweb/util/platform/general/general_safe_area.dart'
     if (dart.library.html) 'package:balzanewsweb/util/platform/web/web_safe_area.dart';
+import 'package:balzanewsweb/widgets/bottom_sheet/version_update_induce_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:js' as js;
@@ -39,6 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
   late ValueNotifier<TechCorps> techCorp;
   double? bottomPadding = 0;
   PWAInstallHelper installHelper = PWAInstallHelper();
+  AutoUpdateHelper updateHelper = AutoUpdateHelper();
+
   @override
   void initState() {
     String lastIndex = html.window.localStorage[AppKeys.LAST_SELECT_CORP_INDEX] ?? '0';
@@ -51,6 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
       await Future.delayed(Duration(milliseconds: 400));
       if (installHelper.shouldShowPwaBanner) {
         installHelper.showBanner();
+      }
+      if(PlatformUtil.isPWA){
+        await updateHelper.updateIfNecessary();
       }
     });
     super.initState();

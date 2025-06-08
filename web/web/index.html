@@ -124,19 +124,8 @@
     <script src="init.js" defer></script>
     <link rel="stylesheet" type='text/css' href="styles.css">
     <title>개발자 신문</title>
-    <script>
-        tailwind.config = {
-          theme: {
-            extend: {
-              colors: {
-                lightbg: '#F8F8FF',
-                darkbg: '#1C1C20',
-              }
-            }
-          }
-        }
-    </script>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="manifest" href="manifest.json">
 
     <script>
@@ -177,7 +166,7 @@
                     좋은 글은 놓치지 않고, 더 쉽게 만날 수 있어요.
                 </p>
                 <div class="w-full sm:w-auto">
-                    <button
+                    <button id="cta"
                             class="inline-flex items-center justify-center w-full sm:w-auto px-5 py-3 text-sm font-medium text-white bg-[#2B6747] rounded-lg
       hover:bg-[#24553b] focus:outline-none focus:ring-4 focus:ring-green-300
       dark:bg-[#2B6747] dark:hover:bg-[#1e4d34] dark:focus:ring-green-800">

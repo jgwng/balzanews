@@ -3,8 +3,8 @@ import 'dart:js' as js;
 
 import 'package:balzanewsweb/core/consts.dart';
 import 'package:balzanewsweb/core/routes.dart';
-import 'package:balzanewsweb/widgets/bottomSheet/ios_pwa_install_notice_sheet.dart';
-import 'package:balzanewsweb/widgets/bottomSheet/pwa_install_banner_sheet.dart';
+import 'package:balzanewsweb/widgets/bottom_sheet/ios_pwa_install_notice_sheet.dart';
+import 'package:balzanewsweb/widgets/bottom_sheet/pwa_install_banner_sheet.dart';
 import 'package:flutter/material.dart';
 
 import '../util/platform_util.dart';
