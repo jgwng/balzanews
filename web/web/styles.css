@@ -16,21 +16,13 @@ html, body {
   background-color: var(--bg-color);
 }
 
-body {
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
 .splashArea {
     height: 100%;
     width: 100%;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
     background-color: var(--bg-color);
     flex-direction: column;
 }
@@ -78,5 +70,21 @@ body {
   .splashArea img {
     height: 50vw;
     width: 50vw;
+  }
+}
+@media (display-mode: standalone) {
+  html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+  }
+
+  body {
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
   }
 }

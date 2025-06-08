@@ -1,10 +1,3 @@
-window.addEventListener('scroll', () => {
-  if (previousY > 100 && window.scrollY === 0) {
-    console.log('🔝 Probably scrolled to top via status bar tap');
-  }
-  previousY = window.scrollY;
-});
-
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }

@@ -124,17 +124,21 @@
     <script src="init.js" defer></script>
     <link rel="stylesheet" type='text/css' href="styles.css">
     <title>개발자 신문</title>
-    <link rel="manifest" href="manifest.json">
     <script>
-        document.addEventListener(
-          'touchstart',
-          (startEvent) => {
-            if (startEvent.touches.length > 1) return;
-            startEvent.preventDefault();
-          },
-          { passive: false }
-        );
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                lightbg: '#F8F8FF',
+                darkbg: '#1C1C20',
+              }
+            }
+          }
+        }
     </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="manifest.json">
+
     <script>
         let deferredPrompt;
 
@@ -160,10 +164,114 @@
     <script type="module" src="firebase.js"></script>
 </head>
 <body>
+<div id="landingPage" class="bg-lightbg dark:bg-darkbg text-gray-900 dark:text-white">
+    <!-- Hero Section -->
+    <section class="bg-lightbg dark:bg-darkbg">
+        <div class="grid max-w-screen-xl px-4 pt-16 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-12 lg:grid-cols-12 lg:pt-24">
+            <div class="mr-auto place-self-center lg:col-span-7">
+                <h1 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl xl:text-5xl">
+                    기술 트렌드의 흐름,<br />개발자신문으로 따라잡기
+                </h1>
+                <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl">
+                    국내 주요 기업의 기술 블로그를 하나의 페이지에서.<br class="hidden md:inline" />
+                    이젠 여러 사이트를 돌아다닐 필요 없이, 개발자신문 하나면 충분합니다.
+                </p>
+                <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                    <button id="cta"
+                            class="inline-flex items-center justify-center w-full px-5 py-3 mb-2 mr-2 text-sm font-medium text-white bg-[#2B6747] rounded-lg sm:w-auto
+              hover:bg-[#24553b] focus:outline-none focus:ring-4 focus:ring-green-300
+              dark:bg-[#2B6747] dark:hover:bg-[#1e4d34] dark:focus:ring-green-800">
+                        지금 시작하기 →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Section -->
+    <section class="bg-lightbg dark:bg-darkbg">
+        <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+            <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+                <div class="text-gray-600 dark:text-gray-300 sm:text-lg">
+                    <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900">
+                        좋은 개발자에게는<br />
+                        좋은 정보가 필요합니다
+                    </h2>
+                    <p class="mb-8 font-light lg:text-xl text-gray-500">
+                        반복적인 기술 블로그 방문, 이제 그만.<br />
+                        이제 여러 사이트를 방문할 필요 없이, 개발자신문 하나로 충분합니다
+                    </p>
+                    <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
+                        <li class="flex space-x-3">
+                            <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="#2B6747" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-base font-medium leading-tight text-gray-500">국내 유명 기업 블로그들 모아서 한번에!</span>
+                        </li>
+                        <li class="flex space-x-3">
+                            <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="#2B6747" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-base font-medium leading-tight text-gray-500">다크 모드 지원</span>
+                        </li>
+                        <li class="flex space-x-3">
+                            <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="#2B6747" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-base font-medium leading-tight text-gray-500">북마크 기능으로 나중에 읽고 싶은 글도 놓치지 마세요</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
 <div class="splashArea" id="splashArea">
     <img id="logo" src="blog.webp" alt="BalzaNews logo"/>
 </div>
-<div id="app-area"></div>
-<script src="flutter_bootstrap.js" async></script>
+<script>
+    function isPwaMode() {
+      return window.matchMedia('(display-mode: standalone)').matches ||
+             window.navigator.standalone === true;
+    }
+
+    function checkLandingPage() {
+      const today = new Date().toISOString().split('T')[0];
+      const lastRun = localStorage.getItem('LAST_DATE_SHOWN_LANDING_PAGE');
+
+      if (lastRun !== today) {
+        document.getElementById('landingPage').style.display = 'block';
+        document.getElementById('splashArea').style.display = 'none';
+        document.getElementById('cta').addEventListener('click', function() {
+            localStorage.setItem('LAST_DATE_SHOWN_LANDING_PAGE', today);
+            runFlutterApp();
+        });
+      } else {
+        runFlutterApp();
+      }
+    }
+
+    function runFlutterApp(){
+        document.getElementById('splashArea').style.display = 'flex';
+        document.getElementById('landingPage').style.display = 'none';
+
+        const flutterScript = document.createElement('script');
+        flutterScript.src = 'flutter_bootstrap.js'; // set the script source
+        flutterScript.async = true; // optional: makes it load asynchronously
+        document.body.appendChild(flutterScript);
+
+        const script = document.createElement('script');
+        script.src = 'ios_swift_touch.js'; // set the script source
+        script.async = true; // optional: makes it load asynchronously
+        document.body.appendChild(script);
+    }
+    if (isPwaMode()) {
+      runFlutterApp();
+    }else{
+      checkLandingPage();
+    }
+</script>
+<!--<script src="flutter_bootstrap.js" async></script>-->
 </body>
 </html>
