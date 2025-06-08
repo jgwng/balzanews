@@ -167,40 +167,43 @@
 <div id="landingPage" class="bg-lightbg dark:bg-darkbg text-gray-900 dark:text-white">
     <!-- Hero Section -->
     <section class="bg-lightbg dark:bg-darkbg">
-        <div class="grid max-w-screen-xl px-4 pt-16 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-12 lg:grid-cols-12 lg:pt-24">
-            <div class="mr-auto place-self-center lg:col-span-7">
-                <h1 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl xl:text-5xl">
-                    기술 트렌드의 흐름,<br />개발자신문으로 따라잡기
+        <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
+            <div class="place-self-center lg:col-span-7 w-full">
+                <h1 class="mb-4 text-4xl font-extrabold text-gray-900 leading-tight tracking-tight md:text-5xl xl:text-6xl">
+                    개발자에게 필요한 정보,<br />매일 정리해드립니다
                 </h1>
-                <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl">
-                    국내 주요 기업의 기술 블로그를 하나의 페이지에서.<br class="hidden md:inline" />
-                    이젠 여러 사이트를 돌아다닐 필요 없이, 개발자신문 하나면 충분합니다.
+                <p class="mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+                    매번 탭을 열고 새 글을 찾는 수고를 줄였습니다.<br />
+                    좋은 글은 놓치지 않고, 더 쉽게 만날 수 있어요.
                 </p>
-                <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                    <button id="cta"
-                            class="inline-flex items-center justify-center w-full px-5 py-3 mb-2 mr-2 text-sm font-medium text-white bg-[#2B6747] rounded-lg sm:w-auto
-              hover:bg-[#24553b] focus:outline-none focus:ring-4 focus:ring-green-300
-              dark:bg-[#2B6747] dark:hover:bg-[#1e4d34] dark:focus:ring-green-800">
+                <div class="w-full sm:w-auto">
+                    <button
+                            class="inline-flex items-center justify-center w-full sm:w-auto px-5 py-3 text-sm font-medium text-white bg-[#2B6747] rounded-lg
+      hover:bg-[#24553b] focus:outline-none focus:ring-4 focus:ring-green-300
+      dark:bg-[#2B6747] dark:hover:bg-[#1e4d34] dark:focus:ring-green-800">
                         지금 시작하기 →
                     </button>
                 </div>
             </div>
+            <div class="pt-4 lg:mt-0 lg:col-span-5 lg:flex">
+                <img src="mockup.webp" alt="hero image"  class="rounded-lg" >
+            </div>
         </div>
     </section>
 
-    <!-- Feature Section -->
     <section class="bg-lightbg dark:bg-darkbg">
-        <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+        <div class="max-w-screen-xl px-4 pb-4 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+            <!-- Row -->
             <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
-                <div class="text-gray-600 dark:text-gray-300 sm:text-lg">
+                <div class="text-gray-500 sm:text-lg dark:text-gray-400">
                     <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900">
-                        좋은 개발자에게는<br />
-                        좋은 정보가 필요합니다
+                        읽고 싶은 글만 쏙쏙 골라보세요
                     </h2>
                     <p class="mb-8 font-light lg:text-xl text-gray-500">
-                        반복적인 기술 블로그 방문, 이제 그만.<br />
-                        이제 여러 사이트를 방문할 필요 없이, 개발자신문 하나로 충분합니다
+                        관심 있는 주제와 기업 중심으로 글을 탐색할 수 있어요.<br />
+                        매일 쌓이는 글 속에서, 필요한 정보만 쉽게 찾으세요.
                     </p>
+                    <!-- List -->
                     <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
                         <li class="flex items-center space-x-4">
                             <svg class="flex-shrink-0 w-8 h-8 text-purple-500 dark:text-purple-400" fill="#2B6747" viewBox="0 0 20 20">
@@ -224,6 +227,7 @@
                         </li>
                     </ul>
                 </div>
+                <img class="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex" src="devnews.webp" alt="dashboard feature image">
             </div>
         </div>
     </section>
