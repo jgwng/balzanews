@@ -16,7 +16,7 @@ class PWAInstallHelper{
   }
 
   bool get shouldShowPwaBanner {
-    if (PlatformUtil.isPWA || PlatformUtil.isDesktopWeb) return false;
+    if (PlatformUtil.isPWA) return false;
 
     final lastShown =
     html.window.localStorage[AppKeys.LAST_DATE_PWA_BANNER_SHOWN];
