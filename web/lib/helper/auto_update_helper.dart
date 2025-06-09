@@ -1,14 +1,9 @@
 import 'dart:convert';
 import 'dart:js_interop' as js_interop;
-
-
 import 'package:balzanewsweb/core/consts.dart';
-import 'package:balzanewsweb/core/routes.dart';
 import 'package:balzanewsweb/model/app_version_info.dart';
 import 'package:balzanewsweb/widgets/bottom_sheet/version_update_induce_bottom_sheet.dart';
-import 'package:balzanewsweb/widgets/dialog/update_notes_dialog.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:web/web.dart' as web;
 
@@ -20,26 +15,27 @@ class AutoUpdateHelper {
   static const _currentBuildNumber = AppKeys.APP_CURRENT_VERSION_BUILD_NUMBER;
 
   Future<void> updateIfNecessary() async {
-    final shouldUpdate = await checkNeedUpdate();
+    final updateInfo = await checkNeedUpdate();
 
-    if (!shouldUpdate) {
-      checkUpdateNotes();
+    if (updateInfo.$1 == false) {
       return;
     }
 
-    if(shouldUpdate == true){
-      await showVersionUpdateInduceBottomSheet();
-      reloadApp();
+    if(updateInfo.$1 == true){
+      bool isForceUpdate = updateInfo.$2 ?? false;
+      var result = await showVersionUpdateInduceBottomSheet(isForceUpdate);
+      if(result == true){
+        reloadApp();
+      }
     }
   }
 
-  Future<bool> checkNeedUpdate() async {
-    if(kDebugMode == true) return false;
+
+  Future<(bool?, bool?)> checkNeedUpdate() async {
+    if(kDebugMode == true) return (false, false);
 
     final currentVersionNumber = _getSavedVersionNumber();
     final currentBuildNumber = _getSavedBuildNumber();
-
-    if(currentVersionNumber == null) return false;
 
     final remoteVersionInfo = await _getRemoteBuildNumber();
 
@@ -49,25 +45,31 @@ class AutoUpdateHelper {
     final remoteVersionNumber = remoteVersionInfo.version;
     final remoteBuildNumber = remoteVersionInfo.buildNumber;
 
-    if (remoteVersionNumber == currentVersionNumber && currentBuildNumber == remoteBuildNumber) {
-      return false;
+    if(currentVersionNumber == null){
+      saveInfo(remoteVersionNumber, remoteBuildNumber);
+      return (false, false);
     }
 
-    debugPrint('New build number: $remoteBuildNumber');
+    if (remoteVersionNumber == currentVersionNumber && currentBuildNumber == remoteBuildNumber) {
+      saveInfo(remoteVersionNumber, remoteBuildNumber);
+      return (false, false);
+    }
 
-    _saveVersionNumber(remoteVersionNumber ?? '');
-    _saveBuildNumber(remoteBuildNumber ?? '');
-    _saveUpdateNotes(remoteVersionInfo.updateNotes ?? []);
-    return true;
+    saveInfo(remoteVersionNumber, remoteBuildNumber);
+    return (true, remoteVersionInfo.forceUpdate ?? false);
   }
 
   Future<AppVersionInfo> _getRemoteBuildNumber() async {
-    const versionPath = '/version.json';
-
+    const versionPath = 'https://balzanewss.web.app/version.json';
     final response = await http.get(Uri.parse(versionPath));
     final appData = json.decode(response.body);
     final versionInfo = AppVersionInfo.fromJson(appData);
     return versionInfo;
+  }
+
+  void saveInfo(String? versionNumber, String? buildNumber){
+    _saveVersionNumber(versionNumber ?? '');
+    _saveBuildNumber(buildNumber ?? '');
   }
 
   String? _getSavedVersionNumber() => _localStorage.getItem(_currentVersionNumber);
@@ -77,10 +79,6 @@ class AutoUpdateHelper {
   String? _getSavedBuildNumber() => _localStorage.getItem(_currentBuildNumber);
 
   void _saveBuildNumber(String buildNumber) => _localStorage.setItem(_currentBuildNumber, buildNumber);
-
-  void _saveUpdateNotes(List<String> notes) {
-    _localStorage.setItem(AppKeys.APP_VERSION_UPDATE_NOTES, jsonEncode(notes));
-  }
 
   Future<void> reloadApp() async {
     final registrationsPromise = web.window.navigator.serviceWorker.getRegistrations();
@@ -93,22 +91,5 @@ class AutoUpdateHelper {
 
     web.window.location.reload();
   }
-
-  Future<void> checkUpdateNotes() async{
-    final raw = _localStorage.getItem(AppKeys.APP_VERSION_UPDATE_NOTES);
-    if (raw == null) return;
-    final updateNotes = List<String>.from(jsonDecode(raw));
-    if(updateNotes.isEmpty) return;
-
-    Future.delayed(Duration(milliseconds: 300), () {
-      showDialog(
-        context: AppRoutes.globalKey.currentContext!,
-        builder: (_) => UpdateNotesDialog(notes: updateNotes),
-      );
-      _localStorage.removeItem(AppKeys.APP_VERSION_UPDATE_NOTES);
-    });
-    return;
-  }
-
 
 }

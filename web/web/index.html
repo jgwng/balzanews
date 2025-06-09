@@ -125,18 +125,12 @@
     <link rel="stylesheet" type='text/css' href="styles.css">
     <title>개발자 신문</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link rel="manifest" href="manifest.json">
-
     <script>
         let deferredPrompt;
-
         window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
           deferredPrompt = e;
-          console.log('✅ beforeinstallprompt event captured');
-
-          // Optionally notify Flutter (use `html.window.addEventListener('pwa-install-available')` in Dart)
           window.dispatchEvent(new CustomEvent('pwa-install-available'));
         });
 
@@ -162,14 +156,14 @@
                     개발자에게 필요한 정보,<br />매일 정리해드립니다
                 </h1>
                 <p class="mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-                    매번 탭을 열고 새 글을 찾는 수고를 줄였습니다.<br />
+                    매번 탭을 열고 새 글을 찾는 수고를 줄였습니다.<br/>
                     좋은 글은 놓치지 않고, 더 쉽게 만날 수 있어요.
                 </p>
                 <div class="w-full sm:w-auto">
                     <button id="cta"
-                            class="inline-flex items-center justify-center w-full sm:w-auto px-5 py-3 text-sm font-medium text-white bg-[#2B6747] rounded-lg
-      hover:bg-[#24553b] focus:outline-none focus:ring-4 focus:ring-green-300
-      dark:bg-[#2B6747] dark:hover:bg-[#1e4d34] dark:focus:ring-green-800">
+                            class="inline-flex items-center justify-center w-full sm:w-auto px-5 py-3 text-xl font-medium text-white bg-[#2B6747] rounded-lg
+         hover:bg-[#24553b] dark:bg-[#2B6747] dark:hover:bg-[#1e4d34] dark:focus:ring-green-800
+         focus:scale-100 active:scale-100 transform transition-none">
                         지금 시작하기 →
                     </button>
                 </div>

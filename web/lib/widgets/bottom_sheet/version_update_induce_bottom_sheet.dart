@@ -6,7 +6,7 @@ import 'package:balzanewsweb/util/device_util.dart';
 import 'package:balzanewsweb/widgets/balza_button.dart';
 import 'package:flutter/material.dart';
 
-Future<void> showVersionUpdateInduceBottomSheet() async{
+Future<bool?> showVersionUpdateInduceBottomSheet(bool isForce) async{
   var context = AppRoutes.globalKey.currentContext!;
   var height  = DeviceInfoHelper().height ?? MediaQuery.of(context).size.height;
 
@@ -14,7 +14,7 @@ Future<void> showVersionUpdateInduceBottomSheet() async{
     constraints: BoxConstraints(
         maxHeight: height * 0.5
     ),
-    isDismissible: false,
+    isDismissible: (isForce) ? false : true,
     backgroundColor: Theme.of(context).colorScheme.surface,
     context: context,
     isScrollControlled: true,
@@ -24,6 +24,7 @@ Future<void> showVersionUpdateInduceBottomSheet() async{
     ),
     builder: (context) {
       return VersionUpdateInduceBottomSheet(
+        isForce : isForce
       );
     },
   );
@@ -31,12 +32,17 @@ Future<void> showVersionUpdateInduceBottomSheet() async{
 }
 
 class VersionUpdateInduceBottomSheet extends StatelessWidget {
-  const VersionUpdateInduceBottomSheet({super.key});
+  final bool isForce;
+
+  const VersionUpdateInduceBottomSheet(
+      {super.key,
+        required this.isForce,
+      });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(left: 24.s,right: 24.s),
+      padding: EdgeInsets.symmetric(horizontal: 24.s),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -58,56 +64,94 @@ class VersionUpdateInduceBottomSheet extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppStyles.w700.copyWith(fontSize: 20.fs),),
           SizedBox(height: 16.s),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "지금이 바로 ",
-                  ),
-                  TextSpan(
-                    text: "업데이트",
-                    style: AppStyles.w700
-                        .copyWith(fontSize: 20.fs),
-                  ),
-                  TextSpan(
-                    text: "할 타이밍!\n",
-                  ),
-                  TextSpan(
-                    text: "새로워진 ",
-                  ),
-                  TextSpan(
-                    text: "개발자 뉴스",
-                    style: AppStyles.w700
-                        .copyWith(fontSize: 20.fs),
-                  ),
-                  TextSpan(
-                    text: "를 만나보세요.",
-                  )
-                ],
-              ),
-              textAlign: TextAlign.left,
-              style: AppStyles.w500.copyWith(fontSize: 18.fs),
+          ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Color(0xFFFFDE00), // yellow
+                Color(0xFFFD5900), // orange
+              ],
+            ).createShader(bounds),
+            blendMode: BlendMode.srcIn,
+            child:  Icon(
+              Icons.notifications_on_rounded,
+              size: 90.s,
             ),
+          ),
+          SizedBox(height: 16.s),
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: "새로워진 ",
+                ),
+                TextSpan(
+                  text: "개발자 뉴스",
+                  style: AppStyles.w700
+                      .copyWith(fontSize: 20.fs),
+                ),
+                TextSpan(
+                  text: "를 만나보세요.",
+                )
+              ],
+            ),
+            textAlign: TextAlign.left,
+            style: AppStyles.w500.copyWith(fontSize: 18.fs),
           ),
           SizedBox(
             height: 16.s,
           ),
-          BalzaButton(
-            onPressed: () {
-              Navigator.pop(context,true);
-            },
-            buttonText: '업데이트',
-            backgroundColor: AppThemes.pointColor,
-            height: 52.s,
-          ),
-          SizedBox(height: 16.s),
+          bottomButtons(context),
           SizedBox(
-            height: bottomInset(),
+            height: bottomInset() + 16.s,
           )
         ],
       ),
     );
+  }
+
+
+  Widget bottomButtons(BuildContext context){
+    if(isForce == true){
+      return SizedBox(
+        height: 52.s,
+        child: BalzaButton(
+          onPressed: () {
+            Navigator.pop(context,true);
+          },
+          buttonText: '업데이트',
+          backgroundColor: AppThemes.pointColor,
+        ),
+      );
+    }
+    return SizedBox(
+      height: 52.s,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: BalzaButton(
+                onPressed: (){
+                  Navigator.pop(context,false);
+                },
+                buttonText: '다음에 하기',
+                buttonTextColor: AppThemes.fontColor,
+                backgroundColor:AppThemes.pointColor.withAlpha(80)
+            ),
+          ),
+          SizedBox(width: 8.s),
+          Expanded(
+            child: BalzaButton(
+                onPressed: (){
+                  Navigator.pop(context, true);
+                },
+                buttonText: '업데이트',
+                backgroundColor:AppThemes.pointColor
+            ),
+          ),
+        ],
+      ),
+    );;
   }
 }

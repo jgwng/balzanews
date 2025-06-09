@@ -1,1 +1,7 @@
-{"app_name":"balzanewsweb","version":"1.0.0","build_number":"1","package_name":"balzanewsweb"}
+{
+  "app_name": "개발자 신문",
+  "version": "1.0.1",
+  "build_number": "1",
+  "package_name": "balzanewsweb",
+  "force_update": false
+}
