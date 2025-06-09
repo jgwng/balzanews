@@ -26,7 +26,7 @@ class BalzaSwitch extends StatefulWidget {
   final bool isDisable;
 
   @override
-  _BalzaSwitchState createState() => _BalzaSwitchState();
+  State<BalzaSwitch> createState() => _BalzaSwitchState();
 }
 
 class _BalzaSwitchState extends State<BalzaSwitch>

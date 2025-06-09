@@ -213,7 +213,6 @@ class _SettingScreenState extends State<SettingScreen> {
     );
     if(result != null){
       String alarmTime = '${result.hour}:${result.minute.toString().padLeft(2, '0')}';
-      print('alarmTime : $alarmTime');
       if(alarmList.value.contains(alarmTime) == false){
         js.context.callMethod('saveUserToken',[alarmTime]);
         alarmList.value = sortTimeList([...alarmList.value,alarmTime]);

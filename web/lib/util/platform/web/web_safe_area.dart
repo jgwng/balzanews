@@ -19,7 +19,7 @@ class PlatformSafeArea extends StatefulWidget {
   final Widget? child;
 
   @override
-  _PlatformSafeAreaState createState() => _PlatformSafeAreaState();
+  State<PlatformSafeArea> createState() => _PlatformSafeAreaState();
 }
 
 class _PlatformSafeAreaState extends State<PlatformSafeArea> {

@@ -60,7 +60,7 @@ class _AnimatedArticleTileState extends State<AnimatedArticleTile>
                 overflow: TextOverflow.ellipsis,
                 style: AppStyles.w700.copyWith(
                   fontSize: 16.fs,
-                  color: ((value ?? false) == true)
+                  color: (value == true)
                       ? Theme.of(context).colorScheme.surfaceBright
                       : Theme.of(context).colorScheme.surfaceDim,
                 ),

@@ -46,8 +46,7 @@ class CustomDatePicker extends StatefulWidget {
   final bool onMonthChangeStartWithFirstDate;
 
   @override
-  State<StatefulWidget> createState() => _DateTimePickerWidgetState(
-      minDateTime, maxDateTime, initDateTime, minuteDivider);
+  State<StatefulWidget> createState() => _DateTimePickerWidgetState();
 }
 
 class _DateTimePickerWidgetState extends State<CustomDatePicker> {
@@ -72,34 +71,28 @@ class _DateTimePickerWidgetState extends State<CustomDatePicker> {
   List<int> solarMonthsOf31Days = <int>[1, 3, 5, 7, 8, 10, 12];
   bool _isChangeTimeRange = false;
 
-  _DateTimePickerWidgetState(DateTime? minTime, DateTime? maxTime,
-      DateTime? initTime, int minuteDivider) {
-    // check minTime value
-    minTime ??= DateTime.parse(DATE_PICKER_MIN_DATETIME);
-    // check maxTime value
-    maxTime ??= DateTime.parse(DATE_PICKER_MAX_DATETIME);
-    // check initTime value
-    initTime ??= DateTime.now();
-    // limit initTime value
-    if (initTime.compareTo(minTime) < 0) {
-      initTime = minTime;
+  @override
+  void initState(){
+    super.initState();
+    _minTime = widget.minDateTime ?? DateTime.parse(DATE_PICKER_MIN_DATETIME);
+    _maxTime = widget.maxDateTime ?? DateTime.parse(DATE_PICKER_MAX_DATETIME);
+
+    DateTime initTime = widget.initDateTime ?? DateTime.now();
+    if (initTime.compareTo(_minTime) < 0) {
+      initTime = _minTime;
     }
-    if (initTime.compareTo(maxTime) > 0) {
-      initTime = maxTime;
+    if (initTime.compareTo(_maxTime) > 0) {
+      initTime = _maxTime;
     }
 
-    _minTime = minTime;
-    _maxTime = maxTime;
     _currYear = initTime.year;
     _currMonth = initTime.month;
     _currDay = initTime.day;
     _currHour = initTime.hour;
     _currMinute = initTime.minute;
     _currSecond = initTime.second;
+    _minuteDivider = widget.minuteDivider;
 
-    _minuteDivider = minuteDivider;
-
-    // limit the range of year
     _yearRange = _calcYearRange();
     _currYear = min(max(_minTime.year, _currYear), _maxTime.year);
     // limit the range of month

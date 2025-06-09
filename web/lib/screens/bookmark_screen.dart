@@ -230,7 +230,6 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
         if(corpIndex < 0){
           final updatedCorps = List<String>.from(corps.value)..remove(articleCorp);
           corps.value = updatedCorps;
-          print('corps : ${corps.value}');
           currentIndex.value = 0;
         }
       }

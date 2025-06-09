@@ -152,6 +152,6 @@ class VersionUpdateInduceBottomSheet extends StatelessWidget {
           ),
         ],
       ),
-    );;
+    );
   }
 }
