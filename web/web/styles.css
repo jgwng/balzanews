@@ -66,6 +66,28 @@ html, body {
     opacity: 0;
 }
 
+.progress-container {
+  position: relative;           /* Needed for .progress-bar to be absolute */
+  width: 240px;
+  height: 12px;
+  background-color: #eaebed;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%; /* full width — but transform controls visibility */
+  background-color: #2B6747;
+  transform: translateX(-100%); /* Initially hidden */
+  transition: transform 1s ease; /* Smooth animation */
+  border-radius: 10px;
+}
+
 @media (max-width: 575px) {
   .splashArea img {
     height: 50vw;
@@ -86,5 +108,9 @@ html, body {
       display: flex;
       justify-content: center;
       align-items: center;
+  }
+
+  .progress-container{
+    display: none;
   }
 }

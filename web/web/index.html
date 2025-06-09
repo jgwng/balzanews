@@ -218,6 +218,10 @@
 
 <div class="splashArea" id="splashArea">
     <img id="logo" src="blog.webp" alt="BalzaNews logo"/>
+
+    <div class="progress-container" id="progressbar">
+        <div class="progress-bar" id="progress"></div>
+    </div>
 </div>
 <script>
     function isPwaMode() {
@@ -241,6 +245,17 @@
       }
     }
 
+    function updateProgress(percent) {
+      const progressBar = document.getElementById('progress');
+
+      // Clamp value between 0 and 100
+      percent = Math.max(0, Math.min(100, percent));
+
+      // Convert percent to translateX (0% = -100, 100% = 0)
+      const translateX = -100 + percent;
+      progressBar.style.transform = `translateX(${translateX}%)`;
+    }
+
     function runFlutterApp(){
         document.getElementById('splashArea').style.display = 'flex';
         document.getElementById('landingPage').style.display = 'none';
@@ -251,11 +266,22 @@
         document.body.appendChild(flutterScript);
 
         const script = document.createElement('script');
-        script.src = 'ios_swift_touch.js'; // set the script source
+        script.src = 'ios_swipe_touch.js'; // set the script source
         script.async = true; // optional: makes it load asynchronously
         document.body.appendChild(script);
+
+        let current = 0;
+        const interval = setInterval(() => {
+          updateProgress(current);
+          current += 1;
+          if (current > 100){
+            clearInterval(interval);
+          }
+        }, 10); // fills to 100% in 1 seconds
     }
+
     if (isPwaMode()) {
+      document.getElementById('progressbar').style.display = 'none';
       runFlutterApp();
     }else{
       checkLandingPage();

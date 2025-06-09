@@ -1,7 +1,3 @@
-function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
     const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
