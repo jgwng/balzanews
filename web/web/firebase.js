@@ -15,8 +15,9 @@ const messaging = getMessaging(app);
 
 onMessage(messaging, (payload) => {
   console.log("📩 Foreground push received:", payload);
+  const isForeground = document.visibilityState === "visible";
 
-  if (Notification.permission === "granted" && payload?.notification) {
+  if (Notification.permission === "granted" && payload?.notification && isForeground) {
     new Notification(payload.notification.title, {
       body: payload.notification.body,
       icon: '/icons/Icon-192.png',
