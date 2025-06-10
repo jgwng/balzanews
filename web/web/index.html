@@ -94,10 +94,23 @@
     <meta property="og:image" content="https://balzanewss.web.app/ogimage.png">
     <script>
         (function () {
-          const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
+          const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'false';
           const theme = isLightMode === 'true' ? 'light' : 'dark';
           const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
-          document.documentElement.setAttribute('data-theme', theme);
+
+          const html = document.documentElement;
+
+          // ✅ Set data-theme for other libraries (optional)
+          html.setAttribute('data-theme', theme);
+
+          // ✅ Set Tailwind-compatible class
+          if (theme === 'dark') {
+            html.classList.add('dark');
+          } else {
+            html.classList.remove('dark');
+          }
+
+          // ✅ Set theme-color meta tag
           let metaTag = document.querySelector('meta[name="theme-color"]');
           if (!metaTag) {
             metaTag = document.createElement('meta');
@@ -156,9 +169,9 @@
 <div id="landingPage" >
     <header>
         <div class="mx-auto sm:px-7 px-4 max-w-screen-xl py-10">
-            <div class="flex items-center">
+            <div class="flex items-center dark:text-white">
                 <a style="font-family: 'InkLipquid', cursive;font-size:1.8rem;"
-                   class="text-xl font-bold">개발자 신문</a>
+                   class="text-xl font-bold text-[#2B6747] dark:text-white">개발자 신문</a>
             </div>
         </div>
     </header>
@@ -169,29 +182,29 @@
                     <img class="w-full max-w-[300px]" src="mockup.webp" alt="">
                 </div>
                 <div data-aos="fade-left" data-aos-delay="200">
-                    <h1 class="text-2xl font-bold lg:text-5xl pb-8" style="font-family: 'GongGothicMedium', cursive;">
+                    <h1 class="text-2xl font-bold lg:text-5xl pb-8 text-[#2B6747] dark:text-white" style="font-family: 'GongGothicMedium', cursive;">
                         <span style="font-family: 'InkLipquid', cursive;font-size:2.2rem;">개발자 신문</span><br>
                         출근길 5분, 기술 감각 채우기
                     </h1>
-                    <p class="text-xl pb-8" style="font-family: 'GowunDodum-Regular';">
+                    <p class="text-xl pb-8 text-[#2B6747] dark:text-white" style="font-family: 'GowunDodum-Regular';">
                         기술 블로그를 매일 챙겨보기엔 시간도 부족하고 귀찮을 때가 많습니다.
                         그래서 필요한 글만 쏙 뽑아 한눈에 정리해 드립니다.
                         이제 탭 여러 개 열지 말고, 개발자 신문에서 끝내세요.
                     </p>
-                    <button id='cta'
-                       class="mb-8 inline-block text-white bg-black rounded-lg hover:bg-black/80 duration-300 transition-colors border border-transparent px-8 py-2.5">
+                    <button id="cta"
+                            class="mb-8 inline-block text-white bg-black dark:bg-[#2B6747] rounded-lg hover:bg-black/80 dark:hover:bg-[#24553b] duration-300 transition-colors border border-transparent px-8 py-2.5">
                         지금 시작하기 <i class="bi bi-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </div>
     </section>
-    <section id="why" class="bg-[#f1f1f1]">
+    <section id="why">
         <div class="mx-auto sm:px-7 px-4 max-w-screen-xl py-10">
-            <h2 class="text-2xl font-bold lg:text-5xl" style="padding-bottom:10px;">
+            <h2 class="text-2xl font-bold lg:text-5xl text-[#2B6747] dark:text-white" style="padding-bottom:10px;">
                 <span style="font-family: 'InkLipquid', cursive;font-size:1.8rem;">개발사 신문</span>을 사용해야 하는 이유!
             </h2>
-            <p class="mb-4 text-xl" style="font-family: 'GowunDodum-Regular';">
+            <p class="mb-4 text-xl text-[#2B6747] dark:text-white" style="font-family: 'GowunDodum-Regular';">
                 매일 쏟아지는 기술 뉴스 속에서, 진짜 개발자에게 필요한 정보만 쏙쏙 골라드립니다.
                 읽을 거리는 많지만, 읽을 가치는 우리가 대신 골라드릴게요.
             </p>
@@ -202,8 +215,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-base font-semibold leading-tight text-gray-900">알림 설정</h3>
-                    <p class="text-sm text-gray-500">바쁘다 보면 좋은 글도 잊기 쉽죠.
+                    <h3 class="mb-2 text-base font-semibold leading-tight  dark:text-white text-gray-900">알림 설정</h3>
+                    <p class="text-sm dark:text-gray-400 text-gray-500">바쁘다 보면 좋은 글도 잊기 쉽죠.
                         읽지 않은 글이 쌓이지 않도록, 리마인드 알림으로 챙겨드릴게요.</p>
                 </div>
                 <div>
@@ -212,8 +225,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-base font-semibold leading-tight text-gray-900">북마크</h3>
-                    <p class="text-sm text-gray-500">"이건 나중에 꼭 읽어야지" 싶은 글은 북마크!
+                    <h3 class="mb-2 text-base font-semibold leading-tight dark:text-white text-gray-900">북마크</h3>
+                    <p class="text-sm dark:text-gray-400 text-gray-500">"이건 나중에 꼭 읽어야지" 싶은 글은 북마크!
                         언제든 다시 찾아볼 수 있도록 깔끔하게 정리해드립니다.</p>
                 </div>
                 <div>
@@ -222,8 +235,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-base font-semibold leading-tight text-gray-900">다크모드 지원</h3>
-                    <p class="text-sm text-gray-500">늦은 밤, 눈이 피로하지 않도록.
+                    <h3 class="mb-2 text-base font-semibold leading-tight dark:text-white text-gray-900">다크모드 지원</h3>
+                    <p class="text-sm dark:text-gray-400 text-gray-500">늦은 밤, 눈이 피로하지 않도록.
                         개발자 신문은 다크모드를 완벽하게 지원합니다.</p>
                 </div>
             </div>

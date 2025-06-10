@@ -7,13 +7,31 @@
             --bg-color: #1C1C20;
             --font-color: #F8F9FE;
 }
-
+@font-face {
+  font-family: 'InkLipquid';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 html, body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   background-color: var(--bg-color);
+  scroll-behavior: smooth !important;
 }
 
 .splashArea {

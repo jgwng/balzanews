@@ -132,9 +132,74 @@ html.IFrameElement _iFrameElement = html.IFrameElement();
       }
     });
 ```
+### 5. `index.html`에 Tailwind CSS 적용하기
 
+스플래시 페이지로만 사용되던 `index.html`을 랜딩 페이지로 확장하기 위해, Tailwind CSS를 직접 적용하는 과정을 정리했습니다.
 
+#### ⚙️ Tailwind CSS 설치
 
+- **주의:** 프로젝트가 CRA(Create React App) 기반이라면 안정성을 위해 Tailwind CSS v3를 사용하는 것을 권장합니다.
+
+1. 설치 디렉토리 생성 및 패키지 설치:
+
+```bash
+mkdir tailwind && cd tailwind
+npm init -y
+npm install -D tailwindcss@3 postcss autoprefixer
+npx tailwindcss init -p
+```
+
+---
+
+#### 🛠️ Tailwind 설정 파일 수정
+
+2. 생성된 `tailwind.config.js` 파일을 다음과 같이 수정합니다:
+
+```js
+module.exports = {
+  content: ['../web/**/*.{html,js}'],
+  darkMode: 'class', // ✅ 다크모드를 class 기반으로 활성화
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+---
+
+#### ✍️ Tailwind 전용 CSS 파일 작성
+
+3. `tailwind` 폴더 내에 `input.css` 파일을 생성하고 아래와 같이 작성합니다:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+---
+
+#### 🧵 CSS 빌드 및 적용
+
+4. 다음 명령어를 실행하여 실제로 사용할 CSS 파일(`tailwind.css`)을 생성합니다:
+
+```bash
+npx tailwindcss -i ./input.css -o ../web/tailwind.css --minify
+```
+> 해당 명령어는 `input.css`를 빌드하여 `web` 폴더 내에 `tailwind.css`로 출력하며, Tailwind 스타일이 포함된 최종 CSS가 생성됩니다.
+tailwind.css 생성 이후에 index.html 파일에 적용한 css를 추가하려면 우ㅏㅣ의 
+---
+
+#### 🎨 HTML에 CSS 연결
+
+5. 생성된 CSS를 `index.html`에 연결하여 Tailwind 스타일을 적용합니다:
+
+```html
+<link rel="stylesheet" href="tailwind.css">
+```
+---
+추가로 다크모드 지원, 사용자 정의 테마 설정 등을 연동하려면 별도 스크립트와 로직을 추가할 수 있습니다.
 
 
 
