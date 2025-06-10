@@ -22,11 +22,8 @@
     <link rel="apple-touch-icon" href="icons/Icon-192.png">
     <meta name="theme-color" content="#F8F8FF">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
-
+    <link rel="preload" as="image" href="mockup.webp" />
     <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
     <link rel="apple-touch-startup-image" media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
@@ -94,7 +91,7 @@
     <meta property="og:image" content="https://balzanewss.web.app/ogimage.png">
     <script>
         (function () {
-          const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'false';
+          const isLightMode = localStorage.getItem('IS_LIGHT_MODE') ?? 'true';
           const theme = isLightMode === 'true' ? 'light' : 'dark';
           const themeColor = isLightMode === 'true' ? '#F8F8FF' : '#1C1C20';
 
@@ -163,30 +160,29 @@
           }
         };
     </script>
-    <script type="module" src="firebase.js"></script>
 </head>
 <body>
 <div id="landingPage" >
     <header>
         <div class="mx-auto sm:px-7 px-4 max-w-screen-xl py-10">
             <div class="flex items-center dark:text-white">
-                <a style="font-family: 'InkLipquid', cursive;font-size:1.8rem;"
-                   class="text-xl font-bold text-[#2B6747] dark:text-white">개발자 신문</a>
+                <a style="font-family: 'Pretendard', cursive;font-size:1.8rem;"
+                   class="text-xl font-bold text-black dark:text-white">개발자 신문</a>
             </div>
         </div>
     </header>
     <section id="hero">
         <div class="mx-auto sm:px-7 px-4 max-w-screen-lg md:py-10">
             <div class="flex flex-col md:flex-row items-center gap-10">
-                <div style="min-width:300px;" data-aos="fade-right" data-aos-delay="50">
-                    <img class="w-full max-w-[300px]" src="mockup.webp" alt="">
+                <div style="max-width:300px;" data-aos="fade-right" data-aos-delay="50">
+                    <img src="mockup.webp" alt="">
                 </div>
                 <div data-aos="fade-left" data-aos-delay="200">
-                    <h1 class="text-2xl font-bold lg:text-5xl pb-8 text-[#2B6747] dark:text-white" style="font-family: 'GongGothicMedium', cursive;">
-                        <span style="font-family: 'InkLipquid', cursive;font-size:2.2rem;">개발자 신문</span><br>
+                    <h1 class="text-2xl font-bold lg:text-5xl pb-8 text-black dark:text-white" style="font-family: 'GongGothicMedium', cursive;">
+                        <span style="font-family: 'Pretendard', cursive;font-size:2.2rem;">개발자 신문</span><br>
                         출근길 5분, 기술 감각 채우기
                     </h1>
-                    <p class="text-xl pb-8 text-[#2B6747] dark:text-white" style="font-family: 'GowunDodum-Regular';">
+                    <p class="text-xl pb-8 text-black dark:text-white" style="font-family: 'GowunDodum-Regular';">
                         기술 블로그를 매일 챙겨보기엔 시간도 부족하고 귀찮을 때가 많습니다.
                         그래서 필요한 글만 쏙 뽑아 한눈에 정리해 드립니다.
                         이제 탭 여러 개 열지 말고, 개발자 신문에서 끝내세요.
@@ -201,10 +197,10 @@
     </section>
     <section id="why">
         <div class="mx-auto sm:px-7 px-4 max-w-screen-xl py-10">
-            <h2 class="text-2xl font-bold lg:text-5xl text-[#2B6747] dark:text-white" style="padding-bottom:10px;">
-                <span style="font-family: 'InkLipquid', cursive;font-size:1.8rem;">개발사 신문</span>을 사용해야 하는 이유!
+            <h2 class="text-2xl font-bold lg:text-5xl text-black dark:text-white" style="padding-bottom:10px;">
+                <span style="font-family: 'Pretendard', cursive;font-size:1.8rem;">개발자 신문</span>을 사용해야 하는 이유!
             </h2>
-            <p class="mb-4 text-xl text-[#2B6747] dark:text-white" style="font-family: 'GowunDodum-Regular';">
+            <p class="mb-4 text-xl text-black dark:text-white" style="font-family: 'GowunDodum-Regular';">
                 매일 쏟아지는 기술 뉴스 속에서, 진짜 개발자에게 필요한 정보만 쏙쏙 골라드립니다.
                 읽을 거리는 많지만, 읽을 가치는 우리가 대신 골라드릴게요.
             </p>
@@ -309,6 +305,12 @@
         script.src = 'ios_swipe_touch.js'; // set the script source
         script.async = true; // optional: makes it load asynchronously
         document.body.appendChild(script);
+
+        const firebaseScript = document.createElement('script');
+        firebaseScript.src = 'firebase.js';
+        firebaseScript.type = 'module';     // ✅ this is essential
+        firebaseScript.async = true;        // optional, but useful
+        document.body.appendChild(firebaseScript);
 
         let current = 0;
         const interval = setInterval(() => {
