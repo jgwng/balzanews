@@ -312,6 +312,12 @@
         firebaseScript.async = true;        // optional, but useful
         document.body.appendChild(firebaseScript);
 
+        if ('serviceWorker' in navigator) {
+               navigator.serviceWorker.addEventListener("message", (event) => {
+                  window.messageData = event.data;
+               });
+        }
+
         let current = 0;
         const interval = setInterval(() => {
           updateProgress(current);

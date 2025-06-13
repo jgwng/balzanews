@@ -5,6 +5,7 @@ import 'package:balzanewsweb/core/size.dart';
 import 'package:balzanewsweb/helper/app_theme_helper.dart';
 import 'package:balzanewsweb/helper/auto_update_helper.dart';
 import 'package:balzanewsweb/helper/local_db_helper.dart';
+import 'package:balzanewsweb/helper/navigation_helper.dart';
 import 'package:balzanewsweb/helper/pwa_install_helper.dart';
 import 'package:balzanewsweb/model/article.dart';
 import 'package:balzanewsweb/network/balza_repository.dart';
@@ -20,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:js' as js;
 import 'dart:html' as html;
+import 'dart:js_util' as js_util;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double? bottomPadding = 0;
   PWAInstallHelper installHelper = PWAInstallHelper();
   AutoUpdateHelper updateHelper = AutoUpdateHelper();
+  NavigationHelper navigationHelper = NavigationHelper();
 
   @override
   void initState() {
@@ -55,6 +58,16 @@ class _HomeScreenState extends State<HomeScreen> {
       if(PlatformUtil.isPWA){
         js.context.callMethod('clearAppBadge');
         await updateHelper.updateIfNecessary();
+
+        navigationHelper.initMoving();
+        html.window.navigator.serviceWorker?.addEventListener('message', (event) {
+          if (event is html.MessageEvent) {
+            final type = (event.data is Map) ? event.data['type'] : null;
+            if (type == 'moveScreen') {
+              navigationHelper.moveScreen(event.data); // ✅ use event.data here
+            }
+          }
+        });
       }
     });
     super.initState();
@@ -104,6 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
       return [
           InkWell(
             onTap: () {
+              final String currentUrl = GoRouterState.of(context).uri.toString();
+              print('currentUrl : $currentUrl');
               AppRoutes.globalKey.currentContext!.push(AppRoutes.bookmark);
             },
             child: Icon(

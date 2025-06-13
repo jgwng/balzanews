@@ -47,3 +47,29 @@ messaging.onBackgroundMessage(async function(payload) {
   );
 });
 
+self.addEventListener('notificationclick', function (event) {
+  console.log('[firebase-messaging-sw.js] Notification click:', event);
+
+  const data = event.notification.data || {};
+  event.notification.close();
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (clientList) {
+      for (const client of clientList) {
+        if (client.url.includes(self.location.origin)) {
+          console.log('navigate');
+          client.postMessage(data);
+          client.focus();
+          return;
+        }
+      }
+
+      console.log('openWindow');
+      return clients.openWindow(targetUrl).then((newClient) => {
+        if (newClient) {
+          newClient.postMessage(data);
+        }
+      });
+    })
+  );
+});
